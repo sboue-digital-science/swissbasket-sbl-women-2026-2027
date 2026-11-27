@@ -94,6 +94,7 @@ main.band{padding-top:20px}
 .trow .bar{background:var(--hi)}.trow.on{background:var(--plane)}.trow.on span{font-weight:600}
 .trow .val{text-align:right;font-variant-numeric:tabular-nums;font-size:14px}
 .teams{max-height:460px;overflow-y:auto;padding-right:4px}
+@media (min-width:601px){.teams{max-height:none;overflow:visible}}   /* desktop: all 9 teams, no inner scroll */
 .scroll{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
