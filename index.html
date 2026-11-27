@@ -131,13 +131,16 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 
 .shg{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto}
 #shMin,#shPts{min-height:230px}
-.stw{overflow-x:auto;margin:0 -4px;-webkit-overflow-scrolling:touch}
+/* the table scrolls inside its own box so the heading row stays visible going down, and the names going right */
+.stw{overflow:auto;max-height:calc(100vh - 230px);min-height:320px;scroll-margin-top:200px;margin:0 -4px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .st{border-collapse:separate;border-spacing:0;width:auto;min-width:100%;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st th,.st td{padding:7px 5px;text-align:right;border-bottom:1px solid var(--line)}
-.st th{vertical-align:bottom;line-height:1.25;font-weight:600;font-size:13px;color:var(--ink2);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--bg)}
+.st th{vertical-align:bottom;line-height:1.25;font-weight:600;font-size:13px;color:var(--ink2);cursor:pointer;user-select:none;position:sticky;top:0;z-index:2;background:var(--bg);box-shadow:0 1px 0 var(--line)}
 .st th[aria-sort]{color:var(--ink)}
 .st th[aria-sort=descending]::after{content:' ↓'}.st th[aria-sort=ascending]::after{content:' ↑'}
 .st th:first-child,.st td:first-child{text-align:left;position:sticky;left:0;background:var(--bg);z-index:1;padding-left:4px;box-shadow:1px 0 0 var(--line)}
+.st th:first-child{z-index:3}
+@media (max-width:600px){.stw{max-height:calc(100vh - 110px);scroll-margin-top:80px}.st td:first-child,.st th:first-child{white-space:normal;min-width:84px;max-width:104px;line-height:1.25}.st td.tm,.st th.tm{min-width:84px;max-width:110px}}
 .st td.tm,.st th.tm{text-align:left;color:var(--ink2);white-space:normal;min-width:100px;max-width:140px;line-height:1.25}
 .st td:first-child{font-weight:600}
 .st tbody tr:hover td{background:var(--plane)}
