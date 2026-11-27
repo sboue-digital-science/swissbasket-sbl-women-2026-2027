@@ -500,8 +500,9 @@ function results(){
       const f=g.get(h+'-'+a);if(!f)return`<td class="up${dim(h,a)}">–</td>`;
       if(f.hs==null)return`<td class="up${dim(h,a)}" data-k="${h}-${a}">${f.date?ddm(pdate(f.date)):'–'}</td>`;
       return`<td class="${f.hs>f.as?'hw':'aw'}${dim(h,a)}" data-k="${h}-${a}">${f.hs}–${f.as}</td>`}).join('')}</tr>`).join('')+'</tbody>';
-  // popups only on the cells that matter for the selection (all cells when no team is selected)
-  T.querySelectorAll('td[data-k]:not(.dim)').forEach(td=>{const f=g.get(td.dataset.k);onHover(td,e=>showTip(e,f.hs==null?
+  // popups only on the cells that matter for the selection (all cells when no team is selected);
+  // none on phones / touch screens, where they got in the way of scrolling the grid
+  if(!(narrow||matchMedia('(hover: none)').matches))T.querySelectorAll('td[data-k]:not(.dim)').forEach(td=>{const f=g.get(td.dataset.k);onHover(td,e=>showTip(e,f.hs==null?
     `<b>${esc(TEAMS[f.h])}</b> v <b>${esc(TEAMS[f.a])}</b><br>${f.date?'Scheduled '+fdate(pdate(f.date)):'Date to be set'} · ${esc(f.day)}`:
     `<b>${esc(TEAMS[f.h])} ${f.hs}–${f.as} ${esc(TEAMS[f.a])}</b><br>${fdate(pdate(f.date))} · ${esc(f.day)}<br>${esc(TEAMS[f.hs>f.as?f.h:f.a])} won ${f.hs>f.as?'at home':'away'}`),'rs'+td.dataset.k)});
   T.querySelectorAll('tbody th').forEach((th,h)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(h)});
