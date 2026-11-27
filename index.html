@@ -116,6 +116,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;color:var(--ink)}.credit a{color:var(--hi);font-weight:600;text-decoration:none}.credit a:hover{text-decoration:underline}
 .note{margin:12px 0 0;font-size:13px;color:var(--ink2)}
 .empty{color:var(--ink2);font-size:14px;padding:20px 0}
+.tchip{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.45);flex:none}
 .rsw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .rs{border-collapse:separate;border-spacing:3px;width:100%;font-size:13px;font-variant-numeric:tabular-nums;table-layout:fixed;min-width:680px}
 .rs th{font-weight:600;font-size:12px;color:var(--ink2);padding:2px}
@@ -452,14 +453,16 @@ function race(anim){
   const g=svg.selectAll('g.rr').data(F.st,d=>d.i).join(en=>{const e=en.append('g').attr('class','rr').attr('transform',d=>`translate(0,${m.t+d.rk*rh})`);
       e.append('rect').attr('class','rbg').attr('x',0).attr('width',W).attr('height',rh-2).attr('rx',6).attr('fill','transparent');
       e.append('text').attr('class','rk').attr('font-size',13).attr('fill','var(--ink2)').attr('text-anchor','end');
+      e.append('g').attr('class','ch');
       e.append('text').attr('class','nm').attr('font-size',narrow?13:14);
       e.append('rect').attr('class','rb').attr('rx',4);
       e.append('text').attr('class','vl').attr('font-size',13).style('font-variant-numeric','tabular-nums');
       return e});
   g.select('.rbg').attr('width',W);
   g.select('.rk').attr('x',m.l-8).attr('y',ty).attr('dy','.32em').text(d=>d.rk+1);
-  g.select('.nm').attr('x',m.l).attr('y',ty).attr('dy','.32em').attr('font-weight',d=>d.i===sel?700:400).attr('fill','var(--ink)')
-    .text(d=>`${d.n} (${TCODE[d.i]})`).each(function(){let t=this.textContent;while(this.getComputedTextLength&&this.getComputedTextLength()>(narrow?W-m.l-4:nw-10)&&t.length>4){t=t.slice(0,-2);this.textContent=t+'…'}});
+  g.select('.ch').attr('transform',`translate(${m.l},${ty-6})`).html(d=>{const c=tcol(d.i);return c.length>1?`<path d="M0,0H12L0,12Z" fill="${c[0]}"/><path d="M12,0V12H0Z" fill="${c[1]}"/><rect width="12" height="12" rx="3" fill="none" stroke="rgba(127,127,127,.45)"/>`:`<rect width="12" height="12" rx="3" fill="${c[0]}" stroke="rgba(127,127,127,.45)"/>`});
+  g.select('.nm').attr('x',m.l+18).attr('y',ty).attr('dy','.32em').attr('font-weight',d=>d.i===sel?700:400).attr('fill','var(--ink)')
+    .text(d=>`${d.n} (${TCODE[d.i]})`).each(function(){let t=this.textContent;while(this.getComputedTextLength&&this.getComputedTextLength()>(narrow?W-m.l-22:nw-28)&&t.length>4){t=t.slice(0,-2);this.textContent=t+'…'}});
   g.select('.rb').attr('x',x0).attr('y',by).attr('height',bh).attr('fill',col);
   g.select('.vl').attr('y',by+bh/2).attr('dy','.32em').attr('fill','var(--ink)');
   const tr=g.transition().duration(dur).ease(d3.easeCubicInOut);
@@ -473,7 +476,7 @@ function race(anim){
   const today=F.today.map(g=>`${TEAMS[g.h]} ${g.hs}–${g.as} ${TEAMS[g.a]}`);
   document.getElementById('rcD').innerHTML=`After ${fdate(pdate(F.dt))}<small>${esc(F.days.join(', '))} · ${F.n} of ${NGAMES||'all'} games played</small>`;
   document.getElementById('rcD').title=today.join('\n');
-  document.getElementById('rcS').textContent=`The table after each game date: wins, then fewer losses, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} in blue.`:' Click a team to select it.');
+  document.getElementById('rcS').textContent=`The table after each game date: wins, then fewer losses, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} highlighted in its club colour.`:' Click a team to select it.');
 }
 // ---- player stats table: one row per player, averages or season totals, sortable ----
 let ST={mode:'avg',k:'eff',dir:-1};
@@ -502,8 +505,8 @@ function results(){
   const narrow=document.getElementById('resCard').clientWidth<600,sel=S.team,ix=d3.range(TEAMS.length);
   const g=new Map(FIX.map(f=>[f.h+'-'+f.a,f])),ddm=d3.timeFormat('%d-%b-%y');
   const nm=i=>TCODE[i],dim=(h,a)=>sel>=0&&h!==sel&&a!==sel?' dim':'';
-  T.innerHTML=`<thead><tr><th class="hc">Home ↓<br>Away →</th>${ix.map(a=>`<th scope="col" class="${a===sel?'on':''}" title="${esc(TEAMS[a])}">${esc(TCODE[a])}</th>`).join('')}</tr></thead><tbody>`+
-    ix.map(h=>`<tr><th scope="row" class="${h===sel?'on':''}" title="${esc(TEAMS[h])}">${esc(nm(h))}</th>${ix.map(a=>{if(a===h)return`<td class="x${dim(h,a)}"></td>`;
+  T.innerHTML=`<thead><tr><th class="hc">Home ↓<br>Away →</th>${ix.map(a=>`<th scope="col" class="${a===sel?'on':''}" title="${esc(TEAMS[a])}">${chip(a)}${esc(TCODE[a])}</th>`).join('')}</tr></thead><tbody>`+
+    ix.map(h=>`<tr><th scope="row" class="${h===sel?'on':''}" title="${esc(TEAMS[h])}">${chip(h)}${esc(nm(h))}</th>${ix.map(a=>{if(a===h)return`<td class="x${dim(h,a)}"></td>`;
       const f=g.get(h+'-'+a);if(!f)return`<td class="up${dim(h,a)}">–</td>`;
       if(f.hs==null)return`<td class="up${dim(h,a)}" data-k="${h}-${a}">${f.date?ddm(pdate(f.date)):'–'}</td>`;
       return`<td class="${f.hs>f.as?'hw':'aw'}${dim(h,a)}" data-k="${h}-${a}">${f.hs}–${f.as}</td>`}).join('')}</tr>`).join('')+'</tbody>';
@@ -538,6 +541,13 @@ function shares(){
 }
 const fold=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const qOk=p=>!S.q||fold(p.n).includes(S.q);
+// ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
+const TCOL={BAD:['#1D1D1B','#E00000'],TTT:['#FEDD02','#02374F'],AKA:['#0E8CDB','#000000'],ELF:['#293770'],ESP:['#12C329'],GC:['#0179C1','#FFFFFF'],HEL:['#EE7F1F','#1D1D1B'],NBF:['#DF79B1'],GEN:['#E50270']};
+// colour used for highlights when a team is selected (readable on light and dark backgrounds)
+const TSEL={BAD:'#E00000',TTT:'light-dark(#02374F,#FEDD02)',AKA:'light-dark(#000000,#0E8CDB)',ELF:'light-dark(#293770,#7b8bd0)',ESP:'#12C329',GC:'#0179C1',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
+const tcol=i=>TCOL[TCODE[i]]||['var(--lo)'];
+const chip=i=>{const c=tcol(i);return`<i class="tchip" aria-hidden="true" style="background:${c.length>1?`linear-gradient(135deg,${c[0]} 50%,${c[1]} 50%)`:c[0]}"></i>`};
+function teamColour(){const r=document.documentElement.style,c=S.team>=0&&TSEL[TCODE[S.team]];if(c)r.setProperty('--hi',c);else r.removeProperty('--hi')}
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
 function fillTeams(){
@@ -549,6 +559,7 @@ const PNOUN={A:['player','players'],G:['guard','guards'],F:['forward','forwards'
 const desc=n=>`${PNOUN[S.pos][n===1?0:1]} with ${S.gp}+ games ${scope()}${S.pos==='U'?', position not specified':''}`;
 const scope=()=>(S.team>=0?'at '+TEAMS[S.team]:S.stg?'at '+stn(S.stg)+(S.lc?' in '+(CN[S.lc]||S.lc):''):S.lc?'at teams in '+(CN[S.lc]||S.lc):'in the competition')+(S.cit?', with '+(CN[S.cit]||S.cit)+' citizenship':'')+(S.age?`, aged ${S.age}–${S.age+4}`:'');
 function update(){
+  teamColour();
   MAPFULL=false;   // a new selection zooms again
   P=D.filter(p=>p.gp>=S.gp&&posOk(p)&&ageOk(p)&&stgOk(p.t)&&(!S.lc||TC[p.t]===S.lc)&&(!S.cit||p.c.includes(S.cit)));
   // the standings race is hidden with position, citizenship or age filters; with a team selected it stays, that team in blue
@@ -608,7 +619,7 @@ function scatter(){
   s+=`<rect id="scHit" x="${m.l}" y="${m.t}" width="${W-m.l-m.r}" height="${H-m.t-m.b}" fill="transparent"/>`;
   svg.innerHTML=s;
   const nsel=pts.filter(d=>d.on&&sel).length;
-  document.getElementById('scS').textContent=`Each dot is a player with ${S.gp}+ games: minutes per game across, FIBA efficiency per game up.`+(sel?` Blue: the ${nsel} ${desc(nsel)}.`:'');
+  document.getElementById('scS').textContent=`Each dot is a player with ${S.gp}+ games: minutes per game across, FIBA efficiency per game up.`+(sel?` In colour: the ${nsel} ${desc(nsel)}.`:'');
   document.getElementById('scKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${esc(flabel())}</span><span><i style="background:var(--lo)"></i>Other players</span>`:'';
   // hover only the highlighted (coloured) dots when a filter is set; grey dots are context only
   const hov=sel?pts.filter(d=>d.on||d.h):pts;
@@ -674,7 +685,7 @@ function ages(){
   const sel=filtOn(),tn=esc(flabel());
   document.getElementById('agKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${tn}</span><span><i style="background:var(--lo)"></i>Other players</span>`:'';
   const yg=tm.filter(p=>p.age<20).length,wh=base.filter(p=>p.h>0).length;
-  document.getElementById('agS').textContent=(sel?`Grey: all ${base.length} players with ${S.gp}+ games. Blue: the ${tm.length} ${desc(tm.length)}, with their count above; ${yg} of them ${yg===1?'is':'are'} under 20.`:`${base.length} players with ${S.gp}+ games; ${yg} ${yg===1?'is':'are'} under 20.`)+` Age = ${new Date().getFullYear()} minus year of birth (only the year is published); heights where listed (${wh} of ${base.length}).`;
+  document.getElementById('agS').textContent=(sel?`Grey: all ${base.length} players with ${S.gp}+ games. In colour: the ${tm.length} ${desc(tm.length)}, with their count above; ${yg} of them ${yg===1?'is':'are'} under 20.`:`${base.length} players with ${S.gp}+ games; ${yg} ${yg===1?'is':'are'} under 20.`)+` Age = ${new Date().getFullYear()} minus year of birth (only the year is published); heights where listed (${wh} of ${base.length}).`;
 }
 // stage filter: before the play-offs start, main stage = reached at least the regular season (play-off
 // qualifiers included); once they start, it becomes 'main stage only' and play-off teams move to Play-offs
@@ -781,7 +792,7 @@ function teams(){
   const tf=S.stg||S.lc||S.team>=0||rost,keep=i=>stgOk(i)&&(!S.lc||TC[i]===S.lc)&&(S.team<0||i===S.team)&&(!rost||rost.has(i)),nk=TM.filter(t=>t.gp&&keep(t.i)).length;
   const who=rost?`with ${S.pos!=='A'?'a '+({G:'guard',F:'forward',C:'center',U:'player with no listed position'})[S.pos]:'a player'}${S.age?` aged ${S.age}–${S.age+4}`:''}${S.cit?` with ${CN[S.cit]||S.cit} citizenship`:''} on the roster`:'';
   const what=S.team>=0?TEAMS[S.team]+(who?' '+who:''):[S.stg?stn(S.stg):'',S.lc?(S.stg?'':'teams ')+'in '+(CN[S.lc]||S.lc):'',who?(S.stg||S.lc?'':'teams ')+who:''].filter(Boolean).join(' ');
-  const scopeT=tf?`all ${nt} teams; in blue: ${nk===1&&S.team>=0?what:`${nk} team${nk===1?'':'s'} ${what.replace(/^teams /,'')}`}`:`all ${nt} teams`;
+  const scopeT=tf?`all ${nt} teams; highlighted: ${nk===1&&S.team>=0?what:`${nk} team${nk===1?'':'s'} ${what.replace(/^teams /,'')}`}`:`all ${nt} teams`;
   const pf=S.pos!=='A'||S.cit||S.age?'. Team totals include all players':'';
   document.querySelector('.nT').textContent=`${TSS[S.ts]}, ${scopeT}${pf}`;
   document.querySelector('.nT2').textContent=`${TES[S.te]}, ${scopeT}${pf}`;
@@ -794,7 +805,7 @@ function teams(){
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;
-    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${av/mx*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:f1(d[k])}</span></div>`}).join('');
+    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${chip(d.i)}${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${av/mx*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:f1(d[k])}</span></div>`}).join('');
     el.querySelectorAll('.trow').forEach(r=>{const go=()=>pickTeam(+r.dataset.i);r.onclick=go;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
     const on=el.querySelector('.on');if(on)el.scrollTop=on.offsetTop-el.offsetTop-el.clientHeight/2;
   }
