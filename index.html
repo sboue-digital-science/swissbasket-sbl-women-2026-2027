@@ -741,10 +741,6 @@ function scatter(){
   s+=`<text x="${W-m.r}" y="${H-4}" text-anchor="end" font-size="12" fill="var(--ink2)">Minutes per game →</text>`;
   s+=`<text x="${m.l}" y="${m.t-0}" dy="-2" font-size="12" fill="var(--ink2)" text-anchor="start" transform="translate(4,12)">↑ Efficiency per game</text>`;
   s+=pts.map(d=>`<circle cx="${d.x}" cy="${d.y}" r="${d.h?6:4.5}" fill="${d.h?'var(--ink)':d.on?(sel?'var(--hi)':'var(--all)'):d.v?'var(--vs)':'var(--lo)'}" stroke="var(--bg)" stroke-width="2" ${d.on||d.v||d.h?'':'opacity=".75"'}/>`).join('');
-  // selective labels: top 3 by eff among highlighted set, plus search hits (max 6)
-  const lab=[...pts.filter(d=>d.on).sort((a,b)=>b.p.eff/b.p.gp-a.p.eff/a.p.gp).slice(0,narrow?2:3),...pts.filter(d=>d.h).slice(0,6)];
-  const seen=new Set();
-  s+=lab.filter(d=>!seen.has(d)&&seen.add(d)).map(d=>{const left=d.x>W-140;return`<text x="${d.x+(left?-9:9)}" y="${d.y}" dy=".32em" text-anchor="${left?'end':'start'}" font-size="13" font-weight="600" fill="var(--ink)" paint-order="stroke" stroke="var(--bg)" stroke-width="4">${esc(d.p.n.split(' ').slice(-1)[0])}</text>`}).join('');
   s+=`<rect id="scHit" x="${m.l}" y="${m.t}" width="${W-m.l-m.r}" height="${H-m.t-m.b}" fill="transparent"/>`;
   svg.innerHTML=s;
   const nsel=pts.filter(d=>d.on&&sel).length;
