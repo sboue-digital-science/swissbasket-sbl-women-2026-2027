@@ -106,6 +106,17 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;color:var(--ink)}.credit a{color:var(--hi);font-weight:600;text-decoration:none}.credit a:hover{text-decoration:underline}
 .note{margin:12px 0 0;font-size:13px;color:var(--ink2)}
 .empty{color:var(--ink2);font-size:14px;padding:20px 0}
+.stw{overflow-x:auto;margin:0 -4px;-webkit-overflow-scrolling:touch}
+.st{border-collapse:separate;border-spacing:0;width:auto;min-width:100%;font-size:13.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st th,.st td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--line)}
+.st th{font-weight:600;font-size:13px;color:var(--ink2);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--bg)}
+.st th[aria-sort]{color:var(--ink)}
+.st th[aria-sort=descending]::after{content:' ↓'}.st th[aria-sort=ascending]::after{content:' ↑'}
+.st th:first-child,.st td:first-child{text-align:left;position:sticky;left:0;background:var(--bg);z-index:1;padding-left:4px;box-shadow:1px 0 0 var(--line)}
+.st td.tm,.st th.tm{text-align:left;color:var(--ink2)}
+.st td:first-child{font-weight:600}
+.st tbody tr:hover td{background:var(--plane)}
+.st td small{color:var(--ink2);font-weight:400}
 .rctl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px}
 .rbtn{font:inherit;font-size:14px;font-weight:600;height:36px;min-width:92px;padding:0 14px;border-radius:18px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
 .rctl input[type=range]{flex:1 1 220px;height:28px;padding:0;border:0;background:none;accent-color:var(--hi);width:auto}
@@ -200,6 +211,12 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
       <div id="leaders"></div>
     </div>
   </div>
+  <div class="card">
+    <h2>Player stats</h2>
+    <p class="sub" id="stS"></p>
+    <div class="tabs" id="stTabs" role="group" aria-label="Averages or totals"><button type="button" data-k="avg" aria-pressed="true">Averages per game</button><button type="button" data-k="tot" aria-pressed="false">Season totals</button></div>
+    <div class="stw"><table class="st" id="stT"></table></div>
+  </div>
   <footer><p class="credit">Designed and built by <a href="https://sboue-digital-science.com/" target="_top">S Boue Digital Science</a></p>Source: game box scores from FIBA LiveStats, linked from the basketplan.ch schedule; player profiles (year of birth, height, positions, citizenships) from swiss.basketball. Data as of <span id="asof2"></span>. Efficiency is FIBA's: points + rebounds + assists + steals + blocks − missed shots − turnovers. Positions are grouped from each player's first listed position (1–2 guard, 3–4 forward, 5 center). Players listed for a game who have not played yet appear only with the 0+ games filter. The standings race is an unofficial table: wins, then fewer losses, then points difference; head-to-head rules are not applied. Home towns are those of each team's home hall. Basemap: Natural Earth via world-atlas. Flags: flag-icons.</footer>
 </div></main>
 <div class="tip" id="tip"></div>
@@ -268,6 +285,7 @@ function init(){
   document.querySelectorAll('#tsTabs button').forEach(b=>b.onclick=()=>{S.ts=b.dataset.k;document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
   fromURL();fillTeams();
   initShare();
+  document.querySelectorAll('#stTabs button').forEach(b=>b.onclick=()=>{ST.mode=b.dataset.k;document.querySelectorAll('#stTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));stats()});
   document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.metric));
   document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.ts));
   initRace();
@@ -390,6 +408,22 @@ function race(anim){
   document.getElementById('rcD').title=today.join('\n');
   document.getElementById('rcS').textContent=`The table after each game date: wins, then fewer losses, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} in magenta.`:' Click a team to select it.');
 }
+// ---- player stats table: one row per player, averages or season totals, sortable ----
+let ST={mode:'avg',k:'eff',dir:-1};
+const STC=[['n','Player'],['t','Team'],['gp','Games'],['min','Min'],['pts','Pts'],['reb','Reb'],['ast','Ast'],['stl','Stl'],['blk','Blk'],['to','TO'],['fg','FG'],['fgp','FG%'],['tp','3-pt'],['tpp','3-pt %'],['ft','FT'],['ftp','FT %'],['eff','Eff']];
+function stats(){
+  const avg=ST.mode==='avg',d=p=>avg?Math.max(1,p.gp):1,num=(p,k)=>p.gp||!avg?p[k]/d(p):0;
+  const val=(p,k)=>k==='n'?p.n:k==='t'?TEAMS[p.t]:k==='gp'?p.gp:k==='fgp'?(p.fga?p.fgm/p.fga:-1):k==='tpp'?(p.tpa?p.tpm/p.tpa:-1):k==='ftp'?(p.fta?p.ftm/p.fta:-1):k==='fg'?num(p,'fgm'):k==='tp'?num(p,'tpm'):k==='ft'?num(p,'ftm'):num(p,k);
+  const ps=P.filter(inScope).slice().sort((a,b)=>{const x=val(a,ST.k),y=val(b,ST.k);return(typeof x==='string'?x.localeCompare(y):x-y)*ST.dir||b.eff-a.eff});
+  const f=x=>avg?f1(x):Math.round(x),ma=(p,m,a)=>`${f(num(p,m))}/${f(num(p,a))}`,pc=(m,a)=>a?f1(m/a*100):'–';
+  const cell=(p,k)=>k==='n'?`${esc(p.n)}${flags(p)}`:k==='t'?esc(TEAMS[p.t]):k==='gp'?p.gp:k==='fg'?ma(p,'fgm','fga'):k==='tp'?ma(p,'tpm','tpa'):k==='ft'?ma(p,'ftm','fta'):k==='fgp'?pc(p.fgm,p.fga):k==='tpp'?pc(p.tpm,p.tpa):k==='ftp'?pc(p.ftm,p.fta):f(num(p,k));
+  const T=document.getElementById('stT');
+  T.innerHTML=`<thead><tr>${STC.map(([k,l])=>`<th scope="col" data-k="${k}" class="${k==='t'?'tm':''}"${ST.k===k?` aria-sort="${ST.dir<0?'descending':'ascending'}"`:''}>${l}</th>`).join('')}</tr></thead>`+
+    `<tbody>${ps.map(p=>`<tr>${STC.map(([k])=>`<td class="${k==='t'?'tm':''}">${cell(p,k)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+  if(!ps.length)T.innerHTML+=`<tbody><tr><td colspan="${STC.length}" class="empty">No players match these filters.</td></tr></tbody>`;
+  T.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ST.dir=ST.k===k?-ST.dir:(k==='n'||k==='t'?1:-1);ST.k=k;stats()});
+  document.getElementById('stS').textContent=`${ps.length} ${desc(ps.length)}. ${avg?'Averages per game played':'Season totals'}; FG, 3-pt and FT show made/attempted. Click a column heading to sort.`;
+}
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
 function fillTeams(){
@@ -403,7 +437,7 @@ const scope=()=>(S.team>=0?'at '+TEAMS[S.team]:S.stg?'at '+stn(S.stg)+(S.lc?' in
 function update(){
   MAPFULL=false;   // a new selection zooms again
   P=D.filter(p=>p.gp>=S.gp&&posOk(p)&&ageOk(p)&&stgOk(p.t)&&(!S.lc||TC[p.t]===S.lc)&&(!S.cit||p.c.includes(S.cit)));
-  figs();scatter();leaders();ages();cits();map();teams();counts();race(0);
+  figs();scatter();leaders();ages();cits();map();teams();counts();race(0);stats();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
