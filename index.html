@@ -606,13 +606,16 @@ const RAD={rad1:[['Points',d=>d.pts,''],['Fast break',d=>d.fast,''],['Assists',d
   rad2:[['Efficiency',d=>d.epg,''],['Off. reb',d=>d.oreb,''],['Def. reb',d=>d.dreb,''],['Rebounds',d=>d.reb,''],['Blocks',d=>d.blk,''],['Steals',d=>d.stl,''],['Bench pts',d=>d.bench,'']]};
 function radar(id,n,hlFn){
   const svg=document.getElementById(id);if(!svg||!TM.length)return;
-  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.86),cx=W/2,cy=H/2+4,R=Math.min(W,H)/2-46,k=ax.length;
+  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.92),cx=W/2,cy=H/2+18,R=Math.min(W,H)/2-54,k=ax.length;
   const cols=ax.map(a=>T.map(a[1])),mn=cols.map(c=>Math.min(...c)),mx=cols.map(c=>Math.max(...c)),av=cols.map(c=>c.reduce((x,y)=>x+y,0)/c.length);
   const sc=(v,j)=>.12+.88*(v-mn[j])/((mx[j]-mn[j])||1),pt=(f,j)=>{const a=-Math.PI/2+j*2*Math.PI/k;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
   const poly=vals=>vals.map((v,j)=>pt(sc(v,j),j).map(x=>x.toFixed(1)).join(',')).join(' ');
   const sel=S.team,fmt=(v,u)=>f1(v)+u;
   let s=[.25,.5,.75,1].map(f=>`<polygon points="${ax.map((_,j)=>pt(f,j).join(',')).join(' ')}" fill="none" stroke="var(--grid)"/>`).join('');
-  s+=ax.map(([l],j)=>{const [x,y]=pt(1,j),[lx,ly]=pt(1.17,j);return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly}" dy=".35em" text-anchor="${Math.abs(lx-cx)<6?'middle':lx>cx?'start':'end'}" font-size="12" fill="var(--ink2)">${l}</text>`}).join('');
+  // axis labels with a value underneath: the league average, or the selected team's figure
+  const selT=sel>=0?T.find(x=>x.i===sel):null;
+  s+=ax.map(([l,f,u],j)=>{const [x,y]=pt(1,j),[lx,ly]=pt(1.19,j),an=Math.abs(lx-cx)<6?'middle':lx>cx?'start':'end',v=selT?f(selT):av[j],top=ly<cy-R*.5;
+    return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly+(top?-12:0)}" text-anchor="${an}" font-size="12" fill="var(--ink2)"><tspan x="${lx}" dy=".1em">${l}</tspan><tspan x="${lx}" dy="1.25em" font-weight="600" fill="var(--ink)">${fmt(v,u)}</tspan></text>`}).join('');
   // no team selected: every team as a hairline in its club colour (grey if a filter leaves it out), league average on top and thicker
   // team selected: the others turn grey, then the average, then the selected team's shape in front
   const on=T.filter(t=>t.i!==sel&&hlFn(t.i)),tc=t=>TSEL[TCODE[t.i]]||'var(--lo)',grey=t=>sel>=0||(on.length&&!hlFn(t.i))||!TSEL[TCODE[t.i]];
@@ -626,7 +629,7 @@ function radar(id,n,hlFn){
   svg.querySelectorAll('.rpl').forEach(p=>{const t=T.find(x=>x.i===+p.dataset.i);p.style.cursor='pointer';p.onclick=()=>pickTeam(t.i);onHover(p,e=>showTip(e,`<b>${esc(t.n)}</b><br>Click to select`),id+'p'+t.i)});
   const sw=(c,d)=>`<span><i style="background:${c};${d?'height:0;border-top:2px dashed '+c+';background:none;border-radius:0':''}"></i>`;
   document.getElementById('rdK'+n).innerHTML=(sel>=0?`${sw('var(--hi)')}${esc(TEAMS[sel])}</span>`:`<span>Thin lines: each team in its club colour</span>`)+`${sw('var(--ink)',1)}League average</span>`+(sel>=0||on.length?`${sw('var(--lo)')}Other teams</span>`:'');
-  document.getElementById('rdS'+n).textContent=(sel>=0?`${TEAMS[sel]} against the league. `:'All 9 teams; select a team to see its profile. ')+'Each axis runs from the league’s lowest team (centre) to its highest (edge).';
+  document.getElementById('rdS'+n).textContent=(sel>=0?`${TEAMS[sel]} against the league; figures are ${TEAMS[sel]}’s. `:'All 9 teams; figures are league averages. Select a team to see its profile. ')+'Each axis runs from the league’s lowest team (centre) to its highest (edge).';
 }
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // team values: bench minutes as a %, rotation as a whole number, the rest with one decimal
