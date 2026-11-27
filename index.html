@@ -542,7 +542,10 @@ function hist(id,bins,key,lab,every,range){
   svg.innerHTML=s;
   const tn=esc(flabel());
   svg.querySelectorAll('.ab').forEach(r=>{const b=B[+r.dataset.j],n=b.n,k=b.k;
-    onHover(r,e=>showTip(e,sel?`<b>${k}</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${tn}`:`<b>${n}</b> player${n>1?'s':''}<br>${lab(b.a)}`))});
+    // with a filter on, list the highlighted players (name, flags, age, height, position, team); others stay a count
+    const who=sel&&k?tm.filter(p=>key(p)===b.a).sort(id==='age'?(p,q)=>(q.h||0)-(p.h||0):(p,q)=>(p.age??99)-(q.age??99)):[];
+    const line=p=>`${esc(p.n)}${flags(p)} — ${[p.age!=null?p.age+' years':'',p.h?p.h+' cm':'',p.pos||''].filter(Boolean).join(' · ')} — ${esc(TEAMS[p.t])}`;
+    onHover(r,e=>showTip(e,sel?(k?`<b>${k}</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${who.slice(0,12).map(line).join('<br>')}${who.length>12?`<br>+ ${who.length-12} more`:''}`:`<b>0</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${tn}`):`<b>${n}</b> player${n>1?'s':''}<br>${lab(b.a)}`))});
   return{tm,base};
 }
 function ages(){
