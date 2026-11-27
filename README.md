@@ -41,6 +41,10 @@ game number (e.g. `26-00909`) in the *refetch* box.
 
 Positions use the 1–5 numbering: 1 PG, 2 SG, 3 SF, 4 PF, 5 C. Only the birth year is published, not the full date.
 
+## Manual corrections
+
+`corrections.json` holds fixes to the federation's player data (e.g. a missing second citizenship). It is keyed by the swiss.basketball player id (`pid=…` in the profile link) and applied every time either script runs, so corrections survive every refresh. Current entries: Hannah Riddick (Elfic) — Canada as second citizenship.
+
 ## Notes
 
 - Efficiency = PTS + REB + AST + STL + BLK − missed FG − missed FT − TO (FIBA formula).
