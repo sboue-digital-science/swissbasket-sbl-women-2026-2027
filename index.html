@@ -114,6 +114,11 @@ main.band{padding-top:20px}
 .trow .bar{background:var(--hi)}.trow.on{background:var(--plane)}.trow.on span{font-weight:600}
 .trow .val{text-align:right;font-variant-numeric:tabular-nums;font-size:14px}
 .teams{max-height:460px;overflow-y:auto;padding-right:4px}
+/* team cards: radar first, then the tabs and bar list (full row on desktop, stacked on phones) */
+.tcw{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;align-items:start}
+@media(max-width:860px){.tcw{grid-template-columns:minmax(0,1fr);gap:8px}}
+.rad svg{display:block;width:100%;max-width:440px;margin:0 auto;overflow:visible}
+.rad .rdK{margin:4px 0 0}
 @media (min-width:601px){.teams{max-height:none;overflow:visible}}   /* desktop: all 9 teams, no inner scroll */
 .scroll{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px}
@@ -234,20 +239,30 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
     <div class="key" id="rsK"></div>
     <div class="rsw"><table class="rs" id="rsT"></table></div>
   </div>
-  <div class="grid grid2" id="teamCards">
+  <div class="grid" id="teamCards" style="grid-template-columns:minmax(0,1fr)">
     <div class="card">
       <h2>Team scoring</h2>
-      <p class="sub"><span class="nT">Points per game, all teams</span>. Click a team to select it.</p>
-      <div class="tabs" id="tsTabs"></div>
-      <div id="t1pad" aria-hidden="true"></div>
-      <div class="teams" id="teams"></div>
+      <div class="tcw">
+        <div class="rad"><p class="sub rdS" id="rdS1"></p><div class="key rdK" id="rdK1"></div><svg id="rad1" role="img" aria-label="Radar of team scoring stats"></svg></div>
+        <div>
+          <p class="sub"><span class="nT">Points per game, all teams</span>. Click a team to select it.</p>
+          <div class="tabs" id="tsTabs"></div>
+          <div id="t1pad" aria-hidden="true"></div>
+          <div class="teams" id="teams"></div>
+        </div>
+      </div>
     </div>
     <div class="card">
       <h2>Team efficiency</h2>
-      <p class="sub"><span class="nT2">Efficiency per game, all teams</span>. Click a team to select it.</p>
-      <div class="tabs" id="teTabs"></div>
-      <div id="t2pad"><p class="def">Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.</p></div>
-      <div class="teams" id="teams2"></div>
+      <div class="tcw">
+        <div class="rad"><p class="sub rdS" id="rdS2"></p><div class="key rdK" id="rdK2"></div><svg id="rad2" role="img" aria-label="Radar of team efficiency stats"></svg></div>
+        <div>
+          <p class="sub"><span class="nT2">Efficiency per game, all teams</span>. Click a team to select it.</p>
+          <div class="tabs" id="teTabs"></div>
+          <div id="t2pad"><p class="def">Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.</p></div>
+          <div class="teams" id="teams2"></div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="grid grid2">
@@ -374,7 +389,7 @@ function init(){
   document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.ts));
   document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.te));
   initRace();
-  for(const [id,fn] of [['resCard',()=>results()],['shMin',()=>shares()],['shPl',()=>shares()],['race',()=>race(0)],['sc',()=>scatter()],['age',()=>ages()],['hgt',()=>ages()],['map',()=>map()]]){const el=document.getElementById(id);new ResizeObserver(fn).observe(el)}
+  for(const [id,fn] of [['teamCards',()=>{if(!document.getElementById('teamCards').hidden)teams()}],['resCard',()=>results()],['shMin',()=>shares()],['shPl',()=>shares()],['race',()=>race(0)],['sc',()=>scatter()],['age',()=>ages()],['hgt',()=>ages()],['map',()=>map()]]){const el=document.getElementById(id);new ResizeObserver(fn).observe(el)}
   update();
 }
 // ---- shareable links: the address carries the current view (team=…, stage=…, etc.) ----
@@ -584,6 +599,34 @@ function shares(){
 }
 const fold=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const qOk=p=>!S.q||fold(p.n).includes(S.q);
+// ---- radars (team scoring / team efficiency): only stats where more is better ----
+// each axis runs from the league's lowest team (centre) to its highest (edge)
+const RAD={rad1:[['Points',d=>d.pts,''],['Fast break',d=>d.fast,''],['Assists',d=>d.ast,''],['FG %',d=>d.fg[1]?100*d.fg[0]/d.fg[1]:0,'%'],['2-pt %',d=>d.p2[1]?100*d.p2[0]/d.p2[1]:0,'%'],['3-pt %',d=>d.p3[1]?100*d.p3[0]/d.p3[1]:0,'%'],['FT %',d=>d.ft[1]?100*d.ft[0]/d.ft[1]:0,'%']],
+  rad2:[['Efficiency',d=>d.epg,''],['Off. reb',d=>d.oreb,''],['Def. reb',d=>d.dreb,''],['Rebounds',d=>d.reb,''],['Blocks',d=>d.blk,''],['Steals',d=>d.stl,''],['Bench pts',d=>d.bench,'']]};
+function radar(id,n,hlFn){
+  const svg=document.getElementById(id);if(!svg||!TM.length)return;
+  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.86),cx=W/2,cy=H/2+4,R=Math.min(W,H)/2-46,k=ax.length;
+  const cols=ax.map(a=>T.map(a[1])),mn=cols.map(c=>Math.min(...c)),mx=cols.map(c=>Math.max(...c)),av=cols.map(c=>c.reduce((x,y)=>x+y,0)/c.length);
+  const sc=(v,j)=>.12+.88*(v-mn[j])/((mx[j]-mn[j])||1),pt=(f,j)=>{const a=-Math.PI/2+j*2*Math.PI/k;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
+  const poly=vals=>vals.map((v,j)=>pt(sc(v,j),j).map(x=>x.toFixed(1)).join(',')).join(' ');
+  const sel=S.team,fmt=(v,u)=>f1(v)+u;
+  let s=[.25,.5,.75,1].map(f=>`<polygon points="${ax.map((_,j)=>pt(f,j).join(',')).join(' ')}" fill="none" stroke="var(--grid)"/>`).join('');
+  s+=ax.map(([l],j)=>{const [x,y]=pt(1,j),[lx,ly]=pt(1.17,j);return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly}" dy=".35em" text-anchor="${Math.abs(lx-cx)<6?'middle':lx>cx?'start':'end'}" font-size="12" fill="var(--ink2)">${l}</text>`}).join('');
+  // every team as a thin line: highlighted ones (filters) in colour, others grey
+  const on=T.filter(t=>t.i!==sel&&hlFn(t.i));
+  s+=T.filter(t=>t.i!==sel&&!hlFn(t.i)).map(t=>`<polygon class="rpl" data-i="${t.i}" points="${poly(ax.map(a=>a[1](t)))}" fill="none" stroke="var(--lo)" stroke-width="1"/>`).join('');
+  s+=on.map(t=>`<polygon class="rpl" data-i="${t.i}" points="${poly(ax.map(a=>a[1](t)))}" fill="none" stroke="var(--hi)" stroke-width="1.2" stroke-opacity=".7"/>`).join('');
+  s+=`<polygon points="${poly(av)}" fill="none" stroke="var(--ink2)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  if(sel>=0){const t=T.find(x=>x.i===sel);if(t){const v=ax.map(a=>a[1](t));
+    s+=`<polygon points="${poly(v)}" fill="var(--hi)" fill-opacity=".18" stroke="var(--hi)" stroke-width="2.2" stroke-linejoin="round"/>`;
+    s+=v.map((x,j)=>{const [px,py]=pt(sc(x,j),j);return`<circle class="rdot" data-j="${j}" cx="${px}" cy="${py}" r="5" fill="var(--hi)" stroke="var(--bg)" stroke-width="1.5"/>`}).join('')}}
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);svg.innerHTML=s;
+  svg.querySelectorAll('.rdot').forEach(c=>{const j=+c.dataset.j,t=T.find(x=>x.i===sel);onHover(c,e=>showTip(e,`<b>${esc(t.n)}</b><br>${ax[j][0]}: <b>${fmt(ax[j][1](t),ax[j][2])}</b><br>League average ${fmt(av[j],ax[j][2])} · range ${fmt(mn[j],ax[j][2])}–${fmt(mx[j],ax[j][2])}`),id+'d'+j)});
+  svg.querySelectorAll('.rpl').forEach(p=>{const t=T.find(x=>x.i===+p.dataset.i);p.style.cursor='pointer';p.onclick=()=>pickTeam(t.i);onHover(p,e=>showTip(e,`<b>${esc(t.n)}</b><br>Click to select`),id+'p'+t.i)});
+  const sw=(c,d)=>`<span><i style="background:${c};${d?'height:0;border-top:2px dashed '+c+';background:none;border-radius:0':''}"></i>`;
+  document.getElementById('rdK'+n).innerHTML=(sel>=0?`${sw('var(--hi)')}${esc(TEAMS[sel])}</span>`:on.length?`${sw('var(--hi)')}Highlighted teams</span>`:'')+`${sw('var(--ink2)',1)}League average</span>${sw('var(--lo)')}Other teams</span>`;
+  document.getElementById('rdS'+n).textContent=(sel>=0?`${TEAMS[sel]} against the league. `:'All 9 teams; select a team to see its profile. ')+'Each axis runs from the league’s lowest team (centre) to its highest (edge).';
+}
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // team values: bench minutes as a %, rotation as a whole number, the rest with one decimal
 const fmtT=(k,v)=>k==='bminp'?Math.round(v)+'%':k==='rot'&&Number.isInteger(v)?String(v):f1(v);
@@ -854,6 +897,7 @@ function teams(){
     el.querySelectorAll('.trow').forEach(r=>{const go=()=>pickTeam(+r.dataset.i);r.onclick=go;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
     const on=el.querySelector('.on');if(on)el.scrollTop=on.offsetTop-el.offsetTop-el.clientHeight/2;
   }
+  radar('rad1',1,i=>tf&&keep(i));radar('rad2',2,i=>tf&&keep(i));
   alignTeams();
 }
 }
