@@ -88,7 +88,10 @@ main.band{padding-top:20px}
 .trow{display:grid;grid-template-columns:28px minmax(0,1fr) 44px;gap:10px;align-items:center;padding:4px 6px;border-radius:6px;cursor:pointer}
 .trow:hover{background:var(--plane)}
 .trow .rk{color:var(--ink2);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
-.trow .tb{display:grid;gap:2px}.trow .tb span{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trow .tb{display:grid;gap:2px;position:relative}
+.avgl{position:absolute;bottom:-5px;height:18px;width:0;border-left:2px dashed var(--ink);pointer-events:none;margin-left:-1px}
+.avgw{grid-column:1;grid-row:2;position:relative;align-self:stretch;pointer-events:none}.avgw .avgl{bottom:-4px;height:12px}
+.avgk{font-size:13px;color:var(--ink2);margin:0 0 6px;display:flex;align-items:center;gap:6px}.avgk i{display:inline-block;width:0;height:14px;border-left:2px dashed var(--ink)}.trow .tb span{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trow .bar{background:var(--hi)}.trow.on{background:var(--plane)}.trow.on span{font-weight:600}
 .trow .val{text-align:right;font-variant-numeric:tabular-nums;font-size:14px}
 .teams{max-height:460px;overflow-y:auto;padding-right:4px}
@@ -527,8 +530,11 @@ function leaders(){
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
   document.getElementById('ldS').textContent=`Top 10 ${desc(2)}`+(fg?', at least 2 field goal attempts per game on average.':'.');
   const mx=d3.max(ps,v)||1;
+  // league average over all players with the minimum games (filters ignored); FG%: all made / all attempted
+  const lg=D.filter(p=>p.gp>=S.gp&&p.gp),av=fg?d3.sum(lg,p=>p.fgm)/(d3.sum(lg,p=>p.fga)||1):d3.mean(lg,v)||0;
+  const avl=`<div class="avgw"><i class="avgl" style="left:${Math.min(100,av/mx*100)}%"></i></div>`;
   document.getElementById('leaders').classList.toggle('fgm',fg);
-  document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
+  document.getElementById('leaders').innerHTML=ps.length?`<div class="avgk"><i></i>League average (all players with ${S.gp}+ games): ${fmt(av)}</div>`+ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="grid-column:1;grid-row:2;width:${Math.max(1,v(p)/mx*100)}%"></div>${avl}</div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
 }
 // one column chart: all players (min-games) in grey, players matching the filters in the accent colour
 function hist(id,bins,key,lab,every,range){
@@ -688,10 +694,12 @@ function teams(){
   for(const [id,k] of [['teams',S.ts],['teams2',S.te]]){
     const pct=id==='teams'&&pc,vv=d=>pct?(d[k][1]?d[k][0]/d[k][1]:0):d[k];
     const low=(id==='teams'&&k==='opp')||(id==='teams2'&&k==='to'),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
+    // league average: mean of the 9 teams' per-game values; for percentages, all made / all attempted
+    const av=pct?d3.sum(t,d=>d[k][0])/(d3.sum(t,d=>d[k][1])||1):d3.mean(t,vv),avTxt=pct?f1(av*100)+'%':f1(av);
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;
-    el.innerHTML=t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${tf&&!keep(d.i)?';background:var(--lo)':''}"></div></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:f1(d[k])}</span></div>`}).join('');
+    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${av/mx*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:f1(d[k])}</span></div>`}).join('');
     el.querySelectorAll('.trow').forEach(r=>{const go=()=>pickTeam(+r.dataset.i);r.onclick=go;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
     const on=el.querySelector('.on');if(on)el.scrollTop=on.offsetTop-el.offsetTop-el.clientHeight/2;
   }
