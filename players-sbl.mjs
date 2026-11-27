@@ -17,6 +17,8 @@ async function get(url) {
 const ent = s => (s || '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 const attrs = tag => Object.fromEntries([...tag.matchAll(/(\w+)="([^"]*)"/g)].map(m => [m[1], ent(m[2])]));
 const POS = { 1: 'PG', 2: 'SG', 3: 'SF', 4: 'PF', 5: 'C' };
+// basketplan uses a few non-standard country codes; map them to the FIBA ones (MOT = Montenegro)
+const CODE_FIX = { MOT: 'MNE' }, fixc = c => CODE_FIX[c] || c || '';
 
 const list = await get(`${BASE}showPersonsPlayingInLeagueXML.do?lang=fr&xmlView=rss&leagueId=${LEAGUE}&seasonId=${SEASON}`);
 const roster = [...list.matchAll(/<PlayerTeam ([^>]*)>([\s\S]*?)<\/PlayerTeam>/g)].map(m => {
@@ -66,8 +68,8 @@ for (const p of roster) {
       height_cm: o.size || '',
       positions: pos.join(','),
       positions_label: pos.map(n => POS[n] || n).join('/'),
-      nationality_1: o.nationality_1 || '',
-      nationality_2: o.nationality_2 || '',
+      nationality_1: fixc(o.nationality_1),
+      nationality_2: fixc(o.nationality_2),
       nationality_1_iso2: o.nat1Iso2 || '',
       nationality_2_iso2: o.nat2Iso2 || '',
       sbl_games_2026_27: sbl,

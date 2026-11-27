@@ -178,7 +178,7 @@ const CN = { SUI: 'Switzerland', USA: 'United States', FRA: 'France', CAN: 'Cana
   AUS: 'Australia', NZL: 'New Zealand', DEN: 'Denmark', FIN: 'Finland', NOR: 'Norway', LUX: 'Luxembourg', TUR: 'Türkiye', ROU: 'Romania', BUL: 'Bulgaria',
   SVK: 'Slovakia', ALB: 'Albania', KOS: 'Kosovo', MAR: 'Morocco', COD: 'DR Congo', CGO: 'Congo', CIV: "Côte d'Ivoire", JPN: 'Japan', MEX: 'Mexico', DOM: 'Dominican Republic' };
 // basketplan uses a few non-FIBA codes; map them by their two-letter country code
-const ISO2_FIBA = { ME: 'MNE', RS: 'SRB', MO: 'MAC' };
+const ISO2_FIBA = { ME: 'MNE', RS: 'SRB', MO: 'MAC' }, CODE_FIX = { MOT: 'MNE' };   // MOT = basketplan's code for Montenegro
 function readCsv(f) {
   if (!existsSync(f)) return [];
   const t = readFileSync(f, 'utf8').replace(/^﻿/, ''), rows = []; let row = [], cur = '', q = false;
@@ -194,7 +194,7 @@ function readCsv(f) {
     const w = new Set(tok(name)), ok = r => tok(r.family_name).every(x => w.has(x)) && tok(r.first_names).some(x => w.has(x));
     return prof.find(r => norm(r.team) === norm(team) && ok(r)) || prof.find(ok);
   };
-  const code = (c, iso2) => ISO2_FIBA[iso2] || c;
+  const code = (c, iso2) => ISO2_FIBA[iso2] || CODE_FIX[c] || c;
   const TEAMS = teams.map(t => t.team).sort((a, b) => a.localeCompare(b)), ti = new Map(TEAMS.map((t, i) => [norm(t), i]));
   const year = +new Date().toISOString().slice(0, 4);
   const posOf = (r, boxPos) => { const n = r && +String(r.positions || '').split(',')[0];
