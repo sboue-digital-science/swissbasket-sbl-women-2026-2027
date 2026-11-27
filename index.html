@@ -219,7 +219,7 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
 <main class="band"><div class="wrap" style="display:grid;gap:20px">
   <div class="card" id="raceCard">
     <h2>Standings race</h2>
-    <p class="sub" id="rcS">The table after each game date: wins, then fewer losses, then points difference.</p>
+    <p class="sub" id="rcS">The table after each game date, ranked by win percentage.</p>
     <div class="rctl"><button id="rcPlay" class="rbtn" type="button">▶ Play</button><input id="rcR" type="range" min="0" max="0" value="0" aria-label="Game date"><div class="rdate" id="rcD" aria-live="polite"></div></div>
     <div class="fig" id="race"><svg role="img" aria-label="Bar chart race of the standings after each game date"></svg></div>
   </div>
@@ -295,7 +295,7 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
     <div class="key" id="mpKey"></div>
     <div class="fig" id="map"><svg role="img" aria-label="Map of team home cities"></svg><button id="mapBtn" class="mapbtn" type="button" hidden></button></div>
   </div>
-  <footer><p class="credit">Designed and built by <a href="https://sboue-digital-science.com/" target="_top">S Boue Digital Science</a></p>Source: game box scores from FIBA LiveStats, linked from the basketplan.ch schedule; player profiles (year of birth, height, positions, citizenships) from swiss.basketball. Data as of <span id="asof2"></span>. Efficiency is FIBA's: points + rebounds + assists + steals + blocks − missed shots − turnovers. Positions are grouped from each player's first listed position (1–2 guard, 3–4 forward, 5 center). Players listed for a game who have not played yet appear only with the 0+ games filter. The standings race is an unofficial table: wins, then fewer losses, then points difference; head-to-head rules are not applied. Home towns are those of each team's home hall. Basemap: Natural Earth via world-atlas. Flags: flag-icons.</footer>
+  <footer><p class="credit">Designed and built by <a href="https://sboue-digital-science.com/" target="_top">S Boue Digital Science</a></p>Source: game box scores from FIBA LiveStats, linked from the basketplan.ch schedule; player profiles (year of birth, height, positions, citizenships) from swiss.basketball. Data as of <span id="asof2"></span>. Efficiency is FIBA's: points + rebounds + assists + steals + blocks − missed shots − turnovers. Positions are grouped from each player's first listed position (1–2 guard, 3–4 forward, 5 center). Players listed for a game who have not played yet appear only with the 0+ games filter. The standings race is an unofficial table ranked by win percentage, then wins, then points difference; head-to-head rules are not applied. Home towns are those of each team's home hall. Basemap: Natural Earth via world-atlas. Flags: flag-icons.</footer>
 </div></main>
 <div class="tip" id="tip"></div>
 
@@ -447,7 +447,9 @@ function initRace(){
   const dates=[...new Set(GAMES.map(g=>g.date))].sort();
   RF=dates.map(dt=>{const st=TEAMS.map((n,i)=>({i,n,w:0,l:0,pf:0,pa:0,gp:0,hw:0,hl:0,aw:0,al:0}));
     for(const g of GAMES){if(g.date>dt)continue;const h=st[g.h],a=st[g.a];h.gp++;a.gp++;h.pf+=g.hs;h.pa+=g.as;a.pf+=g.as;a.pa+=g.hs;if(g.hs>g.as){h.w++;a.l++;h.hw++;a.al++}else{a.w++;h.l++;a.aw++;h.hl++}}
-    st.sort((a,b)=>b.w-a.w||a.l-b.l||(b.pf-b.pa)-(a.pf-a.pa)||a.n.localeCompare(b.n));st.forEach((t,k)=>t.rk=k);
+    // ranked by win percentage, then wins, then points difference (unofficial: no head-to-head)
+    st.forEach(t=>t.wp=t.gp?t.w/t.gp:0);
+    st.sort((a,b)=>b.wp-a.wp||b.w-a.w||(b.pf-b.pa)-(a.pf-a.pa)||a.n.localeCompare(b.n));st.forEach((t,k)=>t.rk=k);
     const today=GAMES.filter(g=>g.date===dt);
     return{dt,st,n:GAMES.filter(g=>g.date<=dt).length,days:[...new Set(today.map(g=>g.day))],today}});
   RK=RF.length-1;
@@ -461,14 +463,14 @@ function stopRace(){clearInterval(RT);RT=null;document.getElementById('rcPlay').
 function race(anim){
   const box=document.getElementById('race'),svg=d3.select(box).select('svg');if(!RF.length)return;
   // wide screens: name | bar on one line; phones: name above a full-width bar
-  const F=RF[RK],W=box.clientWidth,narrow=W<560,rh=narrow?46:36,m={t:4,r:narrow?118:200,l:narrow?24:30},nw=narrow?0:230,bh=narrow?14:Math.min(18,rh*.5),by=narrow?24:(rh-bh)/2,ty=narrow?13:rh/2;
+  const F=RF[RK],W=box.clientWidth,narrow=W<560,rh=narrow?46:36,m={t:4,r:narrow?140:230,l:narrow?24:30},nw=narrow?0:230,bh=narrow?14:Math.min(18,rh*.5),by=narrow?24:(rh-bh)/2,ty=narrow?13:rh/2;
   const H=m.t+TEAMS.length*rh+24;svg.attr('height',H).attr('viewBox',`0 0 ${W} ${H}`);
-  const mw=d3.max(RF[RF.length-1].st,t=>t.w)||1,x=d3.scaleLinear().domain([0,mw]).range([0,Math.max(40,W-m.l-nw-m.r)]),x0=m.l+nw;
+  const x=d3.scaleLinear().domain([0,1]).range([0,Math.max(40,W-m.l-nw-m.r)]),x0=m.l+nw;
   const dur=anim&&!matchMedia('(prefers-reduced-motion: reduce)').matches?650:0,sel=S.team;
   const col=t=>sel<0||t.i===sel?'var(--hi)':'var(--lo)';
   // grid: one line per win
-  const gt=x.ticks(Math.min(mw,narrow?4:8)).filter(Number.isInteger);
-  svg.selectAll('g.gx').data([0]).join('g').attr('class','gx').html(gt.map(t=>`<line x1="${x0+x(t)}" x2="${x0+x(t)}" y1="${m.t}" y2="${H-22}" stroke="var(--grid)"/><text x="${x0+x(t)}" y="${H-6}" text-anchor="middle" font-size="12" fill="var(--ink2)">${t}</text>`).join('')+`<text x="${W}" y="${H-6}" text-anchor="end" font-size="12" fill="var(--ink2)">Wins →</text>`);
+  const gt=narrow?[0,.5,1]:[0,.25,.5,.75,1];
+  svg.selectAll('g.gx').data([0]).join('g').attr('class','gx').html(gt.map(t=>`<line x1="${x0+x(t)}" x2="${x0+x(t)}" y1="${m.t}" y2="${H-22}" stroke="var(--grid)"/><text x="${x0+x(t)}" y="${H-6}" text-anchor="middle" font-size="12" fill="var(--ink2)">${Math.round(t*100)}%</text>`).join('')+`<text x="${W}" y="${H-6}" text-anchor="end" font-size="12" fill="var(--ink2)">Win % →</text>`);
   const g=svg.selectAll('g.rr').data(F.st,d=>d.i).join(en=>{const e=en.append('g').attr('class','rr').attr('transform',d=>`translate(0,${m.t+d.rk*rh})`);
       e.append('rect').attr('class','rbg').attr('x',0).attr('width',W).attr('height',rh-2).attr('rx',6).attr('fill','transparent');
       e.append('text').attr('class','rk').attr('font-size',13).attr('fill','var(--ink2)').attr('text-anchor','end');
@@ -484,16 +486,16 @@ function race(anim){
   g.select('.vl').attr('y',by+bh/2).attr('dy','.32em').attr('fill','var(--ink)');
   const tr=g.transition().duration(dur).ease(d3.easeCubicInOut);
   tr.attr('transform',d=>`translate(0,${m.t+d.rk*rh})`);
-  tr.select('.rb').attr('width',d=>Math.max(d.w?2:0,x(d.w)));
-  tr.select('.vl').attr('x',d=>x0+x(d.w)+8).text(d=>`${d.gp} game${d.gp===1?'':'s'} · ${d.w}–${d.l}`+(narrow?'':`  ${d.pf-d.pa>0?'+':d.pf-d.pa<0?'−':''}${Math.abs(d.pf-d.pa)}`));
+  tr.select('.rb').attr('width',d=>Math.max(d.w?2:0,x(d.wp)));
+  tr.select('.vl').attr('x',d=>x0+x(d.wp)+8).text(d=>`${d.gp} game${d.gp===1?'':'s'} · ${d.w}–${d.l} · ${Math.round(d.wp*100)}%`+(narrow?'':`  ${d.pf-d.pa>0?'+':d.pf-d.pa<0?'−':''}${Math.abs(d.pf-d.pa)}`));
   g.on('click',(e,d)=>pickTeam(d.i));
   g.each(function(d){onHover(this,e=>{const t=RF[RK].st.find(x=>x.i===d.i),df=t.pf-t.pa;
-    showTip(e,`<b>${t.rk+1}. ${esc(t.n)}</b><br>${t.w} win${t.w===1?'':'s'}, ${t.l} loss${t.l===1?'':'es'} in ${t.gp} game${t.gp===1?'':'s'}<br>Home ${t.hw}–${t.hl} · Away ${t.aw}–${t.al}<br>Points ${t.pf}–${t.pa} (${df>0?'+':df<0?'−':''}${Math.abs(df)})<br>After ${fdate(pdate(RF[RK].dt))}`)},'race'+d.i)});
+    showTip(e,`<b>${t.rk+1}. ${esc(t.n)}</b><br>Win percentage ${Math.round(t.wp*100)}%<br>${t.w} win${t.w===1?'':'s'}, ${t.l} loss${t.l===1?'':'es'} in ${t.gp} game${t.gp===1?'':'s'}<br>Home ${t.hw}–${t.hl} · Away ${t.aw}–${t.al}<br>Points ${t.pf}–${t.pa} (${df>0?'+':df<0?'−':''}${Math.abs(df)})<br>After ${fdate(pdate(RF[RK].dt))}`)},'race'+d.i)});
   document.getElementById('rcR').style.setProperty('--p',(RF.length>1?RK/(RF.length-1)*100:100)+'%');
   const today=F.today.map(g=>`${TEAMS[g.h]} ${g.hs}–${g.as} ${TEAMS[g.a]}`);
   document.getElementById('rcD').innerHTML=`After ${fdate(pdate(F.dt))}<small>${esc(F.days.join(', '))} · ${F.n} of ${NGAMES||'all'} games played</small>`;
   document.getElementById('rcD').title=today.join('\n');
-  document.getElementById('rcS').textContent=`The table after each game date: wins, then fewer losses, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} highlighted in its club colour.`:' Click a team to select it.');
+  document.getElementById('rcS').textContent=`The table after each game date, ranked by win percentage (wins ÷ games played); ties broken by wins, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} highlighted in its club colour.`:' Click a team to select it.');
 }
 // ---- player stats table: one row per player, averages or season totals, sortable ----
 let ST={mode:'avg',k:'eff',dir:-1};
