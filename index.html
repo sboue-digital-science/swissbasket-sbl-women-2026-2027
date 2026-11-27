@@ -52,6 +52,13 @@ input{width:min(240px,80vw)}
 .shm .ok{color:#2EA6FF}
 .filters select.act{border:2px solid #2EA6FF;padding:0 11px;background:#10273a}
 .clr{font:inherit;font-size:15px;height:44px;padding:0 16px;border-radius:8px;border:1px solid #3a3b40;background:transparent;color:var(--bandink);cursor:pointer;white-space:nowrap}.clr:disabled{opacity:.4;cursor:default}.filters>.clr{flex:none!important}
+/* phones in landscape and tablets: the five filters and Clear on one compact row */
+@media (min-width:701px) and (max-width:1100px),(min-width:701px) and (max-height:520px){
+.fbar{padding-top:6px;padding-bottom:8px}
+.filters{grid-template-columns:repeat(5,minmax(0,1fr)) auto;gap:6px 8px}
+.filters label{font-size:11.5px;gap:2px}
+.filters select{height:34px;font-size:13.5px;padding:0 8px}.filters select.act{padding:0 7px}
+.clr{height:34px;font-size:13px;padding:0 10px}}
 button:focus-visible,select:focus-visible,input:focus-visible,.trow:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
 main.band{padding-top:20px}
 .figband{padding:clamp(20px,3vw,32px) max(5vw,16px) 0}
