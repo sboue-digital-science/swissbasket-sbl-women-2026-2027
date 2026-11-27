@@ -90,7 +90,6 @@ main.band{padding-top:20px}
 .trow .rk{color:var(--ink2);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
 .trow .tb{display:grid;gap:2px;position:relative}
 .avgl{position:absolute;bottom:-5px;height:18px;width:0;border-left:2px dashed var(--ink);pointer-events:none;margin-left:-1px}
-.avgw{grid-column:1;grid-row:2;position:relative;align-self:stretch;pointer-events:none}.avgw .avgl{bottom:-4px;height:12px}
 .avgk{font-size:13px;color:var(--ink2);margin:0 0 6px;display:flex;align-items:center;gap:6px}.avgk i{display:inline-block;width:0;height:14px;border-left:2px dashed var(--ink)}.trow .tb span{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trow .bar{background:var(--hi)}.trow.on{background:var(--plane)}.trow.on span{font-weight:600}
 .trow .val{text-align:right;font-variant-numeric:tabular-nums;font-size:14px}
@@ -532,11 +531,8 @@ function leaders(){
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
   document.getElementById('ldS').textContent=`Top 10 ${desc(2)}`+(fg?', at least 2 field goal attempts per game on average.':'.');
   const mx=d3.max(ps,v)||1;
-  // league average over all players with the minimum games (filters ignored); FG%: all made / all attempted
-  const lg=D.filter(p=>p.gp>=S.gp&&p.gp),av=fg?d3.sum(lg,p=>p.fgm)/(d3.sum(lg,p=>p.fga)||1):d3.mean(lg,v)||0;
-  const avl=`<div class="avgw"><i class="avgl" style="left:${Math.min(100,av/mx*100)}%"></i></div>`;
   document.getElementById('leaders').classList.toggle('fgm',fg);
-  document.getElementById('leaders').innerHTML=ps.length?`<div class="avgk"><i></i>League average (all players with ${S.gp}+ games): ${fmt(av)}</div>`+ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="grid-column:1;grid-row:2;width:${Math.max(1,v(p)/mx*100)}%"></div>${avl}</div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
+  document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
 }
 // one column chart: all players (min-games) in grey, players matching the filters in the accent colour
 function hist(id,bins,key,lab,every,range){
