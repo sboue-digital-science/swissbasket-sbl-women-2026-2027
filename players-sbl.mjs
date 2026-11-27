@@ -2,7 +2,7 @@
 // Reads the season's player list, then each player's profile, and writes players_info.csv (one row per player).
 // Env: SBL_LEAGUE (default 6 = SB League Women), SBL_SEASON (default 31 = 2026/2027).
 
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 
 const BASE = 'https://swiss.basketball/basketplan/';
 const LEAGUE = process.env.SBL_LEAGUE || '6', SEASON = process.env.SBL_SEASON || '31';
@@ -82,6 +82,9 @@ for (const p of roster) {
     await sleep(300);
   } catch (e) { failed.push(p.id); console.log(`  ! ${p.id} ${p.name}: ${e.message}`); }
 }
+// manual corrections (corrections.json) win over the federation's data
+const FIX = existsSync('corrections.json') ? JSON.parse(readFileSync('corrections.json', 'utf8')).players || {} : {};
+for (const r of rows) for (const [k, v] of Object.entries(FIX[r.player_id] || {})) if (k !== 'player' && k in r) r[k] = v;
 rows.sort((a, b) => a.team.localeCompare(b.team) || a.name.localeCompare(b.name));
 const q = v => v == null ? '' : /[",\n;]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
 const h = Object.keys(rows[0]);

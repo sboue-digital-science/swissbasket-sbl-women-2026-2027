@@ -189,7 +189,11 @@ function readCsv(f) {
   const h = rows.shift(); return rows.filter(r => r.length > 1).map(r => Object.fromEntries(h.map((k, i) => [k, r[i] ?? ''])));
 }
 {
-  const prof = readCsv('players_info.csv'), tok = s => norm(s).replace(/-/g, ' ').split(' ').filter(Boolean);
+  const prof = readCsv('players_info.csv');
+  // manual corrections (corrections.json), applied again here in case players_info.csv predates them
+  const FIX = existsSync('corrections.json') ? JSON.parse(readFileSync('corrections.json', 'utf8')).players || {} : {};
+  for (const r of prof) for (const [k, v] of Object.entries(FIX[r.player_id] || {})) if (k !== 'player') r[k] = v;
+  const tok = s => norm(s).replace(/-/g, ' ').split(' ').filter(Boolean);
   const findProf = (name, team) => {
     const w = new Set(tok(name)), ok = r => tok(r.family_name).every(x => w.has(x)) && tok(r.first_names).some(x => w.has(x));
     return prof.find(r => norm(r.team) === norm(team) && ok(r)) || prof.find(ok);

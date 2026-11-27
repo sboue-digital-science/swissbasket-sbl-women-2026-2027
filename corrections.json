@@ -1,0 +1,6 @@
+{
+  "_about": "Manual corrections, applied every time the scripts pull data (players-sbl.mjs and refresh-sbl.mjs). Keyed by the swiss.basketball player id (pid=… in the profile link). Any column of players_info.csv can be set; 'player' is just a reminder of who it is.",
+  "players": {
+    "136228": { "player": "Hannah Riddick, BCF Elfic Fribourg", "nationality_2": "CAN", "nationality_2_iso2": "CA" }
+  }
+}
