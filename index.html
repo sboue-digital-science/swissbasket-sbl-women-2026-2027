@@ -656,11 +656,13 @@ function teams(){
   const pc=S.ts!=='pts',nt=TM.filter(t=>t.gp).length;
   // stage, league country, team, citizenship and age range narrow the lists; ranks stay those of the full table.
   // Citizenship and age keep teams with at least one such player on the current roster (played or not).
-  const rost=S.cit||S.age?new Set(D.filter(p=>!p.gone&&(!S.cit||p.c.includes(S.cit))&&ageOk(p)).map(p=>p.t)):null;
+  // SBL: all 9 teams always listed; teams matching the filters in blue, the others grey.
+  // Position, citizenship and age: teams with at least one such player on the roster (played or not).
+  const rost=S.pos!=='A'||S.cit||S.age?new Set(D.filter(p=>!p.gone&&posOk(p)&&(!S.cit||p.c.includes(S.cit))&&ageOk(p)).map(p=>p.t)):null;
   const tf=S.stg||S.lc||S.team>=0||rost,keep=i=>stgOk(i)&&(!S.lc||TC[i]===S.lc)&&(S.team<0||i===S.team)&&(!rost||rost.has(i)),nk=TM.filter(t=>t.gp&&keep(t.i)).length;
-  const who=rost?`with a player${S.age?` aged ${S.age}–${S.age+4}`:''}${S.cit?` with ${CN[S.cit]||S.cit} citizenship`:''} on the roster`:'';
+  const who=rost?`with ${S.pos!=='A'?'a '+({G:'guard',F:'forward',C:'center',U:'player with no listed position'})[S.pos]:'a player'}${S.age?` aged ${S.age}–${S.age+4}`:''}${S.cit?` with ${CN[S.cit]||S.cit} citizenship`:''} on the roster`:'';
   const what=S.team>=0?TEAMS[S.team]+(who?' '+who:''):[S.stg?stn(S.stg):'',S.lc?(S.stg?'':'teams ')+'in '+(CN[S.lc]||S.lc):'',who?(S.stg||S.lc?'':'teams ')+who:''].filter(Boolean).join(' ');
-  const scopeT=tf?`${nk} of ${nt} teams (${what}), ranked among all ${nt}`:`all ${nt} teams`;
+  const scopeT=tf?`all ${nt} teams; in blue: ${nk===1&&S.team>=0?what:`${nk} team${nk===1?'':'s'} ${what.replace(/^teams /,'')}`}`:`all ${nt} teams`;
   const pf=S.pos!=='A'||S.cit||S.age?'. Team totals include all players':'';
   document.querySelector('.nT').textContent=`${TSS[S.ts]}, ${scopeT}${pf}`;
   document.querySelector('.nT2').textContent=`Efficiency per game, ${scopeT}${pf}`;
@@ -670,8 +672,7 @@ function teams(){
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;
-    el.innerHTML=t.map((d,i)=>{if(tf&&!keep(d.i))return'';const g=tf&&i>last+1?gap:'';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%"></div></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:f1(d[k])}</span></div>`}).join('')+(tf&&last<t.length-1?gap:'');
-    if(tf&&!nk)el.innerHTML='<div class="empty">No team matches these filters.</div>';
+    el.innerHTML=t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${tf&&!keep(d.i)?';background:var(--lo)':''}"></div></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:f1(d[k])}</span></div>`}).join('');
     el.querySelectorAll('.trow').forEach(r=>{const go=()=>pickTeam(+r.dataset.i);r.onclick=go;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
     const on=el.querySelector('.on');if(on)el.scrollTop=on.offsetTop-el.offsetTop-el.clientHeight/2;
   }
