@@ -1,0 +1,33 @@
+name: Weekly SBL Women stats refresh
+
+on:
+  schedule:
+    - cron: '17 4 * * 1'   # Mondays 05:17 Swiss winter time (06:17 summer), after the weekend games
+  workflow_dispatch:
+    inputs:
+      refetch:
+        description: 'Game numbers to download again, comma-separated (e.g. 26-00909). Leave empty normally.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Download new box scores and rebuild tables
+        env:
+          SBL_REFETCH: ${{ github.event.inputs.refetch }}
+        run: node refresh-sbl.mjs
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add games data.json *.csv
+          if git diff --cached --quiet; then echo "No new games."; else git commit -m "Add new SBL Women box scores" && git push; fi
