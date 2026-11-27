@@ -512,8 +512,11 @@ function scatter(){
   const hov=sel?pts.filter(d=>d.on||d.h):pts;
   const del=d3.Delaunay.from(hov,d=>d.x,d=>d.y),r=svg.querySelector('#scHit');
   onHover(r,e=>{const b=svg.getBoundingClientRect(),mx=e.clientX-b.left,my=e.clientY-b.top,i=hov.length?del.find(mx,my):-1,d=hov[i];
-    if(!d||Math.hypot(d.x-mx,d.y-my)>30)return hideTip();const p=d.p;
-    showTip(e,`${pname(p)}${flags(p)}${p.age!=null?` — ${Math.floor(p.age)} years`:''} — ${esc(TEAMS[p.t])}<br><b>${f1(pg(p,'eff'))}</b> eff · <b>${f1(pg(p,'min'))}</b> min · ${f1(pg(p,'pts'))} pts, ${f1(pg(p,'reb'))} reb, ${f1(pg(p,'ast'))} ast, ${f1(pg(p,'blk'))} blk, ${p.fga?f1(p.fgm/p.fga*100)+'%':'–'} FG${p.gone?'<br>† No longer on the team’s current roster':''}`)});
+    if(!d||Math.hypot(d.x-mx,d.y-my)>30)return hideTip();
+    // dots that overlap the nearest one (closer than a dot's width) share the popup, highest efficiency first
+    const grp=hov.filter(o=>Math.hypot(o.x-d.x,o.y-d.y)<9).sort((a,b)=>pg(b.p,'eff')-pg(a.p,'eff'));
+    const one=p=>`${pname(p)}${flags(p)}${p.age!=null?` — ${Math.floor(p.age)} years`:''} — ${esc(TEAMS[p.t])}<br><b>${f1(pg(p,'eff'))}</b> eff · <b>${f1(pg(p,'min'))}</b> min · ${f1(pg(p,'pts'))} pts, ${f1(pg(p,'reb'))} reb, ${f1(pg(p,'ast'))} ast, ${f1(pg(p,'blk'))} blk, ${p.fga?f1(p.fgm/p.fga*100)+'%':'–'} FG${p.gone?'<br>† No longer on the team’s current roster':''}`;
+    showTip(e,grp.slice(0,6).map(o=>one(o.p)).join('<hr style="border:0;border-top:1px solid rgba(255,255,255,.25);margin:6px 0">')+(grp.length>6?`<br>+ ${grp.length-6} more`:''))});
 }
 const flags=p=>p.c.map(c=>{const n=esc(CN[c]||c);return FL[c]?`<img class="flag" src="${FL[c]}" alt="${n}" title="${n}">`:`<span class="flagx" title="${n}">${esc(c)}</span>`}).join('');
 function leaders(){
