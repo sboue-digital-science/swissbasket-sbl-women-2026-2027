@@ -142,8 +142,11 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .note{margin:12px 0 0;font-size:13px;color:var(--ink2)}
 .empty{color:var(--ink2);font-size:14px;padding:20px 0}
 /* selected team: a hairline around its coloured marks (black on light, white on dark) so pale club colours stay visible; table cells excluded */
-html.teamsel{--hiLine:light-dark(#000,#fff)}
-html.teamsel svg [fill="var(--hi)"]{stroke:var(--hiLine);stroke-width:.25px}
+/* outline of team-coloured marks: black on light, white on dark (set per theme, not via light-dark(), so every browser resolves it) */
+html.teamsel{--hiLine:#000}
+@media (prefers-color-scheme:dark){html.teamsel:not([data-theme=light]){--hiLine:#fff}}
+html.teamsel[data-theme=dark]{--hiLine:#fff}
+html.teamsel svg [fill="var(--hi)"],html.teamsel svg [fill="var(--vs)"]{stroke:var(--hiLine);stroke-width:.25px}
 html.teamsel svg .rsel{stroke:var(--hi);stroke-width:2.2px}
 html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)}
 .rsw{overflow-x:auto;-webkit-overflow-scrolling:touch}
