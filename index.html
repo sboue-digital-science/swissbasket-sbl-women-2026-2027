@@ -10,13 +10,13 @@
 /* VOICE: a newspaper sports-desk graphic — exact, calm, the numbers lead.
    IDEA: a box score sheet pinned under an arena scoreboard.
    PICTURE: one large scatter of every player (minutes vs efficiency), the chosen team lit in the accent colour.
-   COLOUR and TYPE: scoreboard black band, white sheet, #951B81 as the only accent; Open Sans (brand font): headings 700, text 400.
+   COLOUR and TYPE: scoreboard black band, white sheet, #0092FF as the only accent; Open Sans (brand font): headings 700, text 400.
    LAYOUT: band with title + filters, figure strip, scatter beside leaders, then age, passports, teams, full table. */
 :root{color-scheme:light dark;
  --bg:light-dark(#ffffff,#121316);--plane:light-dark(#f6f5f2,#0b0b0c);
  --ink:light-dark(#191919,#efefef);--ink2:light-dark(#666666,#9c9c9c);
  --grid:light-dark(#e7e7e7,#2c2d30);--axis:light-dark(#c2c2c2,#474747);
- --hi:light-dark(#951B81,#c64fae);--lo:light-dark(#cfd0d3,#45474c);--all:var(--hi);
+ --hi:light-dark(#0092FF,#2EA6FF);--lo:light-dark(#cfd0d3,#45474c);--all:var(--hi);
  --sea:light-dark(#eef3f6,#16191d);--land:light-dark(#e2e0da,#2a2c31);
  --band:#141519;--bandink:#f3f1ec;--bandink2:#a9a7a2;--line:light-dark(rgba(11,11,11,.1),rgba(255,255,255,.1))}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
@@ -49,8 +49,8 @@ input{width:min(240px,80vw)}
 .shm[hidden]{display:none}
 .shm a,.shm button{display:block;width:100%;text-align:left;font:inherit;font-size:15px;padding:9px 12px;border:0;border-radius:6px;background:none;color:var(--bandink);text-decoration:none;cursor:pointer}
 .shm a:hover,.shm button:hover,.shm a:focus-visible,.shm button:focus-visible{background:#2c2d33}
-.shm .ok{color:#c64fae}
-.filters select.act{border:2px solid #c64fae;padding:0 11px;background:#2a1a28}
+.shm .ok{color:#2EA6FF}
+.filters select.act{border:2px solid #2EA6FF;padding:0 11px;background:#10273a}
 .clr{font:inherit;font-size:15px;height:44px;padding:0 16px;border-radius:8px;border:1px solid #3a3b40;background:transparent;color:var(--bandink);cursor:pointer;white-space:nowrap}.clr:disabled{opacity:.4;cursor:default}.filters>.clr{flex:none!important}
 button:focus-visible,select:focus-visible,input:focus-visible,.trow:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
 main.band{padding-top:20px}
@@ -406,7 +406,7 @@ function race(anim){
   const today=F.today.map(g=>`${TEAMS[g.h]} ${g.hs}–${g.as} ${TEAMS[g.a]}`);
   document.getElementById('rcD').innerHTML=`After ${fdate(pdate(F.dt))}<small>${esc(F.days.join(', '))} · ${F.n} of ${NGAMES||'all'} games played</small>`;
   document.getElementById('rcD').title=today.join('\n');
-  document.getElementById('rcS').textContent=`The table after each game date: wins, then fewer losses, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} in magenta.`:' Click a team to select it.');
+  document.getElementById('rcS').textContent=`The table after each game date: wins, then fewer losses, then points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} in blue.`:' Click a team to select it.');
 }
 // ---- player stats table: one row per player, averages or season totals, sortable ----
 let ST={mode:'avg',k:'eff',dir:-1};
@@ -495,7 +495,7 @@ function scatter(){
   s+=`<rect id="scHit" x="${m.l}" y="${m.t}" width="${W-m.l-m.r}" height="${H-m.t-m.b}" fill="transparent"/>`;
   svg.innerHTML=s;
   const nsel=pts.filter(d=>d.on&&sel).length;
-  document.getElementById('scS').textContent=`Each dot is a player with ${S.gp}+ games: minutes per game across, FIBA efficiency per game up.`+(sel?` Magenta: the ${nsel} ${desc(nsel)}.`:'');
+  document.getElementById('scS').textContent=`Each dot is a player with ${S.gp}+ games: minutes per game across, FIBA efficiency per game up.`+(sel?` Blue: the ${nsel} ${desc(nsel)}.`:'');
   document.getElementById('scKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${esc(flabel())}</span><span><i style="background:var(--lo)"></i>Other players</span>`:'';
   // hover only the highlighted (coloured) dots when a filter is set; grey dots are context only
   const hov=sel?pts.filter(d=>d.on||d.h):pts;
@@ -558,7 +558,7 @@ function ages(){
   const sel=filtOn(),tn=esc(flabel());
   document.getElementById('agKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${tn}</span><span><i style="background:var(--lo)"></i>Other players</span>`:'';
   const yg=tm.filter(p=>p.age<20).length,wh=base.filter(p=>p.h>0).length;
-  document.getElementById('agS').textContent=(sel?`Grey: all ${base.length} players with ${S.gp}+ games. Magenta: the ${tm.length} ${desc(tm.length)}, with their count above; ${yg} of them ${yg===1?'is':'are'} under 20.`:`${base.length} players with ${S.gp}+ games; ${yg} ${yg===1?'is':'are'} under 20.`)+` Age = ${new Date().getFullYear()} minus year of birth (only the year is published); heights where listed (${wh} of ${base.length}).`;
+  document.getElementById('agS').textContent=(sel?`Grey: all ${base.length} players with ${S.gp}+ games. Blue: the ${tm.length} ${desc(tm.length)}, with their count above; ${yg} of them ${yg===1?'is':'are'} under 20.`:`${base.length} players with ${S.gp}+ games; ${yg} ${yg===1?'is':'are'} under 20.`)+` Age = ${new Date().getFullYear()} minus year of birth (only the year is published); heights where listed (${wh} of ${base.length}).`;
 }
 // stage filter: before the play-offs start, main stage = reached at least the regular season (play-off
 // qualifiers included); once they start, it becomes 'main stage only' and play-off teams move to Play-offs
