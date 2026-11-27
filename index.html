@@ -440,8 +440,8 @@ const scope=()=>(S.team>=0?'at '+TEAMS[S.team]:S.stg?'at '+stn(S.stg)+(S.lc?' in
 function update(){
   MAPFULL=false;   // a new selection zooms again
   P=D.filter(p=>p.gp>=S.gp&&posOk(p)&&ageOk(p)&&stgOk(p.t)&&(!S.lc||TC[p.t]===S.lc)&&(!S.cit||p.c.includes(S.cit)));
-  // the standings race is shown only without team, position, citizenship or age filters
-  const rOff=S.team>=0||S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
+  // the standings race is hidden with position, citizenship or age filters; with a team selected it stays, that team in blue
+  const rOff=S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
   figs();scatter();leaders();ages();cits();map();teams();counts();if(!rOff)race(0);stats();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
