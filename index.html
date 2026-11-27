@@ -114,10 +114,14 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .rs thead th{text-align:center}.rs thead th.hc{text-align:left;font-weight:400;font-size:12px;color:var(--ink2);white-space:normal;line-height:1.2}
 .rs tbody th{text-align:left;white-space:nowrap;width:64px;font-size:12px;color:var(--ink);font-weight:600}
 .rs td{text-align:center;padding:7px 2px;border-radius:5px;white-space:nowrap;cursor:default;transition:opacity .2s}
-.rs td.hw{background:color-mix(in srgb,var(--hi) 28%,transparent);font-weight:600}
-.rs td.aw{background:color-mix(in srgb,var(--lo) 70%,transparent)}
+/* results: home = light green, away = light orange (cells and team codes) */
+.rs{--home:light-dark(#cdeed3,#1e4a2a);--away:light-dark(#ffd8ad,#5c3914)}
+.rs td.hw{background:var(--home);font-weight:600}
+.rs td.aw{background:var(--away);font-weight:600}
+.rs tbody th{background:var(--home);border-radius:5px;padding:7px 6px!important}
+.rs thead th:not(.hc){background:var(--away);border-radius:5px;padding:6px 2px!important}
 .rs td.up{color:var(--ink2);font-size:11.5px;background:var(--plane)}
-.rs td.x{background:var(--line)}
+.rs td.x{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px)}
 .rs .dim{opacity:.22}.rs th.on{font-weight:700;color:var(--ink)}
 
 .shg{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto}
@@ -476,8 +480,7 @@ function results(){
     ix.map(h=>`<tr><th scope="row" class="${h===sel?'on':''}" title="${esc(TEAMS[h])}">${esc(nm(h))}</th>${ix.map(a=>{if(a===h)return`<td class="x${dim(h,a)}"></td>`;
       const f=g.get(h+'-'+a);if(!f)return`<td class="up${dim(h,a)}">–</td>`;
       if(f.hs==null)return`<td class="up${dim(h,a)}" data-k="${h}-${a}">${f.date?ddm(pdate(f.date)):'–'}</td>`;
-      const won=sel>=0&&(h===sel||a===sel)?(h===sel)===(f.hs>f.as):f.hs>f.as;
-      return`<td class="${won?'hw':'aw'}${dim(h,a)}" data-k="${h}-${a}">${f.hs}–${f.as}</td>`}).join('')}</tr>`).join('')+'</tbody>';
+      return`<td class="${f.hs>f.as?'hw':'aw'}${dim(h,a)}" data-k="${h}-${a}">${f.hs}–${f.as}</td>`}).join('')}</tr>`).join('')+'</tbody>';
   // popups only on the cells that matter for the selection (all cells when no team is selected)
   T.querySelectorAll('td[data-k]:not(.dim)').forEach(td=>{const f=g.get(td.dataset.k);onHover(td,e=>showTip(e,f.hs==null?
     `<b>${esc(TEAMS[f.h])}</b> v <b>${esc(TEAMS[f.a])}</b><br>${f.date?'Scheduled '+fdate(pdate(f.date)):'Date to be set'} · ${esc(f.day)}`:
@@ -485,8 +488,7 @@ function results(){
   T.querySelectorAll('tbody th').forEach((th,h)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(h)});
   T.querySelectorAll('thead th[title]').forEach((th,a)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(a)});
   const np=FIX.filter(f=>f.hs!=null).length,sw=c=>`<i style="background:color-mix(in srgb,var(--${c}) ${c==='hi'?28:70}%,transparent)"></i>`;
-  document.getElementById('rsK').innerHTML=sel>=0?`<span>${sw('hi')}${esc(TEAMS[sel])} won</span><span>${sw('lo')}${esc(TEAMS[sel])} lost</span><span style="color:var(--ink2)">Dates: games still to play</span>`:
-    `<span>${sw('hi')}Home win</span><span>${sw('lo')}Away win</span><span style="color:var(--ink2)">Dates: games still to play</span>`;
+  document.getElementById('rsK').innerHTML=`<span><i style="background:light-dark(#cdeed3,#1e4a2a)"></i>Home team · home win</span><span><i style="background:light-dark(#ffd8ad,#5c3914)"></i>Away team · away win</span><span style="color:var(--ink2)">Dates: games still to play</span>`;
   document.getElementById('rsS').textContent=`All ${FIX.length} games of the season, ${np} played: home team down the side, away team across the top.`+(sel>=0?` ${TEAMS[sel]}’s games are highlighted.`:' Click a team to select it.');
 }
 // ---- share of minutes and points of the selected citizenship / age range (all players, whatever their games) ----
