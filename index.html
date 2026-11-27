@@ -173,6 +173,7 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
     <div class="card">
       <h2>Team efficiency</h2>
       <p class="sub"><span class="nT2">Efficiency per game, all teams</span>. Click a team to select it.</p>
+      <div class="tabs" id="teTabs"></div>
       <div id="t2pad"><p class="def">Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.</p></div>
       <div class="teams" id="teams2"></div>
     </div>
@@ -228,10 +229,10 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 {
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const f1=d3.format('.1f'),pct=d3.format('.0%');
-const S={ts:'pts',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
+const S={te:'epg',ts:'pts',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
 const M=[['eff','Efficiency'],['pts','Points'],['ast','Assists'],['reb','Rebounds'],['stl','Steals'],['blk','Blocks'],['fg','FG%'],['min','Minutes']];
 const tip=document.getElementById('tip');
-let STG=[],PO=false,D,TEAMS,TC,CN,P=[],TM=[];
+let STG=[],PO=false,D,TEAMS,TC,CN,P=[],TM=[],TS=[];
 const pg=(p,k)=>p.gp?p[k]/p.gp:0;
 const showTip=(e,html)=>{tip.innerHTML=html;tip.style.opacity=1;const r=tip.getBoundingClientRect();let x=e.clientX+14,y=e.clientY+14;if(x+r.width>innerWidth-8)x=e.clientX-r.width-14;x=Math.max(8,Math.min(x,innerWidth-r.width-8));if(y+r.height>innerHeight-8)y=e.clientY-r.height-14;tip.style.left=x+'px';tip.style.top=y+'px'};
 const hideTip=()=>{tip.style.opacity=0;TIPKEY=null};
@@ -249,7 +250,7 @@ let GEO,CITY,FL={},ASOF='',GAMES=[],NGAMES=0;
 Promise.all([fetch('dash.json').then(r=>r.json()),fetch('europe.json').then(r=>r.json()),fetch('flags.json').then(r=>r.json()).catch(()=>({}))]).then(([d,g,f])=>{FL=f;D=d.players;
   // FIBA still lists some players with the former Serbia and Montenegro code (SCG): count it as Serbia
   D.forEach(p=>{p.c=[...new Set(p.c.map(c=>c==='SCG'?'SRB':c))]});
-  TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];NGAMES=d.total||0;GEO=g;init()});
+  TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];TS=d.ts||[];NGAMES=d.total||0;GEO=g;init()});
 
 function init(){
   const played=D.filter(p=>p.gp>0),nc=new Set(played.flatMap(p=>p.c)).size,nt=TEAMS.length;
@@ -284,14 +285,18 @@ function init(){
   TM=TEAMS.map((n,i)=>{const ps=g.get(i)||[];const gp=d3.max(ps,p=>p.gp)||0;const sm=k=>d3.sum(ps,p=>p[k]),fgm=sm('fgm'),fga=sm('fga'),tpm=sm('tpm'),tpa=sm('tpa');
     // points allowed: opponents' points per game, from the game results
     const og=GAMES.filter(g=>g.h===i||g.a===i),opp=og.length?d3.sum(og,g=>g.h===i?g.as:g.hs)/og.length:0;
-    return{i,n,gp,opp,epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
+    const ts=TS[i]||{},tg=ts.gp||0,per=k=>tg?(ts[k]||0)/tg:0;
+    return{i,n,gp,opp,ast:per('ast'),to:per('to'),oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
   document.getElementById('tsTabs').innerHTML=TSM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.ts}">${l}</button>`).join('');
+  document.getElementById('teTabs').innerHTML=TEM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.te}">${l}</button>`).join('');
+  document.querySelectorAll('#teTabs button').forEach(b=>b.onclick=()=>{S.te=b.dataset.k;document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
   document.querySelectorAll('#tsTabs button').forEach(b=>b.onclick=()=>{S.ts=b.dataset.k;document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
   fromURL();fillTeams();
   initShare();
   document.querySelectorAll('#stTabs button').forEach(b=>b.onclick=()=>{ST.mode=b.dataset.k;document.querySelectorAll('#stTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));stats()});
   document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.metric));
   document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.ts));
+  document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.te));
   initRace();
   for(const [id,fn] of [['race',()=>race(0)],['sc',()=>scatter()],['age',()=>ages()],['hgt',()=>ages()],['map',()=>map()]]){const el=document.getElementById(id);new ResizeObserver(fn).observe(el)}
   update();
@@ -311,6 +316,7 @@ function fromURL(){
   const ti=TEAMS.findIndex(t=>slug(t)===g('team'));if(ti>=0&&(!S.lc||TC[ti]===S.lc)&&stgOk(ti))S.team=ti;
   const ls=g('stat');if(M.some(m=>m[0]===ls))S.metric=ls;
   const ts=g('scoring');if(TSM.some(m=>m[0]===ts))S.ts=ts;
+  const te=g('teamstat');if(TEM.some(m=>m[0]===te))S.te=te;
   document.getElementById('fGp').value=S.gp;document.getElementById('fStg').value=S.stg||'';document.getElementById('fLc').value=S.lc;
   document.getElementById('fCit').value=S.cit;document.getElementById('fPos').value=S.pos;document.getElementById('fAge').value=S.age;
 }
@@ -319,7 +325,7 @@ function toURL(){
   if(S.team>=0)q.set('team',slug(TEAMS[S.team]));
   if(S.stg)q.set('stage',STGK[S.stg]);if(S.lc)q.set('league',S.lc);if(S.cit)q.set('citizenship',S.cit);
   if(S.pos!=='A')q.set('position',POSK[S.pos]);if(S.age)q.set('age',`${S.age}-${S.age+4}`);if(S.gp!==2)q.set('games',S.gp);
-  if(S.metric!=='eff')q.set('stat',S.metric);if(S.ts!=='pts')q.set('scoring',S.ts);
+  if(S.metric!=='eff')q.set('stat',S.metric);if(S.ts!=='pts')q.set('scoring',S.ts);if(S.te!=='epg')q.set('teamstat',S.te);
   const u=location.pathname+(q.toString()?'?'+q.toString().replace(/%2C/g,','):'')+location.hash;
   if(u!==location.pathname+location.search+location.hash)try{history.replaceState(null,'',u)}catch(e){}
 }
@@ -642,8 +648,14 @@ function cits(){
   document.getElementById('cit').innerHTML=c.length?c.map(([k,n])=>`<div class="row"><div class="who">${esc(CN[k]||k)}${flags({c:[k]})} <small>— ${pct(n/ps.length)} of players</small></div><div class="val">${n}</div><div class="bar ${S.team<0?'all':''}" style="width:${n/mx*100}%"></div></div>`).join(''):'<div class="empty">No players match these filters.</div>';
 }
 // team scoring metrics: total points, then shooting percentages with made/attempted
-const TSM=[['pts','Points per game'],['opp','Points allowed'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
-const TSS={pts:'Points per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
+const TSM=[['pts','Points per game'],['opp','Points allowed'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
+const TSS={pts:'Points per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
+// team efficiency card: efficiency, then rebounds, blocks, steals (official team totals per game)
+const TEM=[['epg','Efficiency'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers']];
+const TES={epg:'Efficiency per game',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)'};
+const TED={epg:'Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.',
+  reb:'Official team totals: rebounds credited to the team rather than to a player are included.',blk:'Official team totals per game played.',stl:'Official team totals per game played.',to:'Official team totals per game played, including turnovers credited to the team rather than to a player.'};
+TED.oreb=TED.dreb=TED.reb;
 // keep the Team efficiency list level with the Team scoring list (which has tabs above it) when side by side
 function alignTeams(){
   const pad=document.getElementById('t2pad'),pad1=document.getElementById('t1pad'),a=document.getElementById('teams'),b=document.getElementById('teams2');
@@ -655,7 +667,7 @@ function alignTeams(){
 }
 addEventListener('resize',()=>{if(TM.length)alignTeams()});
 function teams(){
-  const pc=S.ts!=='pts'&&S.ts!=='opp',nt=TM.filter(t=>t.gp).length;
+  const pc=!['pts','opp','ast'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
   // stage, league country, team, citizenship and age range narrow the lists; ranks stay those of the full table.
   // Citizenship and age keep teams with at least one such player on the current roster (played or not).
   // SBL: all 9 teams always listed; teams matching the filters in blue, the others grey.
@@ -667,10 +679,11 @@ function teams(){
   const scopeT=tf?`all ${nt} teams; in blue: ${nk===1&&S.team>=0?what:`${nk} team${nk===1?'':'s'} ${what.replace(/^teams /,'')}`}`:`all ${nt} teams`;
   const pf=S.pos!=='A'||S.cit||S.age?'. Team totals include all players':'';
   document.querySelector('.nT').textContent=`${TSS[S.ts]}, ${scopeT}${pf}`;
-  document.querySelector('.nT2').textContent=`Efficiency per game, ${scopeT}${pf}`;
-  for(const [id,k] of [['teams',S.ts],['teams2','epg']]){
+  document.querySelector('.nT2').textContent=`${TES[S.te]}, ${scopeT}${pf}`;
+  document.querySelector('#t2pad .def').textContent=TED[S.te];
+  for(const [id,k] of [['teams',S.ts],['teams2',S.te]]){
     const pct=id==='teams'&&pc,vv=d=>pct?(d[k][1]?d[k][0]/d[k][1]:0):d[k];
-    const low=id==='teams'&&k==='opp',t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
+    const low=(id==='teams'&&k==='opp')||(id==='teams2'&&k==='to'),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;

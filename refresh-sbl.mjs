@@ -212,7 +212,9 @@ function readCsv(f) {
   const dg = sched.filter(g => g.status === 'played').map(g => ({ date: g.date.slice(0, 10), day: g.day, phase: g.phase, h: ti.get(norm(g.home)), a: ti.get(norm(g.away)), hs: g.hs, as: g.as }))
     .filter(g => g.h != null && g.a != null);
   writeFileSync('dash.json', JSON.stringify({ asof: new Date().toISOString().slice(0, 10), teams: TEAMS, tc: TEAMS.map(() => 'SUI'),
-    cn: CN, city: TEAMS.map(t => TEAM_CITY[t] || null), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
+    cn: CN, city: TEAMS.map(t => TEAM_CITY[t] || null),
+    // official team totals (rebounds include team rebounds)
+    ts: TEAMS.map(n => { const t = teams.find(x => norm(x.team) === norm(n)); return t ? { gp: t.gp, oreb: t.oreb, dreb: t.dreb, reb: t.reb, blk: t.blk, stl: t.stl, ast: t.ast, to: t.to } : null; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
     total: sched.length }));
   const unknown = [...new Set(dp.flatMap(p => p.c))].filter(c => !CN[c]);
   console.log(`dash.json: ${dp.length} players (${matched} with a profile), ${dg.length} games${unknown.length ? `; country codes without a name: ${unknown.join(', ')}` : ''}.`);
