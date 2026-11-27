@@ -166,7 +166,7 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
     <div class="rctl"><button id="rcPlay" class="rbtn" type="button">▶ Play</button><input id="rcR" type="range" min="0" max="0" value="0" aria-label="Game date"><div class="rdate" id="rcD" aria-live="polite"></div></div>
     <div class="fig" id="race"><svg role="img" aria-label="Bar chart race of the standings after each game date"></svg></div>
   </div>
-  <div class="grid grid2">
+  <div class="grid grid2" id="teamCards">
     <div class="card">
       <h2>Team scoring</h2>
       <p class="sub"><span class="nT">Points per game, all teams</span>. Click a team to select it.</p>
@@ -457,7 +457,9 @@ function update(){
   P=D.filter(p=>p.gp>=S.gp&&posOk(p)&&ageOk(p)&&stgOk(p.t)&&(!S.lc||TC[p.t]===S.lc)&&(!S.cit||p.c.includes(S.cit)));
   // the standings race is hidden with position, citizenship or age filters; with a team selected it stays, that team in blue
   const rOff=S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
-  figs();scatter();leaders();ages();cits();map();teams();counts();if(!rOff)race(0);stats();
+  // team scoring / efficiency are hidden with a position or age filter
+  const tOff=S.pos!=='A'||!!S.age;document.getElementById('teamCards').hidden=tOff;
+  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();counts();if(!rOff)race(0);stats();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
