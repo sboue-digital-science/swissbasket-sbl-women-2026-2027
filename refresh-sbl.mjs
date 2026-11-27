@@ -215,7 +215,12 @@ function readCsv(f) {
   writeFileSync('dash.json', JSON.stringify({ asof: new Date().toISOString().slice(0, 10), teams: TEAMS, tc: TEAMS.map(() => 'SUI'),
     cn: CN, city: TEAMS.map(t => TEAM_CITY[t] || null),
     // official team totals (rebounds include team rebounds)
-    ts: TEAMS.map(n => { const t = teams.find(x => norm(x.team) === norm(n)); return t ? { gp: t.gp, oreb: t.oreb, dreb: t.dreb, reb: t.reb, blk: t.blk, stl: t.stl, ast: t.ast, to: t.to } : null; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
+    ts: TEAMS.map(n => { const t = teams.find(x => norm(x.team) === norm(n)); if (!t) return null;
+      // rotation: bench (non-starter) minutes and points from the game logs; players averaging 10+ min over the team's games
+      const L = logs.filter(r => norm(r.team) === norm(n)), min = L.reduce((s, r) => s + r.min, 0), bmin = L.filter(r => !r.starter).reduce((s, r) => s + r.min, 0);
+      const pm = {}; for (const r of L) pm[r.player] = (pm[r.player] || 0) + r.min;
+      return { gp: t.gp, oreb: t.oreb, dreb: t.dreb, reb: t.reb, blk: t.blk, stl: t.stl, ast: t.ast, to: t.to,
+        bench: t.bench, bminp: min ? Math.round(1000 * bmin / min) / 10 : 0, rot: Object.values(pm).filter(m => m / t.gp >= 10).length }; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
     total: sched.length,
     // short team codes (from LiveStats) and the full schedule, for the results grid
     tcode: TEAMS.map(n => (((teams.find(x => norm(x.team) === norm(n)) || {}).code || n.slice(0, 3)) + '').trim().toUpperCase()),
