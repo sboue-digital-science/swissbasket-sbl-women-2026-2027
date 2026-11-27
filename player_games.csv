@@ -1,0 +1,725 @@
+﻿game,date,phase,team,opponent,home,result,player,no,starter,min,pts,fgm,fga,tpm,tpa,ftm,fta,oreb,dreb,reb,ast,stl,blk,to,pf,pm,eff
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Yeinny Dihigo Bravo,23,1,22.1,8,4,7,0,1,0,0,2,6,8,1,1,0,2,4,3,13
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Alice Mauler,0,0,14.5,4,2,6,0,0,0,0,1,1,2,0,1,0,2,4,-5,1
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Nadia Constantin,4,1,33.1,10,3,12,2,4,2,3,0,3,3,2,2,0,4,1,1,3
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Ivanie Tacconi,15,0,17.3,2,1,5,0,0,0,0,0,3,3,2,1,2,0,4,12,6
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Jade Krummenacher,5,0,6.7,0,0,1,0,0,0,0,0,1,1,2,0,0,1,0,6,1
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Naomie Djitik,9,0,10.3,0,0,2,0,1,0,0,1,2,3,0,0,0,1,1,0,0
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Tyasia Freeman,1,1,22.3,12,6,8,0,0,0,0,5,5,10,2,1,0,1,2,3,22
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Evan Miller,10,1,37.9,18,6,17,3,8,3,4,1,4,5,5,0,2,5,0,7,13
+26-00909,2026-09-26,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BC Alte Kanti Aarau,H,W 70-63,Lydia Melaschenko,44,1,35.8,16,4,8,3,5,5,7,1,2,3,2,3,1,2,0,8,17
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Martina Guthauser,0,1,33.8,9,4,9,1,4,0,0,1,6,7,2,2,1,1,4,-10,15
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Ann-Sophie Wildi,22,0,2.9,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,2,0
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Enisa Semanjaku,13,1,38.6,17,8,19,0,3,1,2,4,6,10,1,3,1,5,2,-5,15
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Lucie Elisseeff,6,1,32,12,2,10,0,4,8,8,2,2,4,0,0,0,1,0,1,7
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Virag Kiss,8,1,18.4,4,1,4,0,1,2,4,2,1,3,1,0,0,2,4,2,1
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Emma Hoffmann Gonzalez,24,0,23.9,6,1,6,0,1,4,4,4,3,7,0,3,0,1,4,-10,10
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Norah Hangartner,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Lia Scheller,3,0,2.6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Rayla Merz,2,0,10.3,0,0,3,0,0,0,0,1,0,1,0,0,0,0,2,-10,-2
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Federica Verta,5,0,3.3,0,0,0,0,0,0,0,1,1,2,0,0,0,0,0,1,2
+26-00909,2026-09-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,BBC Troistorrents-Chablais,A,L 63-70,Ella Elizabeth Murphy Wiebe,10,1,34.3,15,5,17,1,3,4,4,2,4,6,2,3,0,6,2,-4,8
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Camila Martinez,8,1,19.7,2,1,4,0,2,0,0,1,0,1,1,0,0,1,1,1,0
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Stéphanie Martinez,4,1,27.1,3,1,8,0,4,1,2,0,4,4,3,2,0,1,0,7,3
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Sara Van Der Kaaij,3,0,2.4,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Elisa Moix,10,0,17.5,8,2,5,2,3,2,2,1,0,1,0,0,0,1,1,27,5
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Martha Balunga,2,0,6.8,1,0,2,0,1,1,2,0,0,0,0,0,0,0,3,-8,-2
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Mila Benjak,14,0,13,0,0,3,0,1,0,0,0,1,1,2,1,0,1,2,0,0
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Lara Popovic,5,0,21.6,18,5,8,3,6,5,7,0,5,5,1,2,0,0,2,28,21
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Veronika Bernardini,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Anna Holmberg,11,1,24,19,7,14,3,7,2,2,1,5,6,0,0,0,2,3,25,16
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Hannah Riddick,17,1,33.5,24,10,15,0,0,4,6,6,6,12,2,1,0,2,0,16,30
+26-00906,2026-09-27,SB League Women Preliminary phase,BCF Elfic Fribourg,GC Zürich,H,W 86-60,Lauren Heard,0,1,34.4,11,4,14,0,3,3,4,4,13,17,6,1,0,2,2,33,22
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Melina Katsikaris,10,0,18.1,0,0,1,0,0,0,0,0,4,4,0,0,0,0,0,-4,3
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Fiona Wyss,17,1,16,0,0,0,0,0,0,0,0,1,1,0,0,0,2,3,-14,-1
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Nihan Fiz ,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Sybille Hofer,31,0,5.9,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,-8,-2
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Lana Wenger,15,1,40,16,7,19,0,4,2,2,1,4,5,2,1,2,0,4,-26,14
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Lina Maria Ayun Aguayo Ebert,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Carina Nicolae,4,0,2.4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Johanna Maria Chichande Renteria,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Amirah Abdur-Rahim,23,1,40,19,7,18,1,6,4,5,3,9,12,2,1,0,3,4,-26,19
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Madison Torresin,22,1,40,22,8,16,4,10,2,4,0,2,2,2,2,0,1,3,-26,17
+26-00906,2026-09-27,SB League Women Preliminary phase,GC Zürich,BCF Elfic Fribourg,A,L 60-86,Briahanna Jackson,0,1,37.7,3,1,13,0,1,1,2,1,7,8,5,1,0,2,3,-25,2
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Laure Margot,0,1,22.2,10,3,8,3,6,1,2,3,0,3,0,0,0,4,0,2,3
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Amélie De Preux,10,1,20.8,0,0,2,0,1,0,0,1,2,3,0,1,0,0,4,11,2
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Gloria Ikateka Loosa,30,0,17.3,2,1,4,0,2,0,0,0,0,0,2,2,0,2,1,12,1
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Yverline Ntemo Da Silva,98,0,13.2,2,1,2,0,0,0,0,1,3,4,2,0,0,2,2,6,5
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Miriam Uro-Nilie,19,1,35.7,13,5,10,2,5,1,2,2,6,8,3,2,0,1,1,11,19
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Loreen Burkhalter,1,0,17.4,5,2,4,1,3,0,2,3,0,3,1,1,0,2,3,8,4
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Sara Schellino,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Evi Bartel,25,0,10.2,4,2,2,0,0,0,0,0,3,3,0,1,0,1,0,2,7
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Keira Robinson,34,1,32.9,24,10,17,2,6,2,2,0,8,8,7,4,0,2,2,15,34
+26-00907,2026-09-27,SB League Women Preliminary phase,Nyon Basket Féminin,Ravens de Genève LPLO,H,W 85-70,Alice Recanati,7,1,30.3,25,10,14,2,5,3,4,1,3,4,2,2,0,2,1,8,26
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Mélyssa Dutruel,11,1,29.1,11,4,11,1,5,2,2,1,3,4,4,1,0,4,0,-6,9
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Marta Vincenzi,3,1,28.7,17,6,9,1,2,4,6,0,2,2,1,1,0,2,2,-10,14
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Shaynis Gonin,23,0,18.9,9,4,4,1,1,0,0,0,1,1,1,3,0,1,2,-11,13
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Sona Boiro Balde,10,0,4,0,0,2,0,0,0,0,1,0,1,0,0,0,0,0,-4,-1
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Emilie Burdin,4,1,19,8,3,5,2,2,0,0,1,0,1,0,1,0,1,1,-6,7
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Kathy Burdin,7,0,15.2,5,2,5,1,4,0,0,1,2,3,0,0,0,3,1,-3,2
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Sokona Nyambwa,9,0,5.4,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,-6,-2
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Wivine Defosset,0,1,33.4,4,1,8,0,2,2,3,0,1,1,7,0,0,1,2,-7,3
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Sanaé Agune,2,0,7.4,0,0,3,0,1,0,0,1,1,2,1,1,0,2,0,-9,-1
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Caileigh Walsh,12,1,27.9,16,6,11,2,4,2,2,1,3,4,1,1,0,2,2,-9,15
+26-00907,2026-09-27,SB League Women Preliminary phase,Ravens de Genève LPLO,Nyon Basket Féminin,A,L 70-85,Marah Mougnutou,27,0,11,0,0,1,0,1,0,0,1,1,2,1,0,0,0,0,-4,2
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Virginie Bruchez,8,1,29.6,13,5,15,2,11,1,1,1,8,9,2,0,0,0,0,32,14
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Cécilia De Preux,0,1,17.5,3,1,6,0,1,1,2,1,2,3,0,0,0,2,4,10,-2
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Louise Forsyth,10,1,28.8,27,11,21,1,2,4,5,5,4,9,3,1,0,3,1,37,26
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Tess Corthay,6,0,21.5,11,5,10,1,3,0,0,2,2,4,0,3,0,1,3,25,12
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Cassiopée Burri,4,0,12.8,0,0,4,0,1,0,0,3,1,4,1,0,0,1,2,10,0
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Louise Prada,15,0,15,6,3,6,0,0,0,0,5,5,10,1,0,0,2,1,12,12
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Aurélie Roduit,12,0,12.1,3,1,4,0,0,1,2,0,2,2,0,1,0,3,4,-1,-1
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Kylie Lavelle,14,1,29.7,18,8,14,2,5,0,0,3,8,11,1,3,3,1,4,49,29
+26-00908,2026-09-27,SB League Women Preliminary phase,Hélios VS Basket,Espérance Sportive Pully,H,W 93-50,Maeve Marie St John,22,1,33.2,12,4,8,2,4,2,2,0,5,5,6,3,0,6,2,41,16
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Malvina Mroczek,2,1,25.9,3,0,6,0,2,3,4,2,5,7,1,0,0,4,1,-33,0
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Anna Brenna,24,1,26.5,3,1,14,1,5,0,0,1,3,4,0,1,0,2,2,-26,-7
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Zilan Ozüpekçe,25,0,6.7,1,0,4,0,0,1,2,0,1,1,0,0,0,3,1,-12,-6
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Elena Paris,7,0,10,4,2,5,0,0,0,0,0,0,0,0,0,0,1,0,-4,0
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Lashonda Monk,0,1,35.4,19,5,16,1,3,8,10,2,7,9,0,7,0,5,2,-44,17
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Naomi Yenoth,41,0,17.5,6,2,2,0,0,2,2,1,1,2,0,0,0,2,3,-4,6
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Manon Gaudry,26,0,13.1,0,0,3,0,0,0,0,1,1,2,0,1,0,0,1,-23,0
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Sophie Azahar Lanfranchi Rio,10,0,15.3,6,2,5,2,5,0,0,2,1,3,1,1,0,1,1,-12,7
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Giulia Elisa Von Burg,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Mujinga Vader,21,1,24.6,0,0,6,0,2,0,0,0,2,2,0,3,0,4,4,-23,-5
+26-00908,2026-09-27,SB League Women Preliminary phase,Espérance Sportive Pully,Hélios VS Basket,A,L 50-93,Nora Ebassi,15,1,25,8,3,8,0,0,2,2,3,2,5,0,0,0,1,2,-34,7
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Martina Guthauser,21,1,27.5,2,1,7,0,4,0,0,0,3,3,1,2,0,3,1,-19,-1
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Ann-Sophie Wildi,22,0,14.5,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,-3,1
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Enisa Semanjaku,0,1,24.9,11,4,11,1,4,2,2,1,1,2,2,4,0,2,1,-21,10
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Lucie Elisseeff,6,0,24.6,4,2,7,0,1,0,2,2,0,2,4,2,0,5,2,-12,0
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Virag Kiss,8,1,19.3,2,1,12,0,6,0,0,3,3,6,0,1,0,5,1,-11,-7
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Emma Hoffmann Gonzalez,24,1,35.6,16,6,12,2,5,2,4,1,3,4,2,3,0,1,1,-11,16
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Celia Truninger,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Norah Hangartner,25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Lia Scheller,3,0,8.6,2,1,2,0,1,0,0,0,0,0,0,0,0,0,0,1,1
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Rayla Merz,2,0,8.2,0,0,3,0,1,0,0,0,1,1,0,0,0,2,0,-3,-4
+26-00921,2026-09-29,SB League Women Preliminary phase,BC Alte Kanti Aarau,Baden Basket 54,H,L 56-75,Ella Elizabeth Murphy Wiebe,10,1,36.9,19,9,13,0,0,1,1,3,5,8,2,0,0,2,3,-16,23
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Ana Volk,4,0,7.7,0,0,1,0,1,0,0,1,1,2,2,0,0,3,0,6,0
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Sharline Hulliger,9,1,26.1,13,5,8,2,2,1,2,0,4,4,1,4,1,1,2,13,18
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Giulia Simeone,2,0,14.5,5,2,6,1,2,0,0,0,1,1,2,4,0,2,1,6,6
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Cinzia Ferrari,0,1,20,4,1,2,0,1,2,3,1,1,2,3,0,0,4,3,8,3
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Klara Bartkowska,3,1,27.4,0,0,3,0,2,0,0,1,0,1,1,1,0,3,3,16,-3
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Annika Soltau,12,0,24.8,14,7,12,0,2,0,1,2,3,5,3,1,2,0,2,17,19
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Laura Rodriguez Da Cruz,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Klara Majdandzic,16,0,7.3,0,0,1,0,0,0,0,2,0,2,0,0,0,1,0,-9,0
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Lena Sakotic,19,0,1.5,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,2,-1
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Leilani Kapinus,5,1,36.6,12,6,15,0,3,0,2,5,11,16,5,5,2,1,1,18,28
+26-00921,2026-09-29,SB League Women Preliminary phase,Baden Basket 54,BC Alte Kanti Aarau,A,W 75-56,Skylar Vann,24,1,34.3,27,11,15,1,3,4,6,4,1,5,2,3,0,3,1,18,28
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Stacy Mazeko,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Malvina Mroczek,2,1,35.6,4,2,8,0,3,0,0,2,2,4,1,2,0,0,1,-13,5
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Anna Brenna,24,1,29.7,12,5,17,1,4,1,1,2,7,9,0,0,0,2,2,-11,7
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Lashonda Monk,0,1,36.1,33,13,28,1,2,6,12,3,6,9,3,5,2,3,1,-13,28
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Naomi Yenoth,41,0,18.9,3,1,3,1,2,0,0,1,2,3,0,0,0,3,3,-26,1
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Manon Gaudry,26,0,15.1,0,0,1,0,0,0,0,3,0,3,0,0,0,1,4,-18,1
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Giulia Elisa Von Burg,3,0,10.5,0,0,1,0,1,0,0,0,2,2,1,1,0,5,0,-8,-2
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Mujinga Vader,21,1,31.7,8,4,15,0,3,0,0,3,7,10,1,4,0,6,3,-9,6
+26-00911,2026-09-29,SB League Women Preliminary phase,Espérance Sportive Pully,BBC Troistorrents-Chablais,H,L 60-81,Nora Ebassi,15,1,22.4,0,0,3,0,0,0,0,0,4,4,0,0,0,1,3,-7,0
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Yeinny Dihigo Bravo,11,1,23.6,10,5,8,0,1,0,0,1,3,4,1,1,0,3,1,7,10
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Alice Mauler,10,0,29.3,11,4,10,2,5,1,2,1,11,12,3,3,0,3,2,25,19
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Nadia Constantin,4,1,27.7,13,4,11,3,7,2,2,2,1,3,2,0,0,2,1,16,9
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Ivanie Tacconi,15,0,14.9,2,1,3,0,0,0,0,1,1,2,2,1,1,2,2,7,4
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Jade Krummenacher,5,0,12.5,5,2,3,1,2,0,0,1,1,2,3,0,0,3,2,5,6
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Tyasia Freeman,9,1,23.8,6,2,5,0,0,2,6,0,9,9,1,2,3,2,1,21,12
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Evan Miller,0,1,33.7,27,10,21,3,12,4,6,1,7,8,4,2,0,2,0,13,26
+26-00911,2026-09-29,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Espérance Sportive Pully,A,W 81-60,Lydia Melaschenko,33,1,34.7,7,2,9,2,7,1,2,1,1,2,5,5,0,2,4,11,9
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Virginie Bruchez,8,1,25.6,7,2,8,2,5,1,2,0,3,3,2,1,0,2,1,-8,4
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Tiffany Murisier,7,0,15.2,0,0,2,0,1,0,0,0,2,2,0,1,0,0,3,-15,1
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Cécilia De Preux,9,1,15.7,0,0,3,0,0,0,0,1,2,3,0,0,0,0,4,2,0
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Louise Forsyth,0,1,38.1,32,11,17,0,0,10,16,3,4,7,3,2,0,4,3,-25,28
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Tess Corthay,6,0,24,5,2,4,1,3,0,0,0,0,0,0,0,0,1,1,-19,2
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Cassiopée Burri,4,0,6.4,2,1,2,0,0,0,0,0,1,1,0,0,0,0,0,3,2
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Louise Prada,15,0,5.9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Aurélie Roduit,12,0,4.1,0,0,2,0,0,0,0,0,0,0,0,0,0,0,1,0,-2
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Kylie Lavelle,14,1,34.1,22,5,13,1,5,11,16,1,12,13,2,1,2,3,3,-32,24
+26-00912,2026-09-30,SB League Women Preliminary phase,Hélios VS Basket,Nyon Basket Féminin,H,L 79-99,Maeve Marie St John,13,1,30.9,11,4,10,1,4,2,2,1,8,9,3,4,0,3,3,-9,18
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Laure Margot,4,1,31.4,19,7,13,4,6,1,3,1,3,4,6,1,1,1,4,20,22
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Amélie De Preux,10,1,19.9,9,2,4,2,3,3,4,1,2,3,0,1,0,1,4,3,9
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Gloria Ikateka Loosa,30,0,19.8,12,5,7,2,4,0,2,2,2,4,0,1,0,2,3,12,11
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Yverline Ntemo Da Silva,98,0,13.9,4,2,3,0,0,0,0,1,6,7,0,0,0,2,2,-1,8
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Miriam Uro-Nilie,19,1,23.2,10,4,9,2,5,0,0,0,4,4,4,0,0,2,2,17,11
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Loreen Burkhalter,1,0,23.6,14,5,8,2,5,2,3,0,0,0,0,1,0,1,4,13,10
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Sara Schellino,26,0,7.5,0,0,1,0,0,0,0,0,0,0,0,1,0,2,1,-8,-2
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Evi Bartel,25,0,6.5,2,1,2,0,0,0,0,0,2,2,0,0,0,0,3,1,3
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Keira Robinson,0,1,33.1,19,8,19,2,4,1,2,0,11,11,9,2,0,1,2,24,28
+26-00912,2026-09-30,SB League Women Preliminary phase,Nyon Basket Féminin,Hélios VS Basket,A,W 99-79,Madeleine Albrecht,22,1,21.1,10,3,7,2,4,2,3,2,1,3,1,0,0,2,1,19,7
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Ana Volk,4,1,22.5,2,1,5,0,1,0,0,1,0,1,1,0,0,3,0,-2,-3
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Sharline Hulliger,9,1,17.4,5,2,7,0,2,1,2,2,2,4,1,0,0,1,5,8,3
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Giulia Simeone,2,0,8.3,0,0,1,0,0,0,0,0,0,0,0,1,0,1,1,-10,-1
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Cinzia Ferrari,7,0,25.2,2,1,3,0,1,0,0,0,1,1,2,1,0,1,2,1,3
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Klara Bartkowska,3,1,26.8,6,3,5,0,1,0,0,1,3,4,1,0,0,2,3,10,7
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Annika Soltau,12,0,26.5,22,8,16,1,1,5,5,4,5,9,2,1,2,3,0,3,25
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Klara Majdandzic,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Lena Sakotic,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Leilani Kapinus,5,1,34,24,8,11,2,3,6,8,2,11,13,2,3,0,7,4,12,30
+26-00917,2026-10-02,SB League Women Preliminary phase,Baden Basket 54,BCF Elfic Fribourg,H,W 76-70,Skylar Vann,0,1,39.4,15,7,13,1,1,0,4,2,4,6,5,2,1,3,0,8,16
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Camila Martinez,8,0,22.9,16,7,11,2,5,0,0,1,1,2,1,1,0,0,1,-7,16
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Stéphanie Martinez,4,1,30.2,12,5,9,2,5,0,0,1,2,3,3,3,1,1,0,2,17
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Sara Van Der Kaaij,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Elisa Moix,10,0,15.8,3,1,3,1,3,0,0,0,2,2,1,1,0,3,1,0,2
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Martha Balunga,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Mila Benjak,14,0,7.3,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,-1,0
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Lara Popovic,5,1,26.6,2,1,3,0,2,0,0,0,4,4,5,0,0,3,5,-6,6
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Anna Holmberg,11,1,22.4,9,3,7,2,5,1,2,2,3,5,0,0,0,2,5,1,7
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Hannah Riddick,0,1,34.8,16,7,16,0,0,2,6,3,6,9,0,5,0,3,2,-13,14
+26-00917,2026-10-02,SB League Women Preliminary phase,BCF Elfic Fribourg,Baden Basket 54,A,L 70-76,Lauren Heard,24,1,40,12,2,14,0,3,8,16,2,3,5,9,4,0,1,4,-6,9
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Stacy Mazeko,70,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Malvina Mroczek,2,1,34.4,11,4,10,1,3,2,5,1,1,2,3,0,0,3,4,-14,4
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Anna Brenna,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Lea Julia Aurelia Hauser,4,1,22.7,0,0,4,0,3,0,0,0,0,0,0,0,0,4,2,-19,-8
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Besma El Bekachi,12,0,27.5,11,3,10,2,5,3,4,0,4,4,1,0,0,1,4,-5,7
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Lashonda Monk,0,1,38.1,43,15,34,0,2,13,14,7,7,14,3,8,0,1,3,-16,47
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Naomi Yenoth,41,0,18.1,4,2,4,0,0,0,2,4,0,4,0,0,0,4,3,-1,0
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Manon Gaudry,26,0,12.5,0,0,0,0,0,0,0,0,2,2,1,0,0,3,1,-12,0
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Giulia Elisa Von Burg,3,1,30.3,11,5,12,1,4,0,0,1,0,1,0,0,0,2,2,-27,3
+26-00914,2026-10-03,SB League Women Preliminary phase,Espérance Sportive Pully,GC Zürich,H,L 80-100,Mujinga Vader,21,1,16.4,0,0,1,0,1,0,0,1,3,4,3,0,0,3,4,-6,3
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Melina Katsikaris,10,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Fiona Wyss,17,1,25.3,0,0,5,0,3,0,0,0,3,3,0,1,0,1,4,12,-2
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Sybille Hofer,4,0,11,2,1,3,0,0,0,0,0,1,1,0,0,0,0,3,-5,1
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Lana Wenger,15,1,36.4,12,6,11,0,1,0,0,2,7,9,7,3,3,5,3,17,24
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Carina Nicolae,7,0,6.4,0,0,1,0,0,0,0,1,0,1,0,0,0,3,0,-6,-3
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Johanna Maria Chichande Renteria,11,0,7.2,4,2,2,0,0,0,0,0,0,0,0,0,0,0,3,4,4
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Amirah Abdur-Rahim,23,1,32.9,25,10,13,0,0,5,11,3,10,13,2,0,3,3,4,13,31
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Madison Torresin,22,1,33.2,32,8,15,5,10,11,15,0,7,7,5,6,0,5,4,26,34
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Briahanna Jackson,0,1,36.6,25,11,14,0,0,3,6,0,4,4,10,4,1,3,3,29,35
+26-00914,2026-10-03,SB League Women Preliminary phase,GC Zürich,Espérance Sportive Pully,A,W 100-80,Leonora Alushi,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Martina Guthauser,21,1,36.1,9,2,6,1,4,4,4,1,5,6,5,2,0,3,0,-33,15
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Ann-Sophie Wildi,22,1,22.7,0,0,0,0,0,0,0,0,2,2,0,0,0,3,2,-13,-1
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Virag Kiss,8,1,22.2,15,7,11,1,4,0,0,0,2,2,1,0,0,2,1,-13,12
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Emma Hoffmann Gonzalez,24,1,34,7,2,13,0,4,3,6,1,5,6,2,0,0,2,3,-36,-1
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Norah Hangartner,25,0,22,9,3,3,3,3,0,0,0,0,0,0,1,0,2,0,-12,8
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Lia Scheller,3,0,14.6,6,2,2,2,2,0,0,0,1,1,1,0,0,3,0,-20,5
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Rayla Merz,2,0,22.4,3,1,1,1,1,0,0,0,2,2,2,2,0,4,3,-27,5
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Aysha Salah,4,0,3.2,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,2,-1
+26-00916,2026-10-03,SB League Women Preliminary phase,BC Alte Kanti Aarau,Nyon Basket Féminin,H,L 60-92,Ella Elizabeth Murphy Wiebe,0,1,22.9,11,5,10,0,0,1,2,2,8,10,4,0,1,6,4,-8,14
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Laure Margot,4,1,32.1,19,8,13,3,6,0,0,1,2,3,0,1,0,3,1,36,15
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Amélie De Preux,10,0,19.4,3,1,5,1,3,0,0,0,0,0,1,2,0,1,2,10,1
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Gloria Ikateka Loosa,30,0,16.8,5,2,4,0,0,1,2,1,0,1,0,1,0,0,1,8,4
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Yverline Ntemo Da Silva,98,0,11.7,2,1,2,0,0,0,0,1,2,3,0,0,1,0,2,8,5
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Miriam Uro-Nilie,19,1,27.2,15,5,10,3,7,2,2,0,4,4,4,4,1,1,1,32,22
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Loreen Burkhalter,1,0,20.4,12,5,9,1,2,1,2,1,1,2,1,1,0,1,2,12,10
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Sara Schellino,26,0,6,1,0,2,0,0,1,2,0,0,0,1,1,0,1,0,-2,-1
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Evi Bartel,25,1,9.8,0,0,4,0,0,0,0,3,3,6,0,0,0,0,4,1,2
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Keira Robinson,0,1,31.1,15,7,13,0,2,1,1,1,5,6,10,5,0,2,1,35,28
+26-00916,2026-10-03,SB League Women Preliminary phase,Nyon Basket Féminin,BC Alte Kanti Aarau,A,W 92-60,Alice Recanati,7,1,25.6,20,7,11,2,4,4,5,1,3,4,1,1,0,1,3,20,20
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Yeinny Dihigo Bravo,11,0,24,10,4,8,0,1,2,6,3,4,7,1,1,0,1,0,-19,10
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Alice Mauler,10,1,24.5,5,2,6,0,1,1,2,1,3,4,0,2,1,3,2,-27,4
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Nadia Constantin,4,1,15.2,0,0,3,0,1,0,0,0,0,0,0,1,0,3,1,-15,-5
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Ivanie Tacconi,15,1,14.8,1,0,1,0,0,1,2,0,3,3,0,0,0,1,2,-19,1
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Jade Krummenacher,5,0,16.5,5,1,3,1,1,2,4,2,0,2,0,1,0,2,1,-19,2
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Tyasia Freeman,2,0,34,12,5,9,0,0,2,2,2,3,5,1,3,0,4,2,-30,13
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Evan Miller,0,1,37.7,12,5,18,0,4,2,2,1,5,6,3,0,0,4,1,-39,4
+26-00915,2026-10-04,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Ravens de Genève LPLO,H,L 50-90,Lydia Melaschenko,33,1,33.4,5,1,10,1,6,2,2,1,1,2,2,1,1,2,3,-32,0
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Mélyssa Dutruel,11,1,25,18,8,15,1,4,1,1,0,4,4,2,1,0,1,0,23,17
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Marta Vincenzi,0,1,25.4,15,5,11,0,1,5,5,3,3,6,3,1,0,0,3,29,19
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Shaynis Gonin,23,0,15.1,4,2,5,0,2,0,0,0,0,0,1,3,0,1,2,20,4
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Sona Boiro Balde,10,0,4.2,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,10,0
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Emilie Burdin,4,1,27,7,3,6,1,3,0,0,0,1,1,1,1,1,1,1,17,7
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Kathy Burdin,7,0,8.2,0,0,2,0,2,0,0,0,0,0,0,0,0,1,2,8,-3
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Sokona Nyambwa,9,0,9.6,2,1,3,0,0,0,0,1,1,2,0,0,0,1,0,15,1
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Wivine Defosset,1,1,28.5,12,4,7,2,3,2,2,2,6,8,12,3,0,7,3,32,25
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Sanaé Agune,2,0,12,3,1,4,0,3,1,2,0,0,0,3,1,0,1,3,-1,2
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Caileigh Walsh,12,1,31.6,23,9,13,3,6,2,2,2,8,10,0,3,2,1,3,29,33
+26-00915,2026-10-04,SB League Women Preliminary phase,Ravens de Genève LPLO,BBC Troistorrents-Chablais,A,W 90-50,Marah Mougnutou,27,0,13.3,6,3,4,0,0,0,0,1,5,6,1,2,0,1,3,18,13
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Melina Katsikaris,10,0,20.3,0,0,2,0,1,0,0,0,2,2,0,0,0,0,2,-24,0
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Fiona Wyss,17,1,27.3,6,2,9,2,6,0,0,1,0,1,0,0,0,1,3,-21,-1
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Sybille Hofer,4,0,17.2,5,1,1,0,0,3,4,0,0,0,0,1,0,1,1,-27,4
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Leonora Alushi,6,0,6,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,-11,-2
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Lana Wenger,15,1,22.7,7,2,5,2,3,1,2,0,1,1,1,0,0,1,5,-19,4
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Ema Avdiu,8,0,2.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4,0
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Amirah Abdur-Rahim,23,1,32.5,9,4,18,0,2,1,3,3,8,11,2,1,0,2,4,-35,5
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Madison Torresin,22,1,34,19,5,11,2,7,7,7,0,3,3,2,6,0,5,2,-31,19
+26-00913,2026-10-06,SB League Women Preliminary phase,GC Zürich,Baden Basket 54,H,L 56-98,Briahanna Jackson,0,1,37.7,10,5,12,0,1,0,0,1,5,6,5,0,0,7,3,-38,7
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Ana Volk,4,0,21,2,1,3,0,0,0,0,1,1,2,2,1,0,2,1,26,3
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Sharline Hulliger,9,1,26.2,17,7,16,2,3,1,3,3,3,6,2,2,0,1,3,28,15
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Giulia Simeone,2,0,12.7,1,0,2,0,1,1,2,0,2,2,1,0,0,2,3,15,-1
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Cinzia Ferrari,7,1,19.9,6,2,2,2,2,0,0,0,2,2,1,2,0,2,0,19,9
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Klara Bartkowska,3,0,22.3,0,0,4,0,2,0,0,0,2,2,2,0,0,1,4,18,-1
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Annika Soltau,12,1,27.8,21,8,14,1,4,4,6,3,10,13,4,1,0,3,1,28,28
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Klara Majdandzic,16,0,7.7,4,2,3,0,0,0,0,0,2,2,0,0,0,0,1,12,5
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Lena Sakotic,19,0,6,2,1,2,0,0,0,0,1,1,2,0,0,0,0,0,11,3
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Leilani Kapinus,5,1,28.4,27,9,17,0,1,9,13,4,10,14,2,2,0,0,1,26,33
+26-00913,2026-10-06,SB League Women Preliminary phase,Baden Basket 54,GC Zürich,A,W 98-56,Skylar Vann,0,1,28,18,6,14,2,3,4,7,7,1,8,3,2,0,0,0,27,20
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Camila Martinez,8,0,19.2,9,3,9,1,5,2,2,4,2,6,2,1,0,1,1,34,11
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Stéphanie Martinez,4,1,20.8,11,4,8,2,3,1,2,2,3,5,5,5,0,2,0,18,19
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Sara Van Der Kaaij,3,0,4.8,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,-4,-1
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Elisa Moix,10,0,19.7,4,2,4,0,1,0,0,2,0,2,0,1,0,1,3,19,4
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Martha Balunga,2,0,11.6,2,1,3,0,0,0,0,1,2,3,3,0,0,0,1,8,6
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Mila Benjak,14,0,11,4,1,2,0,1,2,2,1,1,2,0,0,0,0,1,19,5
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Lara Popovic,5,1,26,10,3,9,3,7,1,2,1,3,4,2,1,0,2,3,19,8
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Nadine Furrer,7,0,2,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,-3,1
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Anna Holmberg,11,1,27.7,15,4,11,0,5,7,9,1,8,9,2,2,0,6,1,32,13
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Hannah Riddick,0,1,27.2,10,5,12,0,0,0,2,0,4,4,1,1,0,3,1,8,4
+26-00918,2026-10-07,SB League Women Preliminary phase,BCF Elfic Fribourg,BBC Troistorrents-Chablais,H,W 88-51,Lauren Heard,24,1,30.3,23,10,13,0,3,3,5,2,6,8,3,4,0,3,3,35,30
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Yeinny Dihigo Bravo,11,1,29.8,13,6,13,0,0,1,2,0,7,7,1,1,0,3,3,-19,11
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Alice Mauler,10,1,29.3,5,2,4,1,1,0,0,0,0,0,1,1,1,2,2,-34,4
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Ivanie Tacconi,15,0,16.1,2,1,6,0,1,0,0,1,3,4,1,1,0,4,1,-26,-1
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Jade Krummenacher,5,0,11.5,0,0,2,0,2,0,0,1,2,3,0,1,0,4,0,-3,-2
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Naomie Djitik,7,0,14.4,0,0,2,0,0,0,0,0,0,0,1,0,0,0,3,-23,-1
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Tyasia Freeman,2,1,26.5,14,6,12,0,0,2,2,2,2,4,3,3,1,1,2,-24,18
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Evan Miller,0,1,32.2,7,3,11,1,4,0,0,0,4,4,1,1,0,6,3,-31,-1
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Lydia Melaschenko,33,1,29.4,9,3,8,3,5,0,0,1,4,5,3,1,0,1,4,-21,12
+26-00918,2026-10-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,BCF Elfic Fribourg,A,L 51-88,Andrea Maric,8,0,11,1,0,0,0,0,1,2,1,1,2,0,0,0,1,1,-4,1
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Laure Margot,4,0,27.3,10,4,9,2,5,0,0,3,7,10,10,1,1,0,3,41,27
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Amélie De Preux,10,1,25,10,3,8,2,6,2,2,1,4,5,2,2,0,4,0,40,10
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Gloria Ikateka Loosa,30,0,18.4,11,5,7,1,2,0,0,2,0,2,0,2,0,0,0,29,13
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Yverline Ntemo Da Silva,98,0,15.7,4,2,4,0,0,0,0,1,8,9,0,2,2,2,0,14,13
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Miriam Uro-Nilie,19,1,16.3,15,6,7,3,4,0,1,0,3,3,4,3,1,1,0,37,23
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Loreen Burkhalter,1,1,21.6,7,2,8,0,0,3,6,1,3,4,3,0,0,0,1,38,5
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Sara Schellino,26,0,14.1,4,1,7,0,3,2,2,0,1,1,0,0,0,4,0,1,-5
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Evi Bartel,25,0,24.7,25,12,16,0,0,1,4,11,4,15,3,2,2,2,1,42,38
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Keira Robinson,0,1,16.9,11,3,7,1,2,4,4,2,5,7,2,1,0,4,1,39,13
+26-00919,2026-10-07,SB League Women Preliminary phase,Nyon Basket Féminin,Espérance Sportive Pully,H,W 110-43,Alice Recanati,7,1,20,13,4,6,2,3,3,3,1,2,3,5,4,2,1,1,54,24
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Malvina Mroczek,2,1,29.8,9,4,8,1,4,0,0,1,2,3,1,1,0,4,4,-58,6
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Anna Brenna,24,1,27.9,8,2,14,1,6,3,4,0,3,3,0,1,0,2,2,-29,-3
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Lea Julia Aurelia Hauser,4,1,12.5,3,1,2,1,2,0,0,0,0,0,1,1,0,1,0,-25,3
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Besma El Bekachi,22,0,17.4,1,0,6,0,3,1,2,0,1,1,0,1,0,2,2,-41,-6
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Lashonda Monk,0,1,12.7,14,5,10,0,2,4,6,1,2,3,1,4,0,1,1,-16,14
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Naomi Yenoth,9,0,19.3,0,0,6,0,2,0,0,0,1,1,2,1,0,3,0,-32,-5
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Giulia Elisa Von Burg,3,0,20.5,4,2,7,0,2,0,0,0,0,0,0,0,0,3,1,-29,-4
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Mujinga Vader,21,1,31.5,2,1,10,0,2,0,0,5,4,9,0,0,0,2,2,-50,0
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Nora Ebassi,14,0,10,0,0,2,0,0,0,0,1,1,2,0,0,0,1,2,-32,-1
+26-00919,2026-10-07,SB League Women Preliminary phase,Espérance Sportive Pully,Nyon Basket Féminin,A,L 43-110,Julia Casas Figueroa,10,0,18.5,2,1,4,0,0,0,0,1,1,2,1,0,0,3,1,-23,-1
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Mélyssa Dutruel,11,1,27.2,18,8,16,0,1,2,2,3,5,8,3,0,0,3,0,-2,18
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Marta Vincenzi,3,1,26,16,6,12,0,3,4,4,2,2,4,5,3,1,4,2,23,19
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Shaynis Gonin,23,0,13.2,7,2,3,1,2,2,2,1,1,2,1,2,0,2,1,16,9
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Sona Boiro Balde,10,0,3.7,0,0,1,0,0,0,0,0,1,1,1,0,0,0,1,2,1
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Emilie Burdin,4,1,16.1,5,2,4,1,2,0,0,1,0,1,1,1,0,1,2,1,5
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Kathy Burdin,7,0,14.3,8,3,6,2,5,0,0,0,3,3,2,0,0,1,2,21,9
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Sokona Nyambwa,9,0,6.4,2,1,3,0,0,0,0,1,1,2,0,1,0,1,3,0,2
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Wivine Defosset,1,1,30.8,17,7,13,2,5,1,2,1,7,8,13,3,0,2,0,4,32
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Sanaé Agune,2,0,13.1,3,1,5,1,4,0,0,1,2,3,1,0,0,1,0,16,2
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Caileigh Walsh,0,1,30.6,26,11,22,1,5,3,3,3,8,11,3,3,0,3,1,25,29
+26-00920,2026-10-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Hélios VS Basket,H,W 102-81,Marah Mougnutou,27,0,18.6,0,0,0,0,0,0,0,1,3,4,2,0,1,0,4,-1,7
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Virginie Bruchez,8,1,30.2,9,3,6,3,4,0,0,0,2,2,2,0,0,0,2,-8,10
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Cécilia De Preux,9,1,23.9,4,2,6,0,1,0,0,1,1,2,1,1,0,1,3,-14,3
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Louise Forsyth,0,1,36.9,20,8,21,1,4,3,6,6,9,15,4,1,1,7,3,-20,18
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Tess Corthay,6,0,20.7,5,2,6,0,3,1,2,2,0,2,2,2,0,4,0,-17,2
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Cassiopée Burri,4,0,7.5,0,0,2,0,0,0,0,0,0,0,1,0,0,0,1,5,-1
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Louise Prada,15,0,7.4,3,1,1,0,0,1,2,1,0,1,0,0,0,0,0,-13,3
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Aurélie Roduit,12,0,3.1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7,0
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Kylie Lavelle,14,1,38.4,32,13,25,3,9,3,3,3,7,10,0,1,3,1,2,-20,33
+26-00920,2026-10-07,SB League Women Preliminary phase,Hélios VS Basket,Ravens de Genève LPLO,A,L 81-102,Maeve Marie St John,22,1,32.1,8,3,13,0,5,2,2,0,4,4,8,6,1,6,1,-11,11
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Ana Volk,4,0,10.8,0,0,1,0,0,0,0,0,0,0,1,0,0,1,2,-6,-1
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Sharline Hulliger,9,1,37.7,19,7,12,2,4,3,6,0,4,4,1,1,1,6,4,-7,12
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Giulia Simeone,2,0,9.8,0,0,0,0,0,0,0,0,1,1,1,0,0,2,0,16,0
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Cinzia Ferrari,7,1,25.5,0,0,4,0,3,0,0,2,3,5,3,1,0,2,3,-1,3
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Klara Bartkowska,3,1,15.9,2,1,1,0,0,0,0,0,1,1,1,0,0,4,2,-17,0
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Annika Soltau,12,0,34.6,22,7,10,1,1,7,10,2,5,7,1,1,1,2,1,3,24
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Leilani Kapinus,0,1,28.8,24,8,12,1,2,7,11,1,4,5,5,2,0,7,4,-5,21
+26-00924,2026-10-11,SB League Women Preliminary phase,Baden Basket 54,Nyon Basket Féminin,H,L 77-82,Skylar Vann,24,1,36.9,10,3,11,0,2,4,4,2,9,11,3,1,0,2,2,-8,15
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Laure Margot,4,0,31.3,13,5,17,2,9,1,2,1,1,2,0,2,0,2,3,-9,2
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Amélie De Preux,10,0,12.9,5,2,2,1,1,0,0,0,0,0,3,1,0,0,4,-4,9
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Gloria Ikateka Loosa,30,0,8.7,4,2,4,0,2,0,2,0,0,0,0,0,0,0,1,-8,0
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Yverline Ntemo Da Silva,98,0,7.6,4,2,3,0,0,0,0,0,2,2,0,0,0,0,1,4,5
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Miriam Uro-Nilie,19,1,40,10,3,10,1,6,3,4,1,7,8,3,1,1,2,2,5,13
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Loreen Burkhalter,1,1,10.2,3,1,5,0,2,1,2,0,0,0,1,0,0,0,0,12,-1
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Evi Bartel,25,1,19.6,8,4,6,0,1,0,0,3,3,6,0,0,0,0,3,5,12
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Keira Robinson,0,1,40,21,9,20,2,8,1,2,5,5,10,4,7,0,4,1,5,26
+26-00924,2026-10-11,SB League Women Preliminary phase,Nyon Basket Féminin,Baden Basket 54,A,W 82-77,Alice Recanati,7,1,29.8,14,5,11,0,2,4,6,3,0,3,5,2,0,2,5,15,14
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Stacy Mazeko,70,0,10.1,3,1,3,1,3,0,0,0,0,0,0,0,0,1,2,-5,0
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Malvina Mroczek,0,1,25.1,11,4,8,2,5,1,2,1,3,4,0,1,0,4,2,-11,7
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Anna Brenna,24,1,20.1,12,3,7,1,2,5,6,2,0,2,1,1,0,2,2,-19,9
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Lea Julia Aurelia Hauser,4,0,16.1,0,0,3,0,2,0,0,0,3,3,2,1,0,1,2,-9,2
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Besma El Bekachi,12,0,23.1,9,3,6,3,5,0,0,0,4,4,1,0,0,1,3,-14,10
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Naomi Yenoth,41,0,4.5,0,0,0,0,0,0,0,0,2,2,0,0,0,1,2,-11,1
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Manon Gaudry,26,0,8.8,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,-6,-2
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Sophie Azahar Lanfranchi Rio,10,0,5.8,0,0,1,0,1,0,0,0,0,0,2,0,0,3,2,-3,-2
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Giulia Elisa Von Burg,3,1,18.7,5,0,2,0,1,5,8,0,0,0,0,0,0,4,1,-18,-4
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Mujinga Vader,21,1,26.1,10,5,8,0,2,0,0,1,4,5,0,2,0,5,3,-16,9
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Nora Ebassi,15,0,5.7,0,0,0,0,0,0,2,0,2,2,0,0,0,0,0,1,0
+26-00922,2026-10-11,SB League Women Preliminary phase,Espérance Sportive Pully,BC Alte Kanti Aarau,H,L 52-80,Gabriela Pimentel De Barros Falcao,11,1,35.9,2,1,10,0,2,0,0,5,10,15,4,3,1,5,3,-29,11
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Martina Guthauser,21,1,29,10,4,5,2,3,0,0,0,3,3,2,7,1,2,2,23,20
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Ann-Sophie Wildi,22,0,20.6,5,2,3,1,2,0,0,1,2,3,1,3,0,0,2,11,11
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Enisa Semanjaku,13,1,20.1,7,3,12,0,5,1,3,3,1,4,5,4,0,2,2,18,7
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Virag Kiss,8,1,29.4,14,5,11,1,3,3,4,2,2,4,1,2,0,0,2,19,14
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Emma Hoffmann Gonzalez,24,1,26.2,8,4,13,0,4,0,0,3,5,8,2,3,0,1,5,19,11
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Celia Truninger,9,0,9.2,3,1,5,1,2,0,0,1,1,2,0,0,0,1,1,4,0
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Norah Hangartner,25,0,12.4,6,3,7,0,1,0,1,1,3,4,1,0,0,1,0,10,5
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Rayla Merz,2,0,16.9,4,1,5,0,3,2,2,0,1,1,3,0,0,1,1,10,3
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Federica Verta,5,0,9.2,8,2,3,0,1,4,7,0,0,0,2,2,0,2,1,3,6
+26-00922,2026-10-11,SB League Women Preliminary phase,BC Alte Kanti Aarau,Espérance Sportive Pully,A,W 80-52,Ella Elizabeth Murphy Wiebe,0,1,27,15,4,6,0,0,7,10,4,5,9,2,4,0,1,2,23,24
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Melina Katsikaris,10,0,13.5,0,0,1,0,0,0,0,0,3,3,0,0,0,1,0,-1,1
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Fiona Wyss,17,1,10.8,0,0,1,0,1,0,0,0,1,1,1,0,0,0,2,-6,1
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Sybille Hofer,4,0,17.7,6,3,7,0,2,0,0,0,1,1,0,0,0,3,2,-16,0
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Leonora Alushi,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Lana Wenger,15,1,38,17,8,18,0,4,1,2,3,4,7,0,1,4,1,2,-23,17
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Johanna Maria Chichande Renteria,11,0,1.7,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,-5,-2
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Amirah Abdur-Rahim,23,1,40,21,9,14,1,1,2,5,3,13,16,2,0,0,5,4,-23,26
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Madison Torresin,0,1,40,11,3,16,1,9,4,4,0,2,2,4,4,0,3,2,-23,5
+26-00925,2026-10-11,SB League Women Preliminary phase,GC Zürich,Ravens de Genève LPLO,H,L 69-92,Briahanna Jackson,88,1,38.4,14,7,16,0,0,0,0,4,8,12,5,3,0,6,5,-18,19
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Mélyssa Dutruel,11,1,25.1,8,2,12,2,5,2,2,3,0,3,3,1,0,2,1,4,3
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Marta Vincenzi,3,1,22.3,11,4,10,0,2,3,4,3,4,7,3,4,0,4,3,14,14
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Shaynis Gonin,23,0,16.7,7,1,5,0,2,5,8,2,5,7,1,0,0,1,2,11,7
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Sona Boiro Balde,10,0,4.8,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,-6,-2
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Emilie Burdin,4,1,21.4,8,3,8,2,5,0,0,0,0,0,1,1,0,1,0,10,4
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Kathy Burdin,7,0,12.7,7,3,7,1,2,0,0,1,3,4,1,0,0,0,0,18,8
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Sokona Nyambwa,9,0,5.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Wivine Defosset,1,1,31.6,6,3,11,0,7,0,0,0,4,4,8,1,0,3,2,14,8
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Sanaé Agune,2,0,13.1,10,3,5,2,4,2,2,0,3,3,2,2,0,0,0,9,15
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Caileigh Walsh,0,1,21,30,9,15,6,9,6,8,3,3,6,0,3,0,0,4,25,31
+26-00925,2026-10-11,SB League Women Preliminary phase,Ravens de Genève LPLO,GC Zürich,A,W 92-69,Marah Mougnutou,27,0,25.7,5,2,5,1,2,0,0,1,6,7,1,0,0,0,1,14,10
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Virginie Bruchez,8,1,26.3,4,1,7,0,4,2,2,0,1,1,1,0,0,2,1,-18,-2
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Tiffany Murisier,7,0,10.4,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,-3,-1
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Cécilia De Preux,9,1,20.8,7,3,7,1,2,0,0,1,0,1,2,0,0,1,0,-11,5
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Louise Forsyth,0,1,34.4,16,6,15,2,4,2,3,2,5,7,8,1,0,3,2,-24,19
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Tess Corthay,6,0,20,6,2,4,2,3,0,0,1,2,3,1,0,0,1,0,-2,7
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Cassiopée Burri,4,0,4.4,2,1,1,0,0,0,0,0,3,3,0,0,0,1,0,-1,4
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Louise Prada,15,0,11.2,0,0,3,0,0,0,0,2,0,2,0,0,0,1,0,-3,-2
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Aurélie Roduit,12,0,2.7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,-6,0
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Kylie Lavelle,14,1,36.6,34,14,19,3,5,3,3,2,3,5,2,2,2,0,0,-20,40
+26-00923,2026-10-11,SB League Women Preliminary phase,Hélios VS Basket,BCF Elfic Fribourg,H,L 85-106,Maeve Marie St John,13,1,33.3,16,6,14,2,6,2,2,1,2,3,11,1,0,4,2,-17,19
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Camila Martinez,8,0,16.8,2,1,5,0,3,0,0,0,5,5,2,0,0,1,1,14,4
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Stéphanie Martinez,4,1,22.3,12,4,7,4,7,0,0,0,1,1,2,1,0,1,1,9,12
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Sara Van Der Kaaij,3,0,4.4,0,0,1,0,0,0,0,0,0,0,2,1,0,0,1,1,2
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Elisa Moix,10,0,18.1,12,4,6,4,4,0,0,0,1,1,4,0,0,1,0,13,14
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Martha Balunga,2,0,7.3,0,0,2,0,0,0,0,0,1,1,0,0,0,0,1,-1,-1
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Mila Benjak,14,0,11.1,9,4,5,1,2,0,0,1,0,1,2,1,0,0,3,3,12
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Lara Popovic,5,1,25.8,14,5,8,2,4,2,2,1,2,3,4,0,0,2,1,8,16
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Anna Holmberg,11,1,30.4,8,3,12,2,6,0,0,2,3,5,2,2,0,3,1,17,5
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Hannah Riddick,0,1,33.9,28,13,17,0,0,2,2,6,5,11,4,0,1,1,2,20,39
+26-00923,2026-10-11,SB League Women Preliminary phase,BCF Elfic Fribourg,Hélios VS Basket,A,W 106-85,Lauren Heard,24,1,30.2,21,10,15,0,0,1,1,2,7,9,7,2,0,1,2,21,33
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Sharline Hulliger,9,1,30,18,7,17,1,6,3,10,2,1,3,8,7,1,5,1,54,15
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Giulia Simeone,2,0,23.5,10,3,6,2,2,2,2,1,2,3,1,2,0,2,2,25,11
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Cinzia Ferrari,7,1,16.5,0,0,0,0,0,0,0,1,0,1,4,3,0,1,0,32,7
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Klara Bartkowska,3,0,16.7,9,3,8,1,3,2,2,0,1,1,1,3,0,1,0,10,8
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Annika Soltau,12,1,25.1,19,5,8,1,1,8,9,3,6,9,3,3,1,2,1,50,29
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Klara Majdandzic,16,0,17.8,8,4,7,0,0,0,0,0,2,2,0,1,0,1,1,18,7
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Lena Sakotic,19,0,12.6,0,0,1,0,1,0,0,1,0,1,0,0,0,1,1,1,-1
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Leilani Kapinus,0,1,26.3,25,10,12,2,3,3,5,8,6,14,7,4,1,5,2,50,42
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Skylar Vann,24,1,21.5,16,7,13,0,1,2,2,5,6,11,5,2,1,2,0,43,27
+26-00929,2026-10-17,SB League Women Preliminary phase,Baden Basket 54,Espérance Sportive Pully,H,W 107-50,Luana Liebi,8,0,10.1,2,1,3,0,2,0,0,1,0,1,0,1,0,1,0,2,1
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Stacy Mazeko,70,0,10.6,0,0,0,0,0,0,0,0,0,0,1,0,0,2,0,-9,-1
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Anna Brenna,24,1,28.8,12,5,12,1,3,1,2,0,2,2,1,4,0,5,3,-48,6
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Besma El Bekachi,12,0,2.8,2,1,1,0,0,0,1,0,1,1,0,0,0,0,0,0,2
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Elena Paris,7,1,35.3,6,3,5,0,1,0,0,0,2,2,3,1,0,4,1,-47,6
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Malvina Mroczek,0,1,34.8,11,4,11,3,6,0,0,0,4,4,2,0,0,8,2,-54,2
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Naomi Yenoth,41,0,14.7,0,0,3,0,2,0,0,2,1,3,0,1,0,5,2,-23,-4
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Gabriela Pimentel De Barros Falcao,10,1,25,10,4,12,0,2,2,2,0,1,1,0,1,1,4,4,-23,1
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Mujinga Vader,21,1,34.3,3,1,8,1,5,0,0,3,0,3,2,3,0,7,5,-59,-3
+26-00929,2026-10-17,SB League Women Preliminary phase,Espérance Sportive Pully,Baden Basket 54,A,L 50-107,Nora Ebassi,15,0,13.7,6,3,7,0,0,0,0,2,2,4,0,2,0,1,2,-22,7
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Laure Margot,0,1,40,26,8,27,6,15,4,4,1,8,9,5,4,0,1,2,15,24
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Amélie De Preux,10,0,14.3,0,0,2,0,2,0,0,1,1,2,1,0,0,0,2,-6,1
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Gloria Ikateka Loosa,30,1,20.5,11,4,9,2,4,1,2,3,2,5,1,0,0,1,2,19,10
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Yverline Ntemo Da Silva,98,0,17.4,4,2,2,0,0,0,0,1,4,5,0,1,0,1,2,12,9
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Miriam Uro-Nilie,19,1,40,22,7,15,6,13,2,2,1,6,7,2,0,1,1,3,15,23
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Loreen Burkhalter,1,0,19.5,5,1,6,1,5,2,2,1,1,2,3,0,0,0,1,3,5
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Sara Schellino,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Evi Bartel,25,1,18.4,4,2,4,0,1,0,0,2,4,6,1,1,0,0,3,12,10
+26-00926,2026-10-18,SB League Women Preliminary phase,Nyon Basket Féminin,GC Zürich,H,W 87-72,Alice Recanati,7,1,30,15,6,18,1,4,2,2,2,3,5,6,0,0,4,5,5,10
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Melina Katsikaris,10,0,9.6,0,0,0,0,0,0,0,0,2,2,0,0,0,1,1,-7,1
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Sybille Hofer,4,1,31.1,0,0,1,0,1,0,0,0,1,1,0,0,0,0,1,-7,0
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Leonora Alushi,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Lana Wenger,15,1,39.5,12,4,14,1,3,3,5,1,3,4,3,0,3,1,2,-18,9
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Lina Maria Ayun Aguayo Ebert,12,0,1.5,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,-3,-1
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Johanna Maria Chichande Renteria,11,0,4.8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4,0
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Amirah Abdur-Rahim,23,1,35.2,19,5,11,2,2,7,8,3,11,14,1,1,0,4,5,-6,24
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Madison Torresin,0,1,38.3,16,5,17,2,10,4,5,1,9,10,2,3,0,3,1,-15,15
+26-00926,2026-10-18,SB League Women Preliminary phase,GC Zürich,Nyon Basket Féminin,A,L 72-87,Briahanna Jackson,88,1,40,25,10,16,1,4,4,6,1,5,6,3,1,0,7,4,-15,20
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Yeinny Dihigo Bravo,11,1,28.6,17,7,11,0,0,3,5,7,9,16,0,0,0,2,3,-2,25
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Alice Mauler,10,0,20.4,3,1,4,1,2,0,0,1,4,5,0,0,1,2,4,-12,4
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Nadia Constantin,4,1,31,13,5,15,3,8,0,2,2,1,3,3,0,0,3,2,2,4
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Ivanie Tacconi,15,0,10.2,0,0,3,0,0,0,0,1,2,3,2,0,0,1,1,-20,1
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Jade Krummenacher,5,0,3.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,0
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Naomie Djitik,7,0,2,0,0,1,0,1,0,0,1,0,1,0,0,0,0,1,2,0
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Tyasia Freeman,2,1,29.7,12,5,13,0,0,2,2,5,2,7,3,1,1,1,1,12,15
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Evan Miller,0,1,36.6,16,6,16,2,4,2,2,0,7,7,3,0,1,2,4,-6,15
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Lydia Melaschenko,33,1,38.2,16,3,8,3,7,7,9,1,1,2,3,3,0,2,4,-4,15
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Lucile Monti,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00927,2026-10-18,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Hélios VS Basket,H,L 77-83,Andrea Maric,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Virginie Bruchez,8,1,29,3,1,6,1,5,0,0,1,2,3,2,0,0,1,2,-12,2
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Tiffany Murisier,7,0,12.6,0,0,2,0,2,0,0,0,0,0,1,2,0,0,1,20,1
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Cécilia De Preux,9,1,13.1,4,1,5,0,2,2,2,0,0,0,0,0,0,1,1,-3,-1
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Louise Forsyth,10,1,37.9,20,6,15,0,1,8,11,1,7,8,4,0,0,3,3,4,17
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Tess Corthay,6,0,29.5,10,4,9,0,2,2,2,2,4,6,4,2,0,0,1,15,17
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Louise Prada,15,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Aurélie Roduit,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Kylie Lavelle,0,1,40,30,11,17,3,5,5,5,5,10,15,1,2,1,2,4,6,41
+26-00927,2026-10-18,SB League Women Preliminary phase,Hélios VS Basket,BBC Troistorrents-Chablais,A,W 83-77,Maeve Marie St John,13,1,35,16,4,11,2,5,6,6,2,3,5,8,3,0,4,4,-2,21
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Mélyssa Dutruel,11,1,38.8,14,5,10,1,3,3,4,0,3,3,4,0,0,0,0,-11,15
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Marta Vincenzi,0,1,34,20,7,13,0,1,6,8,3,3,6,5,4,1,8,5,-4,20
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Shaynis Gonin,23,0,14.7,4,2,3,0,0,0,0,0,2,2,3,2,0,2,1,-3,8
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Sona Boiro Balde,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Emilie Burdin,4,1,35.1,9,3,9,2,6,1,2,0,3,3,1,1,0,1,2,2,6
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Eleonore Villiot,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Kathy Burdin,7,0,11.7,0,0,1,0,1,0,0,0,1,1,0,0,0,1,1,-6,-1
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Sokona Nyambwa,9,0,2.2,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,-9,-1
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Naomi Davenport,12,1,29.1,17,6,12,3,5,2,2,0,8,8,4,2,1,5,4,-10,21
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Wivine Defosset,1,1,36.7,14,5,9,2,5,2,4,0,5,5,6,0,0,2,2,-4,17
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Sanaé Agune,2,0,9.1,9,3,3,1,1,2,2,0,2,2,1,0,0,1,3,-2,11
+26-00928,2026-10-18,SB League Women Preliminary phase,Ravens de Genève LPLO,BCF Elfic Fribourg,H,L 87-94,Marah Mougnutou,27,0,13.8,0,0,1,0,0,0,0,1,2,3,1,0,0,1,3,12,2
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Camila Martinez,8,0,33.7,10,4,10,2,4,0,0,0,2,2,2,1,0,1,2,6,8
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Stéphanie Martinez,4,1,34.6,8,3,9,2,5,0,1,0,3,3,5,3,0,3,3,16,9
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Sara Van Der Kaaij,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Elisa Moix,10,0,21.3,0,0,1,0,1,0,0,0,0,0,0,1,0,1,2,-2,-1
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Martha Balunga,2,0,4.1,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1,-2
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Mila Benjak,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Lara Popovic,5,1,17.2,5,2,5,1,3,0,0,0,2,2,1,1,0,0,2,0,6
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Anna Holmberg,11,1,39.1,21,8,18,1,6,4,4,2,4,6,2,2,0,2,2,8,19
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Hannah Riddick,0,1,45,34,13,22,0,0,8,11,7,10,17,3,2,2,0,2,7,46
+26-00928,2026-10-18,SB League Women Preliminary phase,BCF Elfic Fribourg,Ravens de Genève LPLO,A,W 94-87,Lauren Heard,24,1,30,16,6,11,0,0,4,7,0,2,2,3,2,0,3,4,-1,12
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Melina Katsikaris,10,0,8,1,0,1,0,0,1,2,2,2,4,0,1,0,1,0,3,3
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Rona Avdiu,8,0,5,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Sybille Hofer,4,1,32.4,5,1,6,0,2,3,5,2,2,4,0,1,0,2,4,7,1
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Leonora Alushi,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Lana Wenger,15,1,35.7,6,1,8,0,1,4,6,5,13,18,3,3,0,7,4,3,14
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Lina Maria Ayun Aguayo Ebert,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Carina Nicolae,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Johanna Maria Chichande Renteria,11,0,2.6,2,1,1,0,0,0,2,0,0,0,0,0,0,0,0,-1,0
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Amirah Abdur-Rahim,23,1,36.3,20,8,14,1,3,3,6,2,8,10,1,1,2,5,3,6,20
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Madison Torresin,0,1,40,10,1,10,0,6,8,8,0,3,3,2,5,0,2,1,6,9
+26-00937,2026-10-22,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,H,W 59-53,Briahanna Jackson,88,1,40,15,5,15,0,3,5,6,1,4,5,2,7,0,6,4,6,12
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Martina Guthauser,21,1,35.6,9,4,12,1,5,0,0,0,4,4,3,4,0,5,4,-5,7
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Ann-Sophie Wildi,22,1,10.8,0,0,1,0,0,0,0,0,1,1,0,0,0,2,4,-1,-2
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Enisa Semanjaku,13,0,26.5,12,6,12,0,2,0,0,0,6,6,1,3,0,5,1,-5,11
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Virag Kiss,8,1,30.8,8,3,12,0,2,2,2,1,5,6,1,1,0,2,3,4,5
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Emma Hoffmann Gonzalez,24,1,28.5,7,1,11,0,6,5,6,2,5,7,0,3,0,4,5,-2,2
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Celia Truninger,9,0,3,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Norah Hangartner,25,0,11,0,0,1,0,0,0,0,0,1,1,0,0,0,0,2,-7,0
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Lia Scheller,3,0,6.4,2,1,3,0,1,0,0,0,1,1,0,0,0,0,0,1,1
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Rayla Merz,2,0,9.2,0,0,0,0,0,0,0,1,0,1,0,0,0,6,3,-10,-5
+26-00937,2026-10-22,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,A,L 53-59,Ella Elizabeth Murphy Wiebe,0,1,38.2,15,4,7,0,0,7,9,1,5,6,3,4,0,3,3,-5,20
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Yeinny Dihigo Bravo,11,1,35.4,14,7,15,0,0,0,0,2,7,9,2,1,0,4,4,-23,14
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Alice Mauler,10,0,20.6,12,5,8,0,2,2,2,3,5,8,1,1,0,3,1,-13,16
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Nadia Constantin,4,1,15.5,2,1,4,0,3,0,0,0,1,1,1,0,0,2,4,-13,-1
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Ivanie Tacconi,15,1,17.1,4,1,4,0,0,2,2,1,2,3,2,2,0,3,2,-18,5
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Jade Krummenacher,5,0,19.3,2,1,3,0,0,0,0,1,1,2,1,0,0,4,2,-21,-1
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Naomie Djitik,7,0,18.8,7,2,5,1,2,2,2,4,0,4,1,2,0,1,3,-4,10
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Evan Miller,0,1,29.5,8,3,17,2,8,0,0,1,4,5,0,0,0,6,1,-20,-7
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Lydia Melaschenko,33,1,31.8,24,6,12,1,4,11,13,2,2,4,2,0,0,2,1,-9,20
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Lucile Monti,6,0,6.5,0,0,1,0,1,0,0,0,0,0,2,1,0,1,0,-3,1
+26-00932,2026-10-24,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Baden Basket 54,H,L 73-98,Andrea Maric,8,0,5.6,0,0,1,0,0,0,0,0,1,1,0,0,0,2,0,-1,-2
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Ana Volk,4,0,17.8,0,0,1,0,0,0,2,0,1,1,2,0,0,1,3,7,-1
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Sharline Hulliger,9,1,31.3,8,3,8,0,2,2,6,2,3,5,4,3,0,2,3,15,9
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Cinzia Ferrari,7,1,26.1,4,2,5,0,1,0,0,0,1,1,2,1,0,0,1,11,5
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Klara Bartkowska,3,1,26,12,4,8,1,2,3,5,1,2,3,1,0,0,2,2,13,8
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Annika Soltau,12,0,25,13,6,13,0,2,1,3,1,6,7,2,2,3,3,1,6,15
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Klara Majdandzic,16,0,10.4,0,0,2,0,1,0,0,1,0,1,0,1,1,0,2,2,1
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Lena Sakotic,19,0,6.9,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0,2,1
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Leilani Kapinus,0,1,28.5,35,14,18,1,2,6,9,1,9,10,6,11,0,4,4,40,51
+26-00932,2026-10-24,SB League Women Preliminary phase,Baden Basket 54,BBC Troistorrents-Chablais,A,W 98-73,Skylar Vann,24,1,28,25,12,17,0,2,1,1,2,2,4,7,1,1,3,3,29,30
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Camila Martinez,8,0,21.8,5,2,8,1,5,0,0,0,0,0,1,1,0,0,3,-9,1
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Stéphanie Martinez,4,1,27.6,5,2,7,1,5,0,0,0,4,4,2,0,1,1,1,7,6
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Sara Van Der Kaaij,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Elisa Moix,10,0,17.5,2,1,1,0,0,0,0,0,0,0,2,1,0,0,2,-5,5
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Martha Balunga,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Mila Benjak,14,0,2.3,1,0,1,0,0,1,2,1,1,2,0,0,0,0,0,0,1
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Lara Popovic,5,1,34.5,8,2,7,2,5,2,2,0,2,2,1,1,0,0,2,16,7
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Nadine Furrer,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Anna Holmberg,11,1,24.9,13,3,11,1,3,6,10,1,3,4,1,0,0,1,2,6,5
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Hannah Riddick,0,1,37.7,15,6,13,0,0,3,5,6,7,13,1,3,0,2,2,7,21
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Lauren Heard,24,1,33.7,22,9,15,2,5,2,3,0,7,7,4,1,0,4,3,13,23
+26-00930,2026-10-25,SB League Women Preliminary phase,BCF Elfic Fribourg,Nyon Basket Féminin,H,W 71-64,Veronika Bernardini,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Laure Margot,0,1,27.7,13,4,10,1,4,4,4,0,2,2,4,0,0,2,2,-15,11
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Amélie De Preux,10,1,7.7,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1,-13,0
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Gloria Ikateka Loosa,30,0,33.2,6,2,6,1,2,1,2,1,1,2,1,1,0,1,2,8,4
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Yverline Ntemo Da Silva,98,0,17.5,2,1,4,0,2,0,0,0,3,3,0,0,0,0,3,1,2
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Miriam Uro-Nilie,19,1,38.8,17,7,16,3,8,0,0,3,6,9,1,0,2,5,4,-8,15
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Loreen Burkhalter,1,0,12.3,4,2,3,0,1,0,0,0,1,1,1,1,0,1,0,8,5
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Evi Bartel,25,0,11.2,2,1,2,0,0,0,0,0,1,1,0,0,0,0,3,-4,2
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Keira Robinson,34,1,37.7,12,4,12,0,5,4,5,0,10,10,4,1,0,3,2,-3,15
+26-00930,2026-10-25,SB League Women Preliminary phase,Nyon Basket Féminin,BCF Elfic Fribourg,A,L 64-71,Alice Recanati,7,1,14,8,4,9,0,1,0,0,1,1,2,0,0,0,0,3,-9,5
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Tiffany Murisier,7,0,15.5,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,-21,1
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Cécilia De Preux,9,1,29.1,4,2,8,0,3,0,0,0,3,3,2,2,0,1,2,10,4
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Louise Forsyth,10,1,39.2,25,10,16,2,5,3,5,3,5,8,3,2,0,6,5,-6,24
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Tess Corthay,6,1,35,9,3,6,1,4,2,4,0,2,2,3,0,0,5,3,-3,4
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Cassiopée Burri,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Louise Prada,15,0,3.1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,-3,-1
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Aurélie Roduit,12,0,2.2,2,1,2,0,0,0,0,0,0,0,0,0,0,0,0,-5,1
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Kylie Lavelle,0,1,38.8,10,3,12,1,5,3,4,1,5,6,0,0,0,5,5,-7,1
+26-00931,2026-10-25,SB League Women Preliminary phase,Hélios VS Basket,GC Zürich,H,L 74-82,Maeve Marie St John,13,1,37.2,24,8,19,3,10,5,5,4,12,16,8,3,1,7,0,-5,34
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Melina Katsikaris,10,0,13.4,0,0,1,0,0,0,0,1,4,5,1,0,0,1,2,4,4
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Fiona Wyss,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Sybille Hofer,4,1,23.3,0,0,4,0,0,0,0,2,0,2,0,1,0,0,2,0,-1
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Lana Wenger,15,1,37.7,21,9,20,1,5,2,2,3,8,11,2,2,1,1,5,4,25
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Madison Torresin,0,1,37.9,24,7,20,5,11,5,9,0,3,3,2,5,0,5,1,4,12
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Briahanna Jackson,88,1,38.2,36,15,29,2,5,4,4,2,9,11,5,3,0,4,5,11,37
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Ema Avdiu,8,0,14,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,7,0
+26-00931,2026-10-25,SB League Women Preliminary phase,GC Zürich,Hélios VS Basket,A,W 82-74,Stratoniki Cholopoulou,41,1,35.6,1,0,1,0,0,1,2,2,3,5,5,3,0,6,2,10,6
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Martina Guthauser,21,1,34.2,6,2,5,0,2,2,2,0,5,5,0,4,0,7,4,-19,5
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Ann-Sophie Wildi,22,0,12.7,2,1,2,0,0,0,0,0,0,0,0,0,0,2,2,-14,-1
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Enisa Semanjaku,13,1,31.4,7,3,15,0,4,1,3,1,4,5,3,2,0,2,4,-16,1
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Lucie Elisseeff,6,0,8.2,0,0,1,0,0,0,0,1,1,2,0,1,0,6,1,-6,-4
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Virag Kiss,8,1,26.4,8,2,8,0,1,4,6,0,6,6,1,0,0,2,3,-13,5
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Emma Hoffmann Gonzalez,24,1,23.9,6,2,7,0,1,2,2,3,7,10,1,1,1,3,4,-20,11
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Celia Truninger,9,0,4.3,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,-4,1
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Norah Hangartner,25,0,6.5,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,-6,-1
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Lia Scheller,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Rayla Merz,2,0,13.2,0,0,2,0,1,0,0,0,0,0,0,1,0,2,1,-5,-3
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Federica Verta,5,0,5.3,0,0,0,0,0,0,0,0,1,1,0,1,0,1,1,-4,1
+26-00933,2026-10-25,SB League Women Preliminary phase,BC Alte Kanti Aarau,Ravens de Genève LPLO,H,L 50-75,Ella Elizabeth Murphy Wiebe,0,1,34,21,9,14,0,0,3,4,4,3,7,0,0,0,4,1,-18,18
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Mélyssa Dutruel,11,1,17.8,12,4,8,0,1,4,5,2,2,4,0,1,0,2,0,5,10
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Marta Vincenzi,0,1,34.7,18,6,13,1,4,5,6,1,5,6,2,3,0,1,0,29,20
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Shaynis Gonin,23,0,13.5,10,3,4,1,2,3,6,0,0,0,1,2,0,2,3,12,7
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Sona Boiro Balde,10,0,7.4,3,0,2,0,0,3,4,1,0,1,0,0,0,0,2,4,1
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Emilie Burdin,4,1,30.7,8,4,8,0,4,0,0,2,3,5,1,1,0,3,1,15,8
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Eleonore Villiot,5,0,6.3,0,0,1,0,1,0,0,0,1,1,0,1,0,0,2,6,1
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Kathy Burdin,7,0,14.5,5,2,7,1,5,0,2,0,2,2,0,1,0,1,0,8,0
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Sokona Nyambwa,9,0,5,2,1,1,0,0,0,0,0,1,1,0,1,0,0,1,7,4
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Naomi Davenport,12,1,25.4,6,3,6,0,2,0,0,1,3,4,0,1,1,2,2,11,7
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Wivine Defosset,1,1,30.2,6,2,7,0,2,2,5,0,4,4,8,6,0,4,2,14,12
+26-00933,2026-10-25,SB League Women Preliminary phase,Ravens de Genève LPLO,BC Alte Kanti Aarau,A,W 75-50,Marah Mougnutou,27,0,14.6,5,2,4,0,1,1,2,1,2,3,0,2,0,0,3,14,7
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Ana Volk,4,0,20.4,2,1,4,0,1,0,2,1,0,1,1,3,1,4,1,14,-1
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Sharline Hulliger,9,1,33,21,8,17,1,5,4,6,1,4,5,7,5,2,5,4,19,24
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Giulia Simeone,2,0,12.1,3,1,1,1,1,0,0,0,1,1,1,1,0,0,2,7,6
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Cinzia Ferrari,7,1,28,4,1,5,0,3,2,2,0,1,1,0,2,0,3,2,19,0
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Klara Bartkowska,3,1,15.3,6,3,5,0,0,0,0,1,2,3,0,0,2,2,0,4,7
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Annika Soltau,12,0,12.9,10,3,11,0,0,4,4,3,4,7,1,2,0,0,0,15,12
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Klara Majdandzic,16,0,10.9,0,0,3,0,0,0,0,0,0,0,1,0,0,1,2,2,-3
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Leilani Kapinus,0,1,30.1,25,12,15,0,1,1,2,5,14,19,4,3,2,3,1,31,46
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Skylar Vann,24,1,31.9,20,10,17,0,0,0,0,5,0,5,5,5,0,3,2,22,25
+26-00936,2026-10-31,SB League Women Preliminary phase,Baden Basket 54,Hélios VS Basket,H,W 93-66,Brunner Nora,5,0,5.3,2,1,2,0,0,0,0,0,0,0,0,0,0,1,0,2,0
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Cécilia De Preux,9,1,22.2,0,0,2,0,0,0,0,0,3,3,1,1,0,5,1,-18,-2
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Louise Forsyth,10,1,32.2,21,7,20,3,3,4,6,2,8,10,2,0,1,4,4,-26,15
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Tess Corthay,6,1,31.2,6,3,13,0,3,0,0,0,1,1,2,4,0,3,1,-16,0
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Cassiopée Burri,4,0,11.7,4,0,1,0,0,4,4,0,2,2,0,2,0,3,1,-10,4
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Louise Prada,15,0,16.1,2,1,5,0,0,0,0,3,1,4,0,0,0,4,1,-13,-2
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Aurélie Roduit,12,0,17.1,5,2,3,0,0,1,2,1,0,1,1,0,0,2,1,-11,3
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Kylie Lavelle,0,1,37.4,12,5,9,0,2,2,2,1,4,5,0,2,0,8,1,-24,7
+26-00936,2026-10-31,SB League Women Preliminary phase,Hélios VS Basket,Baden Basket 54,A,L 66-93,Maeve Marie St John,13,1,32.1,16,4,10,4,9,4,4,0,3,3,6,3,0,5,2,-17,17
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Camila Martinez,8,0,19.2,5,2,4,1,2,0,2,0,1,1,2,0,1,2,3,2,3
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Stéphanie Martinez,4,1,25.8,17,6,10,5,7,0,0,0,5,5,7,1,1,1,0,27,26
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Sara Van Der Kaaij,3,0,3.8,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,-2,0
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Elisa Moix,10,0,15.2,3,1,4,1,3,0,0,0,0,0,0,1,0,0,1,13,1
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Martha Balunga,2,0,14.9,7,2,3,0,0,3,4,0,1,1,2,1,0,2,1,-2,7
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Mila Benjak,14,0,10.4,1,0,1,0,1,1,2,0,0,0,1,1,0,0,2,1,1
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Lara Popovic,5,1,23,3,1,5,1,3,0,0,0,2,2,1,1,0,1,2,26,2
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Nadine Furrer,7,0,2.2,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,-2,1
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Veronika Bernardini,1,0,1.6,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Anna Holmberg,11,1,30.1,30,10,12,6,8,4,4,1,1,2,1,3,0,2,2,27,32
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Hannah Riddick,0,1,26.2,9,3,6,0,0,3,4,2,5,7,1,0,0,1,1,15,12
+26-00910,2026-11-01,SB League Women Preliminary phase,BCF Elfic Fribourg,BC Alte Kanti Aarau,H,W 95-72,Lauren Heard,20,1,27.6,20,9,13,1,1,1,2,0,2,2,8,4,0,6,1,11,23
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Martina Guthauser,21,1,26.1,6,3,6,0,0,0,0,0,5,5,3,1,0,0,1,-16,12
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Ann-Sophie Wildi,22,0,11.4,0,0,0,0,0,0,0,0,2,2,1,0,0,0,2,4,3
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Enisa Semanjaku,13,1,33.7,13,3,12,0,3,7,8,2,6,8,3,7,0,7,4,-19,14
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Lucie Elisseeff,6,0,11.6,5,2,2,1,1,0,0,0,1,1,1,0,0,3,1,2,4
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Virag Kiss,8,1,19.2,11,5,9,1,3,0,0,2,1,3,0,0,1,1,0,-23,10
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Emma Hoffmann Gonzalez,24,1,31.8,10,4,9,2,4,0,0,3,5,8,1,0,1,1,1,-14,14
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Norah Hangartner,25,0,16.3,2,0,0,0,0,2,2,0,0,0,0,1,0,0,3,-13,3
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Lia Scheller,3,0,11.6,0,0,1,0,1,0,0,0,0,0,1,0,0,1,0,-13,-1
+26-00910,2026-11-01,SB League Women Preliminary phase,BC Alte Kanti Aarau,BCF Elfic Fribourg,A,L 72-95,Ella Elizabeth Murphy Wiebe,0,1,38.3,25,10,17,0,0,5,7,2,3,5,1,0,1,6,3,-23,17
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Laure Margot,0,1,25.3,16,5,11,4,9,2,2,1,1,2,5,1,0,0,2,21,18
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Amélie De Preux,10,0,20.6,3,1,2,1,2,0,0,0,1,1,3,1,0,2,2,1,5
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Gloria Ikateka Loosa,30,1,22.5,1,0,5,0,4,1,2,0,3,3,2,0,0,1,1,6,-1
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Yverline Ntemo Da Silva,98,0,14.1,6,3,4,0,0,0,0,0,2,2,0,0,0,3,3,-13,4
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Miriam Uro-Nilie,19,1,22.4,5,1,8,1,4,2,2,3,3,6,3,1,0,1,0,25,7
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Loreen Burkhalter,1,0,24.5,9,4,14,1,4,0,0,3,3,6,2,1,0,2,4,-7,6
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Sara Schellino,26,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Evi Bartel,25,0,19.3,7,3,8,1,2,0,3,6,5,11,0,0,0,0,1,1,10
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Keira Robinson,34,1,24.9,13,5,7,0,1,3,4,1,6,7,4,1,1,2,2,27,21
+26-00934,2026-11-01,SB League Women Preliminary phase,Nyon Basket Féminin,BBC Troistorrents-Chablais,H,W 87-72,Nyamer Diew,12,1,26.6,27,9,17,7,11,2,2,3,8,11,1,1,1,2,3,14,31
+26-00934,2026-11-01,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Nyon Basket Féminin,A,L 72-87,Yeinny Dihigo Bravo,11,1,30,8,2,11,0,0,4,7,2,5,7,0,0,1,0,1,-32,4
+26-00934,2026-11-01,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Nyon Basket Féminin,A,L 72-87,Nadia Constantin,4,1,40,30,11,21,3,9,5,5,2,2,4,0,0,0,1,3,-15,23
+26-00934,2026-11-01,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Nyon Basket Féminin,A,L 72-87,Ivanie Tacconi,15,1,26.7,1,0,2,0,2,1,2,1,6,7,0,2,0,0,2,-7,7
+26-00934,2026-11-01,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Nyon Basket Féminin,A,L 72-87,Jade Krummenacher,5,0,26.8,0,0,7,0,4,0,0,2,3,5,0,1,0,1,2,6,-2
+26-00934,2026-11-01,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Nyon Basket Féminin,A,L 72-87,Evan Miller,0,1,38.6,23,11,23,0,7,1,2,3,5,8,1,2,0,1,2,-13,20
+26-00934,2026-11-01,SB League Women Preliminary phase,BBC Troistorrents-Chablais,Nyon Basket Féminin,A,L 72-87,Lydia Melaschenko,33,1,37.9,10,2,8,0,5,6,6,1,4,5,2,2,0,6,4,-14,7
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Marta Vincenzi,0,1,23.4,11,4,16,0,4,3,4,1,2,3,3,7,0,2,3,32,9
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Shaynis Gonin,23,1,21.4,16,6,10,2,4,2,2,4,4,8,0,7,3,3,1,24,27
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Sona Boiro Balde,10,0,18.5,10,4,9,0,2,2,2,3,2,5,2,5,0,1,0,24,16
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Emilie Burdin,4,1,20.7,8,4,7,0,2,0,0,2,0,2,2,3,2,4,1,26,10
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Eleonore Villiot,5,0,14.6,6,2,9,2,8,0,0,0,0,0,0,3,0,1,1,14,1
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Kathy Burdin,7,0,20.6,13,6,11,1,5,0,0,5,1,6,2,1,0,1,1,25,16
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Nadia Rosa,6,0,12,0,0,1,0,1,0,0,0,0,0,1,1,0,3,0,11,-2
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Naomi Davenport,12,1,25,16,7,13,2,5,0,0,4,4,8,7,3,0,2,1,34,26
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Wivine Defosset,1,1,19.8,16,6,7,2,3,2,4,0,1,1,7,4,2,2,0,25,25
+26-00935,2026-11-04,SB League Women Preliminary phase,Ravens de Genève LPLO,Espérance Sportive Pully,H,W 99-50,Marah Mougnutou,27,0,24.2,3,1,4,0,0,1,2,3,4,7,2,3,0,3,2,30,8
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Malvina Mroczek,0,1,40,9,4,10,1,2,0,0,2,3,5,5,3,0,10,1,-49,6
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Anna Brenna,24,1,7.8,0,0,1,0,1,0,0,0,1,1,0,2,0,3,3,-4,-1
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Naomi Yenoth,41,1,31.7,5,2,6,0,1,1,2,1,1,2,1,3,0,7,3,-38,-1
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Sophie Azahar Lanfranchi Rio,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Giulia Elisa Von Burg,3,0,33.3,8,3,8,2,3,0,0,0,1,1,1,0,0,9,3,-44,-4
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Mujinga Vader,21,1,28.6,2,1,2,0,1,0,0,1,3,4,2,4,0,9,1,-33,2
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Gabriela Pimentel De Barros Falcao,33,1,40,23,11,18,1,1,0,0,0,9,9,4,3,1,3,1,-49,30
+26-00935,2026-11-04,SB League Women Preliminary phase,Espérance Sportive Pully,Ravens de Genève LPLO,A,L 50-99,Daïna Aly,25,0,18.6,3,1,6,0,0,1,2,0,2,2,0,2,0,6,2,-28,-5
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Anna Brenna,0,1,31.3,13,4,15,2,3,3,6,3,3,6,0,0,0,2,2,-49,3
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Naomi Yenoth,41,1,18.3,0,0,2,0,0,0,2,0,1,1,0,0,0,3,3,-39,-6
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Sofia Gaillard ,13,1,19.8,3,1,7,1,2,0,0,1,0,1,0,0,0,0,3,-40,-2
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Manon Gaudry,26,0,11.1,0,0,0,0,0,0,0,1,0,1,1,0,0,1,1,-5,1
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Giulia Elisa Von Burg,3,0,22.7,7,2,5,1,1,2,2,0,2,2,1,0,1,6,0,-17,2
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Mujinga Vader,2,1,32,13,6,13,1,2,0,2,1,4,5,2,1,0,6,3,-53,6
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Nora Ebassi,15,0,18,3,1,2,1,1,0,0,1,4,5,1,0,0,0,1,-14,8
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Gabriela Pimentel De Barros Falcao,33,1,40,13,6,17,0,1,1,2,2,12,14,4,1,1,4,4,-56,17
+26-00938,2026-11-07,SB League Women Preliminary phase,Espérance Sportive Pully,BCF Elfic Fribourg,H,L 52-108,Daïna Aly,25,0,6.9,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,-7,-1
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Camila Martinez,8,1,32.9,14,6,16,2,10,0,0,1,7,8,2,3,1,1,2,41,17
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Sara Van Der Kaaij,3,0,8.5,0,0,2,0,2,0,0,1,0,1,2,0,0,0,1,15,1
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Martha Balunga,2,0,22.8,5,1,5,0,1,3,4,0,5,5,7,0,0,0,2,17,12
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Mila Benjak,14,0,24,5,2,6,1,3,0,0,2,1,3,0,0,2,2,3,26,4
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Lara Popovic,5,1,26.4,17,6,10,5,9,0,0,1,2,3,7,0,0,2,1,50,21
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Anna Holmberg,11,1,25.7,19,6,14,5,9,2,2,1,5,6,2,3,2,0,3,32,24
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Hannah Riddick,0,1,30.4,23,9,14,0,1,5,6,4,5,9,4,3,2,0,2,54,35
+26-00938,2026-11-07,SB League Women Preliminary phase,BCF Elfic Fribourg,Espérance Sportive Pully,A,W 108-52,Lauren Heard,24,1,29.4,25,9,14,2,7,5,5,1,6,7,9,4,2,0,1,45,42
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Marta Vincenzi,0,1,29.2,12,3,15,1,4,5,7,1,2,3,2,5,1,2,4,8,7
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Shaynis Gonin,23,1,34.1,9,3,7,0,2,3,3,1,3,4,1,3,1,2,3,-13,12
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Emilie Burdin,4,1,27,0,0,6,0,3,0,0,1,1,2,3,1,0,1,3,13,-1
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Eleonore Villiot,5,0,4.1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1,-10,-1
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Kathy Burdin,7,0,18.4,5,2,6,1,3,0,0,0,0,0,0,0,0,2,0,-28,-1
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Nadia Rosa,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Naomi Davenport,12,1,34.9,32,13,26,2,8,4,4,7,13,20,2,1,4,4,4,-2,42
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Wivine Defosset,1,1,30.3,13,4,9,3,5,2,4,0,1,1,6,4,0,5,4,20,12
+26-00939,2026-11-07,SB League Women Preliminary phase,Ravens de Genève LPLO,Baden Basket 54,H,L 73-80,Marah Mougnutou,27,0,21.9,2,1,2,0,0,0,0,0,2,2,1,2,0,0,1,-23,6
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Sharline Hulliger,9,1,32.2,11,3,6,2,3,3,4,1,4,5,2,3,0,5,4,12,12
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Giulia Simeone,2,0,18.5,2,1,2,0,0,0,0,0,3,3,2,0,0,1,0,-4,5
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Cinzia Ferrari,7,1,34.8,6,2,5,1,2,1,1,0,3,3,3,2,0,5,3,8,6
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Klara Bartkowska,3,1,18.8,9,4,7,1,2,0,0,0,0,0,0,3,0,3,4,-15,6
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Annika Soltau,12,1,32.4,15,3,15,1,3,8,10,4,9,13,4,2,3,4,1,19,19
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Klara Majdandzic,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Leilani Kapinus,0,1,30,20,8,15,1,3,3,5,3,8,11,6,2,1,4,4,5,27
+26-00939,2026-11-07,SB League Women Preliminary phase,Baden Basket 54,Ravens de Genève LPLO,A,W 80-73,Skylar Vann,24,0,33.4,17,6,15,1,4,4,5,3,8,11,5,0,0,1,2,10,22
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Martina Guthauser,21,1,32.2,11,4,11,3,9,0,0,0,6,6,2,1,0,3,5,22,10
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Ann-Sophie Wildi,22,1,19.6,2,1,2,0,0,0,0,0,3,3,0,0,0,2,0,10,2
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Enisa Semanjaku,13,1,34,19,9,17,0,5,1,5,0,6,6,5,1,0,1,4,16,18
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Lucie Elisseeff,6,0,13.4,0,0,2,0,1,0,0,0,0,0,1,3,0,0,1,4,2
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Virag Kiss,8,1,28.7,15,6,12,3,6,0,0,1,5,6,1,0,0,3,3,10,13
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Norah Hangartner,25,0,9.8,2,1,2,0,1,0,0,1,0,1,2,1,0,0,0,-1,5
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Lia Scheller,3,0,8,0,0,1,0,1,0,0,0,1,1,0,0,0,1,1,-2,-1
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Rayla Merz,2,0,14.7,4,1,2,1,2,1,2,0,0,0,2,0,0,0,0,10,4
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Aleksandra Soltirov,11,0,2.4,4,2,2,0,0,0,0,1,0,1,0,0,0,0,0,-2,5
+26-00940,2026-11-07,SB League Women Preliminary phase,BC Alte Kanti Aarau,Hélios VS Basket,H,W 80-62,Ella Elizabeth Murphy Wiebe,0,1,37.2,23,11,13,1,1,0,3,5,10,15,5,2,1,4,2,23,37
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Cécilia De Preux,9,1,29.6,0,0,6,0,1,0,0,1,1,2,0,1,0,1,0,-2,-4
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Louise Forsyth,0,1,35.3,16,7,12,1,2,1,5,1,5,6,0,1,0,3,2,-14,11
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Tess Corthay,6,1,36.1,21,7,14,4,10,3,5,1,4,5,2,1,0,2,3,-16,18
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Louise Prada,15,0,15,2,1,3,0,2,0,1,1,1,2,0,0,0,0,1,-12,1
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Aurélie Roduit,12,0,13.6,2,1,2,0,0,0,0,1,0,1,0,1,0,1,3,-21,2
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Kylie Lavelle,14,1,30.5,13,5,11,2,7,1,2,1,4,5,1,1,0,2,5,-11,11
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Maeve Marie St John,13,1,37.4,8,3,15,2,10,0,2,1,5,6,9,6,0,4,1,-13,11
+26-00940,2026-11-07,SB League Women Preliminary phase,Hélios VS Basket,BC Alte Kanti Aarau,A,L 62-80,Louise Chehab,8,0,2.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Melina Katsikaris,10,1,15.6,5,2,2,0,0,1,1,1,3,4,0,1,0,0,3,1,10
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Fiona Wyss,17,0,18.4,3,1,3,1,3,0,0,0,0,0,1,2,0,0,1,10,4
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Sybille Hofer,14,0,14.6,6,3,4,0,1,0,0,1,2,3,1,0,0,1,1,13,8
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Leonora Alushi,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Lana Wenger,15,1,40,23,11,18,0,2,1,4,0,8,8,0,0,4,2,3,17,23
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Carina Nicolae,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Johanna Maria Chichande Renteria,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Madison Torresin,0,1,38.6,13,6,17,1,8,0,0,0,6,6,7,4,0,2,3,17,17
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Briahanna Jackson,23,1,39.7,23,11,20,0,1,1,2,0,15,15,3,2,0,4,5,18,29
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Ema Avdiu,3,0,5.3,0,0,1,0,1,0,0,0,1,1,0,1,0,0,0,1,1
+26-00941,2026-11-07,SB League Women Preliminary phase,GC Zürich,BBC Troistorrents-Chablais,H,W 77-60,Stratoniki Cholopoulou,1,1,27.7,4,1,3,1,2,1,2,1,0,1,4,2,0,1,1,8,7
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Yeinny Dihigo Bravo,11,1,36.2,7,3,8,0,0,1,4,4,5,9,4,2,0,4,0,-15,10
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Alice Mauler,10,0,8.5,0,0,3,0,0,0,0,1,2,3,0,0,0,1,0,-4,-1
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Nadia Constantin,4,1,32.6,7,3,19,1,10,0,0,2,5,7,1,0,0,1,2,-21,-2
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Ivanie Tacconi,15,1,24.3,5,2,4,1,3,0,2,0,4,4,2,2,0,1,1,-10,8
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Jade Krummenacher,5,0,4.7,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,-2,-2
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Naomie Djitik,7,0,17.1,0,0,3,0,3,0,0,1,3,4,1,0,0,2,4,-6,0
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Evan Miller,0,1,38.7,23,8,21,4,12,3,4,0,5,5,2,2,0,2,1,-15,16
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Lydia Melaschenko,33,1,35.9,18,6,15,6,15,0,0,2,2,4,1,2,0,4,4,-13,12
+26-00941,2026-11-07,SB League Women Preliminary phase,BBC Troistorrents-Chablais,GC Zürich,A,L 60-77,Lucile Monti,6,0,2.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Martina Guthauser,21,1,35.2,6,2,11,2,8,0,0,0,7,7,4,1,0,3,1,-4,6
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Ann-Sophie Wildi,22,0,10.3,2,1,2,0,1,0,0,0,0,0,0,0,0,1,0,-7,0
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Enisa Semanjaku,13,1,28.3,19,6,19,3,8,4,4,4,2,6,7,4,0,5,4,4,18
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Lucie Elisseeff,6,0,16.7,5,2,4,0,1,1,2,0,0,0,0,1,0,1,0,-6,2
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Virag Kiss,8,1,25.4,8,1,5,0,0,6,6,1,3,4,3,3,0,3,2,1,11
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Emma Hoffmann Gonzalez,24,1,21.6,2,1,8,0,4,0,0,2,7,9,0,1,1,5,1,-10,1
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Celia Truninger,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Norah Hangartner,25,0,5.2,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,-2,2
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Lia Scheller,3,0,5.2,0,0,3,0,2,0,0,2,0,2,1,0,0,0,0,-2,0
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Rayla Merz,2,0,10.9,8,3,3,2,2,0,0,0,0,0,0,0,0,0,1,0,8
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Aleksandra Soltirov,11,0,2.2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,-4,1
+26-00945,2026-11-26,SB League Women Preliminary phase,BC Alte Kanti Aarau,GC Zürich,H,L 75-82,Ella Elizabeth Murphy Wiebe,0,1,39.1,23,9,17,0,1,5,7,6,4,10,2,1,2,4,3,-5,24
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Zeljka Nedovic,9,0,25.4,4,2,3,0,0,0,0,3,2,5,0,0,0,2,4,8,6
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Melina Katsikaris,10,1,17.9,0,0,0,0,0,0,0,1,3,4,1,1,0,1,2,2,5
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Fiona Wyss,17,1,32.2,4,2,7,0,2,0,2,2,2,4,2,2,0,4,2,8,1
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Sybille Hofer,14,0,13.1,2,1,2,0,0,0,0,1,1,2,0,1,0,3,2,6,1
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Leonora Alushi,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Johanna Maria Chichande Renteria,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Madison Torresin,22,1,40,34,11,21,7,15,5,5,0,4,4,1,4,0,1,0,7,32
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Briahanna Jackson,0,1,40,33,13,23,5,10,2,2,0,12,12,6,4,0,7,4,7,38
+26-00945,2026-11-26,SB League Women Preliminary phase,GC Zürich,BC Alte Kanti Aarau,A,W 82-75,Stratoniki Cholopoulou,1,1,31.4,5,1,8,1,5,2,4,0,3,3,5,3,0,5,4,-3,2

@@ -1,0 +1,122 @@
+﻿team,player,no,pos,gp,gs,min,pts,fgm,fga,tpm,tpa,ftm,fta,oreb,dreb,reb,ast,stl,blk,to,pf,pm,eff,min_pg,pts_pg,reb_pg,ast_pg,eff_pg,fg_pct,tp_pct,ft_pct
+Baden Basket 54,Skylar Vann,24,Forward,8,7,253.3,148,62,115,5,16,19,29,30,31,61,35,16,3,17,10,149,183,31.7,18.5,7.6,4.4,22.9,53.9,31.3,65.5
+Baden Basket 54,Leilani Kapinus,0,Guard,8,8,242.7,192,75,115,7,18,35,55,29,73,102,37,32,6,31,21,177,278,30.3,24,12.8,4.6,34.8,65.2,38.9,63.6
+Baden Basket 54,Sharline Hulliger,9,Guard,8,8,233.8,112,42,91,10,27,18,39,11,25,36,26,25,5,26,26,142,108,29.2,14,4.5,3.3,13.5,46.2,37,46.2
+Baden Basket 54,Annika Soltau,12,Guard,8,3,209.2,136,47,99,5,14,37,48,22,48,70,20,13,12,17,7,141,171,26.1,17,8.8,2.5,21.4,47.5,35.7,77.1
+Baden Basket 54,Cinzia Ferrari,7,Point guard,8,7,196.1,26,9,26,3,13,5,6,4,12,16,18,12,0,18,14,97,36,24.5,3.3,2,2.3,4.5,34.6,23.1,83.3
+Baden Basket 54,Klara Bartkowska,3,Small forward,8,6,169.2,44,18,41,3,12,5,7,4,11,15,7,7,2,18,18,39,32,21.2,5.5,1.9,0.9,4,43.9,25,71.4
+Baden Basket 54,Ana Volk,4,Point guard,6,1,100,6,3,15,0,3,0,4,4,3,7,9,4,1,14,7,45,-3,16.7,1,1.2,1.5,-0.5,20,0,0
+Baden Basket 54,Giulia Simeone,2,Guard,7,0,99.3,21,7,18,4,6,3,4,1,10,11,8,8,0,10,9,55,26,14.2,3,1.6,1.1,3.7,38.9,66.7,75
+Baden Basket 54,Klara Majdandzic,16,Guard,5,0,54.2,12,6,16,0,1,0,0,3,4,7,1,2,1,3,6,25,10,10.8,2.4,1.4,0.2,2,37.5,0,
+Baden Basket 54,Lena Sakotic,19,Point guard,4,0,26.9,3,1,4,0,2,1,1,2,2,4,1,0,0,3,1,16,2,6.7,0.8,1,0.3,0.5,25,0,100
+Baden Basket 54,Luana Liebi,8,,1,0,10.1,2,1,3,0,2,0,0,1,0,1,0,1,0,1,0,2,1,10.1,2,1,0,1,33.3,0,
+Baden Basket 54,Brunner Nora,5,G,1,0,5.3,2,1,2,0,0,0,0,0,0,0,0,0,0,1,0,2,0,5.3,2,0,0,0,50,,
+Baden Basket 54,Laura Rodriguez Da Cruz,11,Guard,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,
+BBC Troistorrents-Chablais,Evan Miller,0,Small forward,8,8,284.8,134,52,144,15,59,15,20,7,41,48,19,7,3,28,12,-104,86,35.6,16.8,6,2.4,10.8,36.1,25.4,75
+BBC Troistorrents-Chablais,Lydia Melaschenko,33,Point guard,8,8,277,105,27,78,19,54,32,39,10,17,27,20,17,2,21,24,-74,92,34.6,13.1,3.4,2.5,11.5,34.6,35.2,82.1
+BBC Troistorrents-Chablais,Yeinny Dihigo Bravo,11,Forward,8,7,229.5,87,38,81,0,3,11,24,21,46,67,10,7,1,19,16,-100,97,28.7,10.9,8.4,1.3,12.1,46.9,0,45.8
+BBC Troistorrents-Chablais,Nadia Constantin,4,Point guard,7,7,195.1,75,27,85,12,42,9,12,8,13,21,9,3,0,16,14,-45,31,27.9,10.7,3,1.3,4.4,31.8,28.6,75
+BBC Troistorrents-Chablais,Alice Mauler,10,Guard,7,2,147,40,16,41,4,11,4,6,8,26,34,5,8,3,16,15,-70,47,21,5.7,4.9,0.7,6.7,39,36.4,66.7
+BBC Troistorrents-Chablais,Ivanie Tacconi,15,Forward,8,4,141.3,17,6,28,1,6,4,8,5,24,29,11,9,3,12,15,-81,31,17.7,2.1,3.6,1.4,3.9,21.4,16.7,50
+BBC Troistorrents-Chablais,Tyasia Freeman,2,Forward,5,4,136.2,56,24,47,0,0,8,12,14,21,35,10,10,5,9,8,-18,80,27.2,11.2,7,2,16,51.1,,66.7
+BBC Troistorrents-Chablais,Jade Krummenacher,5,Small forward,8,0,101.4,12,4,20,2,9,2,4,7,8,15,6,3,0,16,8,-30,2,12.7,1.5,1.9,0.8,0.3,20,22.2,50
+BBC Troistorrents-Chablais,Naomie Djitik,7,Guard,5,0,62.5,7,2,13,1,7,2,2,7,5,12,3,2,0,4,12,-31,9,12.5,1.4,2.4,0.6,1.8,15.4,14.3,100
+BBC Troistorrents-Chablais,Andrea Maric,8,Guard,2,0,16.6,1,0,1,0,0,1,2,1,2,3,0,0,0,3,1,-5,-1,8.3,0.5,1.5,0,-0.5,0,,50
+BBC Troistorrents-Chablais,Lucile Monti,6,Small forward,2,0,8.6,0,0,1,0,1,0,0,0,0,0,2,1,0,1,0,-2,1,4.3,0,0,1,0.5,0,0,
+BC Alte Kanti Aarau,Ella Elizabeth Murphy Wiebe,0,Forward,9,9,307.9,167,66,114,2,5,33,47,29,47,76,21,14,5,36,23,-33,185,34.2,18.6,8.4,2.3,20.6,57.9,40,70.2
+BC Alte Kanti Aarau,Martina Guthauser,21,Guard,9,9,289.7,68,26,72,10,39,6,6,2,44,46,22,24,2,27,22,-61,89,32.2,7.6,5.1,2.4,9.9,36.1,25.6,100
+BC Alte Kanti Aarau,Enisa Semanjaku,13,Small forward,8,7,237.5,105,42,117,4,34,17,27,15,32,47,27,28,1,29,22,-28,94,29.7,13.1,5.9,3.4,11.8,35.9,11.8,63
+BC Alte Kanti Aarau,Emma Hoffmann Gonzalez,24,Small forward,8,7,225.3,62,21,79,4,29,16,22,19,40,59,8,14,3,18,24,-84,64,28.2,7.8,7.4,1,8,26.6,13.8,72.7
+BC Alte Kanti Aarau,Virag Kiss,8,Point guard,9,9,219.8,85,31,84,6,26,17,22,12,28,40,9,7,1,20,19,-24,64,24.4,9.4,4.4,1,7.1,36.9,23.1,77.3
+BC Alte Kanti Aarau,Ann-Sophie Wildi,22,Guard,9,3,125.6,11,5,10,1,3,0,0,2,11,13,2,4,0,12,12,-11,13,14,1.2,1.4,0.2,1.4,50,33.3,
+BC Alte Kanti Aarau,Lucie Elisseeff,6,Point guard,6,1,106.4,26,8,26,1,8,9,12,5,4,9,6,7,0,16,5,-17,11,17.7,4.3,1.5,1,1.8,30.8,12.5,75
+BC Alte Kanti Aarau,Rayla Merz,2,Point guard,8,0,105.7,19,6,19,4,10,3,4,2,4,6,7,3,0,15,11,-35,6,13.2,2.4,0.8,0.9,0.8,31.6,40,75
+BC Alte Kanti Aarau,Norah Hangartner,25,Small forward,7,0,83.1,21,8,15,3,6,2,3,2,4,6,3,3,0,3,6,-31,22,11.9,3,0.9,0.4,3.1,53.3,50,66.7
+BC Alte Kanti Aarau,Lia Scheller,3,Point guard,7,0,57,10,4,12,2,8,0,0,2,3,5,3,0,0,5,1,-37,5,8.1,1.4,0.7,0.4,0.7,33.3,25,
+BC Alte Kanti Aarau,Federica Verta,5,Point guard,3,0,17.8,8,2,3,0,1,4,7,1,2,3,2,3,0,3,2,0,9,5.9,2.7,1,0.7,3,66.7,0,57.1
+BC Alte Kanti Aarau,Celia Truninger,9,Guard,3,0,16.5,3,1,6,1,2,0,0,2,1,3,0,1,0,1,1,0,1,5.5,1,1,0,0.3,16.7,50,
+BC Alte Kanti Aarau,Aleksandra Soltirov,11,Forward,2,0,4.6,4,2,2,0,0,0,0,1,0,1,1,0,0,0,1,-6,6,2.3,2,0.5,0.5,3,100,,
+BC Alte Kanti Aarau,Aysha Salah,4,Point guard,1,0,3.2,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,2,-1,3.2,0,0,0,-1,0,0,
+BCF Elfic Fribourg,Hannah Riddick,0,Small forward,8,8,268.6,159,66,115,0,1,27,42,34,48,82,16,15,5,12,12,114,201,33.6,19.9,10.3,2,25.1,57.4,0,64.3
+BCF Elfic Fribourg,Lauren Heard,24,Point guard,8,8,255.6,150,59,109,5,22,27,43,11,46,57,49,22,2,20,20,151,194,32,18.8,7.1,6.1,24.3,54.1,22.7,62.8
+BCF Elfic Fribourg,Anna Holmberg,11,Forward,8,8,224.3,134,44,99,20,49,26,33,11,32,43,10,12,2,18,19,148,121,28,16.8,5.4,1.3,15.1,44.4,40.8,78.8
+BCF Elfic Fribourg,Lara Popovic,5,Guard,8,7,201,77,25,55,17,39,10,13,3,22,25,22,6,0,10,18,141,87,25.1,9.6,3.1,2.8,10.9,45.5,43.6,76.9
+BCF Elfic Fribourg,Stéphanie Martinez,4,Point guard,7,7,188.3,68,25,58,16,36,2,5,3,22,25,27,15,3,10,5,86,92,26.9,9.7,3.6,3.9,13.1,43.1,44.4,40
+BCF Elfic Fribourg,Camila Martinez,8,Small forward,8,2,186.3,63,26,67,9,36,2,4,7,18,25,13,7,2,7,14,82,60,23.3,7.9,3.1,1.6,7.5,38.8,25,50
+BCF Elfic Fribourg,Elisa Moix,10,Guard,7,0,125,32,11,24,8,15,2,2,3,3,6,7,5,0,7,10,65,30,17.9,4.6,0.9,1,4.3,45.8,53.3,100
+BCF Elfic Fribourg,Mila Benjak,14,Small forward,7,0,79,20,7,19,2,8,4,6,5,5,10,5,3,2,3,11,48,23,11.3,2.9,1.4,0.7,3.3,36.8,25,66.7
+BCF Elfic Fribourg,Martha Balunga,2,Point guard,6,0,67.5,15,4,15,0,2,7,10,1,9,10,12,1,0,4,10,15,20,11.2,2.5,1.7,2,3.3,26.7,0,70
+BCF Elfic Fribourg,Sara Van Der Kaaij,3,Point guard,5,0,23.7,0,0,3,0,2,0,0,1,1,2,4,1,1,2,3,11,3,4.7,0,0.4,0.8,0.6,0,0,
+BCF Elfic Fribourg,Nadine Furrer,7,Guard,2,0,4.2,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,-5,2,2.1,0,1,0,1,,,
+BCF Elfic Fribourg,Veronika Bernardini,1,Small forward,1,0,1.6,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,1.6,0,0,0,-1,0,,
+Espérance Sportive Pully,Malvina Mroczek,0,Guard,7,7,225.5,58,22,61,8,25,6,11,9,20,29,13,7,0,33,15,-232,30,32.2,8.3,4.1,1.9,4.3,36.1,32,54.5
+Espérance Sportive Pully,Mujinga Vader,2,Guard,8,8,225.3,38,18,63,2,18,0,2,15,27,42,10,17,0,42,25,-249,18,28.2,4.8,5.3,1.3,2.3,28.6,11.1,0
+Espérance Sportive Pully,Anna Brenna,0,Small forward,7,7,172.2,60,20,80,7,24,13,19,8,19,27,2,9,0,18,16,-186,14,24.6,8.6,3.9,0.3,2,25,29.2,68.4
+Espérance Sportive Pully,Naomi Yenoth,41,Point guard,8,2,143.1,18,7,26,1,7,3,8,9,9,18,3,5,0,28,19,-174,-8,17.9,2.3,2.3,0.4,-1,26.9,14.3,37.5
+Espérance Sportive Pully,Gabriela Pimentel De Barros Falcao,33,Forward,4,4,140.9,48,22,57,1,6,3,4,7,32,39,12,8,4,16,12,-157,59,35.2,12,9.8,3,14.8,38.6,16.7,75
+Espérance Sportive Pully,Giulia Elisa Von Burg,3,Guard,6,2,136,35,12,35,4,12,7,10,1,5,6,3,1,1,29,7,-143,-9,22.7,5.8,1,0.5,-1.5,34.3,33.3,70
+Espérance Sportive Pully,Lashonda Monk,0,Point guard,4,4,122.3,109,38,88,2,9,31,42,13,22,35,7,24,2,10,7,-89,106,30.6,27.3,8.8,1.8,26.5,43.2,22.2,73.8
+Espérance Sportive Pully,Nora Ebassi,15,Forward,6,2,94.8,17,7,22,1,1,2,4,7,15,22,1,2,0,4,10,-108,21,15.8,2.8,3.7,0.2,3.5,31.8,100,50
+Espérance Sportive Pully,Besma El Bekachi,12,Small forward,4,0,70.8,23,7,23,5,13,4,7,0,10,10,2,1,0,4,9,-60,13,17.7,5.8,2.5,0.5,3.3,30.4,38.5,57.1
+Espérance Sportive Pully,Manon Gaudry,26,Small forward,5,0,60.5,0,0,4,0,0,0,0,5,3,8,2,1,0,7,8,-64,0,12.1,0,1.6,0.4,0,0,,
+Espérance Sportive Pully,Lea Julia Aurelia Hauser,4,Guard,3,2,51.2,3,1,9,1,7,0,0,0,3,3,3,2,0,6,4,-53,-3,17.1,1,1,1,-1,11.1,14.3,
+Espérance Sportive Pully,Elena Paris,7,Guard,2,1,45.3,10,5,10,0,1,0,0,0,2,2,3,1,0,5,1,-51,6,22.7,5,1,1.5,3,50,0,
+Espérance Sportive Pully,Daïna Aly,25,Point guard,2,0,25.5,3,1,6,0,0,1,2,0,2,2,0,2,0,7,2,-35,-6,12.7,1.5,1,0,-3,16.7,,50
+Espérance Sportive Pully,Sophie Azahar Lanfranchi Rio,10,Point guard,2,0,21.1,6,2,6,2,6,0,0,2,1,3,3,1,0,4,3,-15,5,10.5,3,1.5,1.5,2.5,33.3,33.3,
+Espérance Sportive Pully,Stacy Mazeko,70,Point guard,2,0,20.7,3,1,3,1,3,0,0,0,0,0,1,0,0,3,2,-14,-1,10.3,1.5,0,0.5,-0.5,33.3,33.3,
+Espérance Sportive Pully,Sofia Gaillard ,13,Point guard,1,1,19.8,3,1,7,1,2,0,0,1,0,1,0,0,0,0,3,-40,-2,19.8,3,1,0,-2,14.3,50,
+Espérance Sportive Pully,Julia Casas Figueroa,10,,1,0,18.5,2,1,4,0,0,0,0,1,1,2,1,0,0,3,1,-23,-1,18.5,2,2,1,-1,25,,
+Espérance Sportive Pully,Zilan Ozüpekçe,25,Point guard,1,0,6.7,1,0,4,0,0,1,2,0,1,1,0,0,0,3,1,-12,-6,6.7,1,1,0,-6,0,,50
+GC Zürich,Briahanna Jackson,0,Point guard,9,9,348.2,184,78,158,8,25,20,28,10,69,79,44,25,1,46,36,-25,199,38.7,20.4,8.8,4.9,22.1,49.4,32,71.4
+GC Zürich,Madison Torresin,22,Guard,9,9,342.1,181,54,143,27,86,46,57,1,39,40,27,39,0,27,17,-35,160,38,20.1,4.4,3,17.8,37.8,31.4,80.7
+GC Zürich,Lana Wenger,15,Forward,8,8,290,114,48,113,4,23,14,23,15,48,63,18,10,17,18,28,-45,130,36.3,14.3,7.9,2.3,16.3,42.5,17.4,60.9
+GC Zürich,Amirah Abdur-Rahim,23,Small forward,6,6,216.9,113,43,88,5,14,22,38,17,59,76,10,4,5,22,24,-71,125,36.2,18.8,12.7,1.7,20.8,48.9,35.7,57.9
+GC Zürich,Sybille Hofer,14,Small forward,9,3,166.3,26,10,29,0,7,6,9,6,8,14,1,4,0,11,16,-37,12,18.5,2.9,1.6,0.1,1.3,34.5,0,66.7
+GC Zürich,Fiona Wyss,17,Guard,6,5,129.9,13,5,25,3,15,0,2,3,7,10,4,5,0,8,15,-11,2,21.6,2.2,1.7,0.7,0.3,20,20,0
+GC Zürich,Melina Katsikaris,10,Forward,9,2,127.5,6,2,8,0,1,2,3,5,23,28,2,3,0,5,10,-16,27,14.2,0.7,3.1,0.2,3,25,0,66.7
+GC Zürich,Stratoniki Cholopoulou,1,Point guard,3,3,94.7,10,2,12,2,7,4,8,3,6,9,14,8,0,12,7,15,15,31.6,3.3,3,4.7,5,16.7,28.6,50
+GC Zürich,Zeljka Nedovic,9,Center,1,0,25.4,4,2,3,0,0,0,0,3,2,5,0,0,0,2,4,8,6,25.4,4,5,0,6,66.7,,
+GC Zürich,Ema Avdiu,3,Small forward,3,0,21.7,0,0,2,0,1,0,0,0,1,1,0,2,0,0,0,4,1,7.2,0,0.3,0,0.3,0,0,
+GC Zürich,Johanna Maria Chichande Renteria,11,Point guard,4,0,16.2,6,3,3,0,0,0,2,0,0,0,0,0,0,2,3,-6,2,4.1,1.5,0,0,0.5,100,,0
+GC Zürich,Carina Nicolae,4,Point guard,2,0,8.7,0,0,1,0,0,0,0,1,0,1,0,0,0,3,0,-7,-3,4.4,0,0.5,0,-1.5,0,,
+GC Zürich,Leonora Alushi,6,Guard,1,0,6,0,0,2,0,1,0,0,0,0,0,0,0,0,0,0,-11,-2,6,0,0,0,-2,0,0,
+GC Zürich,Rona Avdiu,8,Small forward,1,0,5,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,5,0,0,0,0,0,0,
+GC Zürich,Lina Maria Ayun Aguayo Ebert,12,Point guard,1,0,1.5,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,-3,-1,1.5,0,0,0,-1,0,,
+GC Zürich,Nihan Fiz ,14,Guard,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,
+Hélios VS Basket,Kylie Lavelle,14,Forward,8,8,285.6,171,64,120,15,43,28,35,17,53,70,7,12,11,22,24,-59,186,35.7,21.4,8.8,0.9,23.3,53.3,34.9,80
+Hélios VS Basket,Louise Forsyth,0,Small forward,8,8,282.8,177,66,137,10,21,35,57,23,47,70,27,8,2,33,23,-74,158,35.4,22.1,8.8,3.4,19.8,48.2,47.6,61.4
+Hélios VS Basket,Maeve Marie St John,13,Point guard,8,8,271.1,111,36,100,16,53,23,25,9,42,51,59,29,2,39,15,-33,147,33.9,13.9,6.4,7.4,18.4,36,30.2,92
+Hélios VS Basket,Tess Corthay,6,Point guard,8,3,217.9,73,28,66,9,31,8,13,8,15,23,14,12,0,17,12,-33,62,27.2,9.1,2.9,1.8,7.8,42.4,29,61.5
+Hélios VS Basket,Cécilia De Preux,9,Forward,8,8,171.9,22,9,43,1,10,3,4,5,12,17,6,5,0,12,15,-26,3,21.5,2.8,2.1,0.8,0.4,20.9,10,75
+Hélios VS Basket,Virginie Bruchez,8,Guard,5,5,140.7,36,12,42,8,29,4,5,2,16,18,9,1,0,5,6,-14,28,28.1,7.2,3.6,1.8,5.6,28.6,27.6,80
+Hélios VS Basket,Louise Prada,15,Small forward,8,0,76.6,13,6,19,0,2,1,3,12,7,19,1,0,0,7,3,-27,11,9.6,1.6,2.4,0.1,1.4,31.6,0,33.3
+Hélios VS Basket,Aurélie Roduit,12,Guard,7,0,54.8,12,5,13,0,0,2,4,2,2,4,1,2,0,6,10,-51,3,7.8,1.7,0.6,0.1,0.4,38.5,,50
+Hélios VS Basket,Tiffany Murisier,7,Guard,4,0,53.6,0,0,5,0,4,0,0,0,2,2,1,4,0,0,5,-19,2,13.4,0,0.5,0.3,0.5,0,0,
+Hélios VS Basket,Cassiopée Burri,4,Guard,5,0,42.7,8,2,10,0,1,4,4,3,7,10,2,2,0,5,4,7,9,8.5,1.6,2,0.4,1.8,20,0,100
+Hélios VS Basket,Louise Chehab,8,,1,0,2.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,0,2.5,0,0,0,0,,,
+Nyon Basket Féminin,Miriam Uro-Nilie,19,Forward,8,8,243.6,107,38,85,21,52,10,13,10,39,49,24,11,6,14,13,134,133,30.5,13.4,6.1,3,16.6,44.7,40.4,76.9
+Nyon Basket Féminin,Laure Margot,0,Point guard,8,6,237.2,126,44,108,25,60,13,17,11,24,35,30,10,2,13,17,111,122,29.7,15.8,4.4,3.8,15.3,40.7,41.7,76.5
+Nyon Basket Féminin,Keira Robinson,34,Point guard,7,7,216.5,115,46,95,7,28,16,20,9,50,59,40,21,1,18,11,142,165,30.9,16.4,8.4,5.7,23.6,48.4,25,80
+Nyon Basket Féminin,Gloria Ikateka Loosa,30,Small forward,8,2,157.1,52,21,46,6,20,4,12,9,8,17,6,7,0,7,11,86,42,19.6,6.5,2.1,0.8,5.3,45.7,30,33.3
+Nyon Basket Féminin,Alice Recanati,7,Point guard,6,6,149.7,95,36,69,7,19,16,20,9,12,21,19,9,2,10,18,93,99,24.9,15.8,3.5,3.2,16.5,52.2,36.8,80
+Nyon Basket Féminin,Loreen Burkhalter,1,Point guard,8,2,149.5,59,22,57,6,22,9,17,9,9,18,12,5,0,7,15,87,44,18.7,7.4,2.3,1.5,5.5,38.6,27.3,52.9
+Nyon Basket Féminin,Amélie De Preux,10,Small forward,8,4,140.5,30,9,26,7,18,5,6,4,11,15,10,8,0,8,19,42,37,17.6,3.8,1.9,1.3,4.6,34.6,38.9,83.3
+Nyon Basket Féminin,Evi Bartel,25,Forward,8,3,119.6,52,25,44,1,4,1,7,25,25,50,4,4,2,3,18,60,84,15,6.5,6.3,0.5,10.5,56.8,25,14.3
+Nyon Basket Féminin,Yverline Ntemo Da Silva,98,Forward,8,0,111,28,14,24,0,2,0,0,5,30,35,2,3,3,10,15,31,51,13.9,3.5,4.4,0.3,6.4,58.3,0,
+Nyon Basket Féminin,Sara Schellino,26,Guard,3,0,27.6,5,1,10,0,3,3,4,0,1,1,1,2,0,7,1,-9,-8,9.2,1.7,0.3,0.3,-2.7,10,0,75
+Nyon Basket Féminin,Nyamer Diew,12,Small forward,1,1,26.6,27,9,17,7,11,2,2,3,8,11,1,1,1,2,3,14,31,26.6,27,11,1,31,52.9,63.6,100
+Nyon Basket Féminin,Madeleine Albrecht,22,Guard,1,1,21.1,10,3,7,2,4,2,3,2,1,3,1,0,0,2,1,19,7,21.1,10,3,1,7,42.9,50,66.7
+Ravens de Genève LPLO,Wivine Defosset,1,Point guard,8,8,241.1,88,32,71,11,32,13,24,3,29,32,67,21,2,26,15,98,134,30.1,11,4,8.4,16.8,45.1,34.4,54.2
+Ravens de Genève LPLO,Marta Vincenzi,0,Point guard,8,8,223.7,120,41,99,3,21,35,44,14,23,37,24,28,3,23,22,121,122,28,15,4.6,3,15.3,41.4,14.3,79.5
+Ravens de Genève LPLO,Emilie Burdin,4,Guard,8,8,197,53,22,53,8,27,1,2,7,8,15,10,10,3,13,11,78,46,24.6,6.6,1.9,1.3,5.8,41.5,29.6,50
+Ravens de Genève LPLO,Mélyssa Dutruel,11,Guard,6,6,162.9,81,31,72,5,19,14,16,9,17,26,16,4,0,12,1,13,72,27.2,13.5,4.3,2.7,12,43.1,26.3,87.5
+Ravens de Genève LPLO,Shaynis Gonin,23,Point guard,8,2,147.6,66,23,41,5,15,15,21,8,16,24,9,22,4,14,15,56,87,18.4,8.3,3,1.1,10.9,56.1,33.3,71.4
+Ravens de Genève LPLO,Marah Mougnutou,27,Forward,8,0,143.1,21,9,21,1,4,2,4,9,25,34,9,9,1,5,17,60,55,17.9,2.6,4.3,1.1,6.9,42.9,25,50
+Ravens de Genève LPLO,Kathy Burdin,7,Guard,8,0,115.5,43,18,45,7,27,0,2,7,12,19,5,2,0,10,7,43,30,14.4,5.4,2.4,0.6,3.8,40,25.9,0
+Ravens de Genève LPLO,Naomi Davenport,12,Small forward,4,4,114.3,71,29,57,7,20,6,6,12,28,40,13,7,6,13,11,33,96,28.6,17.8,10,3.3,24,50.9,35,100
+Ravens de Genève LPLO,Caileigh Walsh,0,Center,4,4,111.1,95,35,61,12,24,13,15,9,22,31,4,10,2,6,10,70,108,27.8,23.8,7.8,1,27,57.4,50,86.7
+Ravens de Genève LPLO,Sanaé Agune,2,Point guard,5,0,54.8,25,8,20,4,13,5,6,2,8,10,8,4,0,5,6,13,29,11,5,2,1.6,5.8,40,30.8,83.3
+Ravens de Genève LPLO,Sona Boiro Balde,10,Small forward,6,0,42.6,13,4,15,0,3,5,6,5,4,9,3,5,0,3,4,30,15,7.1,2.2,1.5,0.5,2.5,26.7,0,83.3
+Ravens de Genève LPLO,Sokona Nyambwa,9,Center,6,0,34.4,6,3,7,0,0,0,0,2,3,5,0,2,0,5,6,9,4,5.7,1,0.8,0,0.7,42.9,,
+Ravens de Genève LPLO,Eleonore Villiot,5,Point guard,3,0,25,6,2,11,2,10,0,0,0,1,1,0,4,0,1,4,10,1,8.3,2,0.3,0,0.3,18.2,20,
+Ravens de Genève LPLO,Nadia Rosa,6,Small forward,1,0,12,0,0,1,0,1,0,0,0,0,0,1,1,0,3,0,11,-2,12,0,0,1,-2,0,0,
