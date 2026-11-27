@@ -727,15 +727,16 @@ function scatter(){
   const y=d3.scaleLinear().domain(d3.extent(D,p=>pg(p,'eff'))).nice().range([H-m.b,m.t]);
   const sel=filtOn(),q=S.q,M1=new Set(P.filter(inScope));
   const hit=p=>q&&fold(p.n).includes(q);
-  const pts=D.filter(p=>p.gp>=S.gp).map(p=>({p,x:x(pg(p,'min')),y:y(pg(p,'eff')),on:sel?M1.has(p):true,h:hit(p)}));
-  pts.sort((a,b)=>(a.on-b.on)||(a.h-b.h));
+  const V1=new Set(vsLine()?P.filter(p=>p.t===S.vs):[]);   // comparison team, in its own colour
+  const pts=D.filter(p=>p.gp>=S.gp).map(p=>({p,x:x(pg(p,'min')),y:y(pg(p,'eff')),on:sel?M1.has(p):true,v:V1.has(p),h:hit(p)}));
+  pts.sort((a,b)=>(a.on-b.on)||(a.v-b.v)||(a.h-b.h));
   const xt=x.ticks(narrow?4:8),yt=y.ticks(narrow?5:8);
   let s=`<g>${yt.map(t=>`<line x1="${m.l}" x2="${W-m.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)"/><text x="${m.l-8}" y="${y(t)}" dy=".32em" text-anchor="end" font-size="12" fill="var(--ink2)">${t}</text>`).join('')}</g>`;
   s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
   s+=xt.map(t=>`<text x="${x(t)}" y="${H-m.b+18}" text-anchor="middle" font-size="12" fill="var(--ink2)">${t}</text>`).join('');
   s+=`<text x="${W-m.r}" y="${H-4}" text-anchor="end" font-size="12" fill="var(--ink2)">Minutes per game →</text>`;
   s+=`<text x="${m.l}" y="${m.t-0}" dy="-2" font-size="12" fill="var(--ink2)" text-anchor="start" transform="translate(4,12)">↑ Efficiency per game</text>`;
-  s+=pts.map(d=>`<circle cx="${d.x}" cy="${d.y}" r="${d.h?6:4.5}" fill="${d.h?'var(--ink)':d.on?(sel?'var(--hi)':'var(--all)'):'var(--lo)'}" stroke="var(--bg)" stroke-width="2" ${d.on||d.h?'':'opacity=".75"'}/>`).join('');
+  s+=pts.map(d=>`<circle cx="${d.x}" cy="${d.y}" r="${d.h?6:4.5}" fill="${d.h?'var(--ink)':d.on?(sel?'var(--hi)':'var(--all)'):d.v?'var(--vs)':'var(--lo)'}" stroke="var(--bg)" stroke-width="2" ${d.on||d.v||d.h?'':'opacity=".75"'}/>`).join('');
   // selective labels: top 3 by eff among highlighted set, plus search hits (max 6)
   const lab=[...pts.filter(d=>d.on).sort((a,b)=>b.p.eff/b.p.gp-a.p.eff/a.p.gp).slice(0,narrow?2:3),...pts.filter(d=>d.h).slice(0,6)];
   const seen=new Set();
@@ -743,10 +744,10 @@ function scatter(){
   s+=`<rect id="scHit" x="${m.l}" y="${m.t}" width="${W-m.l-m.r}" height="${H-m.t-m.b}" fill="transparent"/>`;
   svg.innerHTML=s;
   const nsel=pts.filter(d=>d.on&&sel).length;
-  document.getElementById('scS').textContent=`Each dot is a player with ${S.gp}+ games: minutes per game across, FIBA efficiency per game up.`+(sel?` In colour: the ${nsel} ${desc(nsel)}.`:'');
-  document.getElementById('scKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${esc(flabel())}</span><span><i style="background:var(--lo)"></i>Other players</span>`:'';
+  document.getElementById('scS').textContent=`Each dot is a player with ${S.gp}+ games: minutes per game across, FIBA efficiency per game up.`+(sel?` In colour: the ${nsel} ${desc(nsel)}`+(V1.size?`, compared with the ${V1.size} ${TEAMS[S.vs]} players.`:'.'):'');
+  document.getElementById('scKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${esc(flabel())}</span>${V1.size?`<span><i style="background:var(--vs)"></i>${esc(TEAMS[S.vs])}</span>`:''}<span><i style="background:var(--lo)"></i>Other players</span>`:'';
   // hover only the highlighted (coloured) dots when a filter is set; grey dots are context only
-  const hov=sel?pts.filter(d=>d.on||d.h):pts;
+  const hov=sel?pts.filter(d=>d.on||d.v||d.h):pts;
   const del=d3.Delaunay.from(hov,d=>d.x,d=>d.y),r=svg.querySelector('#scHit');
   onHover(r,e=>{const b=svg.getBoundingClientRect(),mx=e.clientX-b.left,my=e.clientY-b.top,i=hov.length?del.find(mx,my):-1,d=hov[i];
     if(!d||Math.hypot(d.x-mx,d.y-my)>30)return hideTip();
@@ -759,12 +760,15 @@ const flags=p=>p.c.map(c=>{const n=esc(CN[c]||c);return FL[c]?`<img class="flag"
 function leaders(){
   const k=S.metric,fg=k==='fg',lab=M.find(m=>m[0]===k)[1];
   const v=p=>fg?(p.fga?p.fgm/p.fga:0):pg(p,k),fmt=x=>fg?f1(x*100)+'%':f1(x);
-  const ps=P.filter(p=>inScope(p)&&(!fg||(p.gp&&p.fga/p.gp>=2))).sort((a,b)=>v(b)-v(a)).slice(0,10);
+  const ok=p=>!fg||(p.gp&&p.fga/p.gp>=2),vsOn=vsLine();
+  // when comparing, the top 10 of each team in one list, the comparison team's bars in its colour
+  const ps=vsOn?[...P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10),...P.filter(p=>p.t===S.vs&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10)].sort((a,b)=>v(b)-v(a))
+    :P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10);
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
-  document.getElementById('ldS').textContent=`Top 10 ${desc(2)}`+(fg?', at least 2 field goal attempts per game on average.':'.');
+  document.getElementById('ldS').textContent=(vsOn?`Top 10 ${desc(2)}, with the top 10 of ${TEAMS[S.vs]} (in its colour)`:`Top 10 ${desc(2)}`)+(fg?', at least 2 field goal attempts per game on average.':'.');
   const mx=d3.max(ps,v)||1;
   document.getElementById('leaders').classList.toggle('fgm',fg);
-  document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
+  document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%${vsOn&&p.t===S.vs?';background:var(--vs)':''}"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
 }
 // one column chart: all players (min-games) in grey, players matching the filters in the accent colour
 function hist(id,bins,key,lab,every,range){
