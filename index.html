@@ -115,14 +115,14 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .rs tbody th{text-align:left;white-space:nowrap;width:64px;font-size:12px;color:var(--ink);font-weight:600}
 .rs td{text-align:center;padding:7px 2px;border-radius:5px;white-space:nowrap;cursor:default;transition:opacity .2s}
 /* results: home = light green, away = light orange (cells and team codes) */
-.rs{--home:light-dark(#cdeed3,#1e4a2a);--away:light-dark(#ffd8ad,#5c3914)}
-.rs td.hw{background:var(--home);font-weight:600}
-.rs td.aw{background:var(--away);font-weight:600}
-.rs tbody th{background:var(--home);border-radius:5px;padding:7px 6px!important}
-.rs thead th:not(.hc){background:var(--away);border-radius:5px;padding:6px 2px!important}
-.rs td.up{color:var(--ink2);font-size:11.5px;background:var(--plane)}
+.rs{--home:light-dark(#ffffff,#e9e9ec);--away:light-dark(#3b2667,#5b3fa0)}
+.rs td.hw,.rs tbody th{background:var(--home);color:#1d1d1f;box-shadow:inset 0 0 0 1px #c9cbd0;font-weight:600}
+.rs td.aw,.rs thead th:not(.hc){background:var(--away);color:#fff;font-weight:600}
+.rs tbody th{border-radius:5px;padding:7px 6px!important}
+.rs thead th:not(.hc){border-radius:5px;padding:6px 2px!important}
+.rs td.up{color:var(--ink2);font-size:11.5px;background:transparent;box-shadow:inset 0 0 0 1px var(--line)}
 .rs td.x{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px)}
-.rs .dim{opacity:.22}.rs th.on{font-weight:700;color:var(--ink)}
+.rs .dim{opacity:.22}.rs tbody th.on,.rs thead th.on:not(.hc){font-weight:700;box-shadow:inset 0 0 0 2px var(--hi)}
 
 .shg{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto}
 #shMin,#shPts{min-height:230px}
@@ -488,7 +488,7 @@ function results(){
   T.querySelectorAll('tbody th').forEach((th,h)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(h)});
   T.querySelectorAll('thead th[title]').forEach((th,a)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(a)});
   const np=FIX.filter(f=>f.hs!=null).length,sw=c=>`<i style="background:color-mix(in srgb,var(--${c}) ${c==='hi'?28:70}%,transparent)"></i>`;
-  document.getElementById('rsK').innerHTML=`<span><i style="background:light-dark(#cdeed3,#1e4a2a)"></i>Home team · home win</span><span><i style="background:light-dark(#ffd8ad,#5c3914)"></i>Away team · away win</span><span style="color:var(--ink2)">Dates: games still to play</span>`;
+  document.getElementById('rsK').innerHTML=`<span><i style="background:light-dark(#ffffff,#e9e9ec);box-shadow:inset 0 0 0 1px #c9cbd0"></i>Home team · home win</span><span><i style="background:light-dark(#3b2667,#5b3fa0)"></i>Away team · away win</span><span style="color:var(--ink2)">Dates: games still to play</span>`;
   document.getElementById('rsS').textContent=`All ${FIX.length} games of the season, ${np} played: home team down the side, away team across the top.`+(sel>=0?` ${TEAMS[sel]}’s games are highlighted.`:' Click a team to select it.');
 }
 // ---- share of minutes and points of the selected citizenship / age range (all players, whatever their games) ----
