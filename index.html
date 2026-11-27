@@ -125,12 +125,12 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .rs td{text-align:center;padding:7px 2px;border-radius:5px;white-space:nowrap;cursor:default;transition:opacity .2s}
 /* results: home = light green, away = light orange (cells and team codes) */
 .rs{--home:#ffffff;--away:#111214}
-.rs td.hw,.rs tbody th{background:var(--home);color:#1d1d1f;box-shadow:inset 0 0 0 1px #c9cbd0;font-weight:600}
-.rs td.aw,.rs thead th:not(.hc){background:var(--away);color:#fff;font-weight:600;box-shadow:inset 0 0 0 1px #fff,0 0 0 1px light-dark(transparent,#fff)}
+.rs td.hw,.rs tbody th{background:var(--home);color:#1d1d1f;font-weight:600}
+.rs td.aw,.rs thead th:not(.hc){background:var(--away);color:#fff;font-weight:600}
 .rs tbody th{border-radius:5px;padding:7px 6px!important}
 /* first column stays in view when the grid scrolls sideways (phones); the outer shadow masks the gap around it */
 .rs tbody th,.rs thead th.hc{position:sticky;left:0;z-index:2}
-.rs tbody th{box-shadow:inset 0 0 0 1px #c9cbd0,-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
+.rs tbody th{box-shadow:-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
 .rs thead th.hc{background:var(--bg);box-shadow:-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
 .rs tbody th.on{box-shadow:inset 0 0 0 2px var(--hi),-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
 .rs thead th:not(.hc){border-radius:5px;padding:6px 2px!important}
@@ -518,7 +518,7 @@ function results(){
   T.querySelectorAll('tbody th').forEach((th,h)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(h)});
   T.querySelectorAll('thead th[title]').forEach((th,a)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(a)});
   const np=FIX.filter(f=>f.hs!=null).length,sw=c=>`<i style="background:color-mix(in srgb,var(--${c}) ${c==='hi'?28:70}%,transparent)"></i>`;
-  document.getElementById('rsK').innerHTML=`<span><i style="background:#ffffff;box-shadow:inset 0 0 0 1px #c9cbd0"></i>Home team · home win</span><span><i style="background:#111214;box-shadow:0 0 0 1px #fff,0 0 0 2px light-dark(#111214,transparent)"></i>Away team · away win</span><span><i style="background:light-dark(#e4e5e8,#b9bcc3)"></i>Dates: games still to play</span>`;
+  document.getElementById('rsK').innerHTML=`<span><i style="background:#ffffff;box-shadow:inset 0 0 0 1px #c9cbd0"></i>Home team · home win</span><span><i style="background:#111214;box-shadow:0 0 0 1px #fff,0 0 0 2px light-dark(#111214,transparent)"></i>Away team · away win</span><span><i style="background:light-dark(#e4e5e8,#b9bcc3);box-shadow:inset 0 0 0 1px #9a9ca3"></i>Dates: games still to play</span>`;
   document.getElementById('rsS').textContent=`All ${FIX.length} games of the season, ${np} played: home team down the side, away team across the top.`+(sel>=0?` ${TEAMS[sel]}’s games are highlighted.`:' Click a team to select it.');
 }
 // ---- share of minutes and points of the selected citizenship / age range (all players, whatever their games) ----
