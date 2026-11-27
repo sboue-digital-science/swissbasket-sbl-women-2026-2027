@@ -112,14 +112,14 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .rs{border-collapse:separate;border-spacing:3px;width:100%;font-size:13px;font-variant-numeric:tabular-nums;table-layout:fixed;min-width:680px}
 .rs th{font-weight:600;font-size:12px;color:var(--ink2);padding:2px}
 .rs thead th{text-align:center}.rs thead th.hc{text-align:left;font-weight:400;font-size:12px;color:var(--ink2);white-space:normal;line-height:1.2}
-.rs tbody th{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:190px;font-size:13px;color:var(--ink);font-weight:400}
+.rs tbody th{text-align:left;white-space:nowrap;width:64px;font-size:12px;color:var(--ink);font-weight:600}
 .rs td{text-align:center;padding:7px 2px;border-radius:5px;white-space:nowrap;cursor:default;transition:opacity .2s}
 .rs td.hw{background:color-mix(in srgb,var(--hi) 28%,transparent);font-weight:600}
 .rs td.aw{background:color-mix(in srgb,var(--lo) 70%,transparent)}
 .rs td.up{color:var(--ink2);font-size:11.5px;background:var(--plane)}
 .rs td.x{background:var(--line)}
 .rs .dim{opacity:.22}.rs th.on{font-weight:700;color:var(--ink)}
-@media (max-width:600px){.rs tbody th{width:64px}}
+
 .shg{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto}
 #shMin,#shPts{min-height:230px}
 .stw{overflow-x:auto;margin:0 -4px;-webkit-overflow-scrolling:touch}
@@ -431,7 +431,7 @@ function race(anim){
   g.select('.rbg').attr('width',W);
   g.select('.rk').attr('x',m.l-8).attr('y',ty).attr('dy','.32em').text(d=>d.rk+1);
   g.select('.nm').attr('x',m.l).attr('y',ty).attr('dy','.32em').attr('font-weight',d=>d.i===sel?700:400).attr('fill','var(--ink)')
-    .text(d=>d.n).each(function(){let t=this.textContent;while(this.getComputedTextLength&&this.getComputedTextLength()>(narrow?W-m.l-4:nw-10)&&t.length>4){t=t.slice(0,-2);this.textContent=t+'…'}});
+    .text(d=>`${d.n} (${TCODE[d.i]})`).each(function(){let t=this.textContent;while(this.getComputedTextLength&&this.getComputedTextLength()>(narrow?W-m.l-4:nw-10)&&t.length>4){t=t.slice(0,-2);this.textContent=t+'…'}});
   g.select('.rb').attr('x',x0).attr('y',by).attr('height',bh).attr('fill',col);
   g.select('.vl').attr('y',by+bh/2).attr('dy','.32em').attr('fill','var(--ink)');
   const tr=g.transition().duration(dur).ease(d3.easeCubicInOut);
@@ -471,7 +471,7 @@ function results(){
   const T=document.getElementById('rsT');if(!T||!FIX.length)return;
   const narrow=document.getElementById('resCard').clientWidth<600,sel=S.team,ix=d3.range(TEAMS.length);
   const g=new Map(FIX.map(f=>[f.h+'-'+f.a,f])),ddm=d3.timeFormat('%d-%b-%y');
-  const nm=i=>narrow?TCODE[i]:TEAMS[i],dim=(h,a)=>sel>=0&&h!==sel&&a!==sel?' dim':'';
+  const nm=i=>TCODE[i],dim=(h,a)=>sel>=0&&h!==sel&&a!==sel?' dim':'';
   T.innerHTML=`<thead><tr><th class="hc">Home ↓<br>Away →</th>${ix.map(a=>`<th scope="col" class="${a===sel?'on':''}" title="${esc(TEAMS[a])}">${esc(TCODE[a])}</th>`).join('')}</tr></thead><tbody>`+
     ix.map(h=>`<tr><th scope="row" class="${h===sel?'on':''}" title="${esc(TEAMS[h])}">${esc(nm(h))}</th>${ix.map(a=>{if(a===h)return`<td class="x${dim(h,a)}"></td>`;
       const f=g.get(h+'-'+a);if(!f)return`<td class="up${dim(h,a)}">–</td>`;
