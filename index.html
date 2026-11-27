@@ -108,6 +108,20 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;color:var(--ink)}.credit a{color:var(--hi);font-weight:600;text-decoration:none}.credit a:hover{text-decoration:underline}
 .note{margin:12px 0 0;font-size:13px;color:var(--ink2)}
 .empty{color:var(--ink2);font-size:14px;padding:20px 0}
+.rsw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.rs{border-collapse:separate;border-spacing:3px;width:100%;font-size:13px;font-variant-numeric:tabular-nums;table-layout:fixed;min-width:560px}
+.rs th{font-weight:600;font-size:12px;color:var(--ink2);padding:2px}
+.rs thead th{text-align:center}
+.rs tbody th{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:190px;font-size:13px;color:var(--ink);font-weight:400}
+.rs td{text-align:center;padding:7px 2px;border-radius:5px;white-space:nowrap;cursor:default;transition:opacity .2s}
+.rs td.hw{background:color-mix(in srgb,var(--hi) 28%,transparent);font-weight:600}
+.rs td.aw{background:color-mix(in srgb,var(--lo) 70%,transparent)}
+.rs td.up{color:var(--ink2);font-size:12px;background:var(--plane)}
+.rs td.x{background:var(--line)}
+.rs .dim{opacity:.22}.rs th.on{font-weight:700;color:var(--ink)}
+@media (max-width:600px){.rs tbody th{width:52px}}
+.shg{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto}
+#shMin,#shPts{min-height:230px}
 .stw{overflow-x:auto;margin:0 -4px;-webkit-overflow-scrolling:touch}
 .st{border-collapse:separate;border-spacing:0;width:auto;min-width:100%;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st th,.st td{padding:7px 5px;text-align:right;border-bottom:1px solid var(--line)}
@@ -164,6 +178,17 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
     <p class="sub" id="rcS">The table after each game date: wins, then fewer losses, then points difference.</p>
     <div class="rctl"><button id="rcPlay" class="rbtn" type="button">▶ Play</button><input id="rcR" type="range" min="0" max="0" value="0" aria-label="Game date"><div class="rdate" id="rcD" aria-live="polite"></div></div>
     <div class="fig" id="race"><svg role="img" aria-label="Bar chart race of the standings after each game date"></svg></div>
+  </div>
+  <div class="card" id="shCard" hidden>
+    <h2 id="shT">Share of playing time and points</h2>
+    <p class="sub" id="shS"></p>
+    <div class="shg"><div class="fig" id="shMin"><svg role="img" aria-label="Share of minutes"></svg></div><div class="fig" id="shPts"><svg role="img" aria-label="Share of points"></svg></div></div>
+  </div>
+  <div class="card" id="resCard">
+    <h2>Results</h2>
+    <p class="sub" id="rsS">Every game of the season: home team down the side, away team across the top.</p>
+    <div class="key" id="rsK"></div>
+    <div class="rsw"><table class="rs" id="rsT"></table></div>
   </div>
   <div class="grid grid2" id="teamCards">
     <div class="card">
@@ -249,11 +274,11 @@ document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!e.targe
 addEventListener('scroll',()=>{if(TIPKEY)hideTip()},{passive:true});
 const pname=p=>esc(p.n)+(p.gone?' †':'');
 
-let GEO,CITY,FL={},ASOF='',GAMES=[],NGAMES=0;
+let GEO,CITY,FL={},ASOF='',GAMES=[],NGAMES=0,FIX=[],TCODE=[];
 Promise.all([fetch('dash.json').then(r=>r.json()),fetch('europe.json').then(r=>r.json()),fetch('flags.json').then(r=>r.json()).catch(()=>({}))]).then(([d,g,f])=>{FL=f;D=d.players;
   // FIBA still lists some players with the former Serbia and Montenegro code (SCG): count it as Serbia
   D.forEach(p=>{p.c=[...new Set(p.c.map(c=>c==='SCG'?'SRB':c))]});
-  TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];TS=d.ts||[];NGAMES=d.total||0;GEO=g;init()});
+  TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];FIX=d.fixtures||[];TCODE=d.tcode||d.teams.map(t=>t.slice(0,3).toUpperCase());TS=d.ts||[];NGAMES=d.total||0;GEO=g;init()});
 
 function init(){
   const played=D.filter(p=>p.gp>0),nc=new Set(played.flatMap(p=>p.c)).size,nt=TEAMS.length;
@@ -301,7 +326,7 @@ function init(){
   document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.ts));
   document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.te));
   initRace();
-  for(const [id,fn] of [['race',()=>race(0)],['sc',()=>scatter()],['age',()=>ages()],['hgt',()=>ages()],['map',()=>map()]]){const el=document.getElementById(id);new ResizeObserver(fn).observe(el)}
+  for(const [id,fn] of [['resCard',()=>results()],['shMin',()=>shares()],['race',()=>race(0)],['sc',()=>scatter()],['age',()=>ages()],['hgt',()=>ages()],['map',()=>map()]]){const el=document.getElementById(id);new ResizeObserver(fn).observe(el)}
   update();
 }
 // ---- shareable links: the address carries the current view (team=…, stage=…, etc.) ----
@@ -372,8 +397,8 @@ let RF=[],RK=0,RT=null;
 const fdate=d3.timeFormat('%-d %b %Y'),pdate=s=>new Date(s+'T12:00:00');
 function initRace(){
   const dates=[...new Set(GAMES.map(g=>g.date))].sort();
-  RF=dates.map(dt=>{const st=TEAMS.map((n,i)=>({i,n,w:0,l:0,pf:0,pa:0,gp:0}));
-    for(const g of GAMES){if(g.date>dt)continue;const h=st[g.h],a=st[g.a];h.gp++;a.gp++;h.pf+=g.hs;h.pa+=g.as;a.pf+=g.as;a.pa+=g.hs;if(g.hs>g.as){h.w++;a.l++}else{a.w++;h.l++}}
+  RF=dates.map(dt=>{const st=TEAMS.map((n,i)=>({i,n,w:0,l:0,pf:0,pa:0,gp:0,hw:0,hl:0,aw:0,al:0}));
+    for(const g of GAMES){if(g.date>dt)continue;const h=st[g.h],a=st[g.a];h.gp++;a.gp++;h.pf+=g.hs;h.pa+=g.as;a.pf+=g.as;a.pa+=g.hs;if(g.hs>g.as){h.w++;a.l++;h.hw++;a.al++}else{a.w++;h.l++;a.aw++;h.hl++}}
     st.sort((a,b)=>b.w-a.w||a.l-b.l||(b.pf-b.pa)-(a.pf-a.pa)||a.n.localeCompare(b.n));st.forEach((t,k)=>t.rk=k);
     const today=GAMES.filter(g=>g.date===dt);
     return{dt,st,n:GAMES.filter(g=>g.date<=dt).length,days:[...new Set(today.map(g=>g.day))],today}});
@@ -415,7 +440,7 @@ function race(anim){
   tr.select('.vl').attr('x',d=>x0+x(d.w)+8).text(d=>`${d.gp} game${d.gp===1?'':'s'} · ${d.w}–${d.l}`+(narrow?'':`  ${d.pf-d.pa>0?'+':d.pf-d.pa<0?'−':''}${Math.abs(d.pf-d.pa)}`));
   g.on('click',(e,d)=>pickTeam(d.i));
   g.each(function(d){onHover(this,e=>{const t=RF[RK].st.find(x=>x.i===d.i),df=t.pf-t.pa;
-    showTip(e,`<b>${t.rk+1}. ${esc(t.n)}</b><br>${t.w} win${t.w===1?'':'s'}, ${t.l} loss${t.l===1?'':'es'} in ${t.gp} game${t.gp===1?'':'s'}<br>Points ${t.pf}–${t.pa} (${df>0?'+':df<0?'−':''}${Math.abs(df)})<br>After ${fdate(pdate(RF[RK].dt))}`)},'race'+d.i)});
+    showTip(e,`<b>${t.rk+1}. ${esc(t.n)}</b><br>${t.w} win${t.w===1?'':'s'}, ${t.l} loss${t.l===1?'':'es'} in ${t.gp} game${t.gp===1?'':'s'}<br>Home ${t.hw}–${t.hl} · Away ${t.aw}–${t.al}<br>Points ${t.pf}–${t.pa} (${df>0?'+':df<0?'−':''}${Math.abs(df)})<br>After ${fdate(pdate(RF[RK].dt))}`)},'race'+d.i)});
   document.getElementById('rcR').style.setProperty('--p',(RF.length>1?RK/(RF.length-1)*100:100)+'%');
   const today=F.today.map(g=>`${TEAMS[g.h]} ${g.hs}–${g.as} ${TEAMS[g.a]}`);
   document.getElementById('rcD').innerHTML=`After ${fdate(pdate(F.dt))}<small>${esc(F.days.join(', '))} · ${F.n} of ${NGAMES||'all'} games played</small>`;
@@ -441,6 +466,46 @@ function stats(){
   T.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ST.dir=ST.k===k?-ST.dir:(k==='n'||k==='t'||k==='age'?1:-1);ST.k=k;stats()});
   document.getElementById('stS').textContent=`${ps.length} ${desc(ps.length)}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. Click a column heading to sort.`;
 }
+// ---- results grid: home teams down the side, away teams across ----
+function results(){
+  const T=document.getElementById('rsT');if(!T||!FIX.length)return;
+  const narrow=document.getElementById('resCard').clientWidth<600,sel=S.team,ix=d3.range(TEAMS.length);
+  const g=new Map(FIX.map(f=>[f.h+'-'+f.a,f])),ddm=d3.timeFormat('%-d.%-m.');
+  const nm=i=>narrow?TCODE[i]:TEAMS[i],dim=(h,a)=>sel>=0&&h!==sel&&a!==sel?' dim':'';
+  T.innerHTML=`<thead><tr><th></th>${ix.map(a=>`<th scope="col" class="${a===sel?'on':''}" title="${esc(TEAMS[a])}">${esc(TCODE[a])}</th>`).join('')}</tr></thead><tbody>`+
+    ix.map(h=>`<tr><th scope="row" class="${h===sel?'on':''}" title="${esc(TEAMS[h])}">${esc(nm(h))}</th>${ix.map(a=>{if(a===h)return`<td class="x${dim(h,a)}"></td>`;
+      const f=g.get(h+'-'+a);if(!f)return`<td class="up${dim(h,a)}">–</td>`;
+      if(f.hs==null)return`<td class="up${dim(h,a)}" data-k="${h}-${a}">${f.date?ddm(pdate(f.date)):'–'}</td>`;
+      const won=sel>=0&&(h===sel||a===sel)?(h===sel)===(f.hs>f.as):f.hs>f.as;
+      return`<td class="${won?'hw':'aw'}${dim(h,a)}" data-k="${h}-${a}">${f.hs}–${f.as}</td>`}).join('')}</tr>`).join('')+'</tbody>';
+  T.querySelectorAll('td[data-k]').forEach(td=>{const f=g.get(td.dataset.k);onHover(td,e=>showTip(e,f.hs==null?
+    `<b>${esc(TEAMS[f.h])}</b> v <b>${esc(TEAMS[f.a])}</b><br>${f.date?'Scheduled '+fdate(pdate(f.date)):'Date to be set'} · ${esc(f.day)}`:
+    `<b>${esc(TEAMS[f.h])} ${f.hs}–${f.as} ${esc(TEAMS[f.a])}</b><br>${fdate(pdate(f.date))} · ${esc(f.day)}<br>${esc(TEAMS[f.hs>f.as?f.h:f.a])} won ${f.hs>f.as?'at home':'away'}`),'rs'+td.dataset.k)});
+  T.querySelectorAll('tbody th').forEach((th,h)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(h)});
+  T.querySelectorAll('thead th[title]').forEach((th,a)=>{th.style.cursor='pointer';th.onclick=()=>pickTeam(a)});
+  const np=FIX.filter(f=>f.hs!=null).length,sw=c=>`<i style="background:color-mix(in srgb,var(--${c}) ${c==='hi'?28:70}%,transparent)"></i>`;
+  document.getElementById('rsK').innerHTML=sel>=0?`<span>${sw('hi')}${esc(TEAMS[sel])} won</span><span>${sw('lo')}${esc(TEAMS[sel])} lost</span><span style="color:var(--ink2)">Dates: games still to play</span>`:
+    `<span>${sw('hi')}Home win</span><span>${sw('lo')}Away win</span><span style="color:var(--ink2)">Dates: games still to play</span>`;
+  document.getElementById('rsS').textContent=`All ${FIX.length} games of the season, ${np} played: home team down the side, away team across the top.`+(sel>=0?` ${TEAMS[sel]}’s games are highlighted.`:' Click a team to select it.');
+}
+// ---- share of minutes and points of the selected citizenship / age range (all players, whatever their games) ----
+function shares(){
+  const on=!!(S.cit||S.age),card=document.getElementById('shCard');card.hidden=!on;if(!on)return;
+  const all=D.filter(inScope),sub=all.filter(p=>posOk(p)&&ageOk(p)&&(!S.cit||p.c.includes(S.cit)));
+  const who=flabel(),where=S.team>=0?TEAMS[S.team]:'the league';
+  document.getElementById('shT').textContent=`Share of playing time and points: ${who}`;
+  document.getElementById('shS').textContent=`Of all minutes played and points scored ${S.team>=0?'by '+where:'in '+where} this season, the part that comes from the ${sub.length} ${sub.length===1?'player':'players'} in this selection (${who}), counting every player whatever her number of games. A dual national counts fully for each citizenship.`;
+  for(const [id,k,lab,unit] of [['shMin','min','of minutes','minutes'],['shPts','pts','of points','points']]){
+    const box=document.getElementById(id),svg=d3.select(box).select('svg'),W=box.clientWidth,H=230,R=Math.min(W/2-10,(H-50)/2),r0=R*.62;
+    const a=d3.sum(sub,p=>p[k]),t=d3.sum(all,p=>p[k])||1,f=a/t;
+    svg.attr('viewBox',`0 0 ${W} ${H}`).attr('height',H);
+    const arc=d3.arc().innerRadius(r0).outerRadius(R),pie=d3.pie().sort(null)([a,t-a]);
+    svg.html(`<g transform="translate(${W/2},${R+6})">${pie.map((d,i)=>`<path d="${arc.padAngle(a&&t-a?.012:0)(d)}" fill="${i?'var(--lo)':'var(--hi)'}"/>`).join('')}
+      <text text-anchor="middle" dy=".1em" font-size="${Math.round(R*.36)}" font-weight="700" fill="var(--ink)">${f>0&&f<.005?'<1':Math.round(f*100)}%</text>
+      <text text-anchor="middle" dy="1.9em" font-size="13" fill="var(--ink2)">${lab}</text></g>
+      <text x="${W/2}" y="${H-12}" text-anchor="middle" font-size="13" fill="var(--ink2)">${Math.round(a).toLocaleString('en-US').replace(/,/g,'’')} of ${Math.round(t).toLocaleString('en-US').replace(/,/g,'’')} ${unit}</text>`);
+  }
+}
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
 function fillTeams(){
@@ -458,7 +523,7 @@ function update(){
   const rOff=S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
   // team scoring / efficiency are hidden with a position or age filter
   const tOff=S.pos!=='A'||!!S.age;document.getElementById('teamCards').hidden=tOff;
-  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();counts();if(!rOff)race(0);stats();
+  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();counts();if(!rOff)race(0);stats();results();shares();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
