@@ -116,6 +116,10 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;color:var(--ink)}.credit a{color:var(--hi);font-weight:600;text-decoration:none}.credit a:hover{text-decoration:underline}
 .note{margin:12px 0 0;font-size:13px;color:var(--ink2)}
 .empty{color:var(--ink2);font-size:14px;padding:20px 0}
+/* selected team: a hairline around its coloured marks (black on light, white on dark) so pale club colours stay visible; table cells excluded */
+html.teamsel{--hiLine:light-dark(#000,#fff)}
+html.teamsel svg [fill="var(--hi)"]{stroke:var(--hiLine);stroke-width:.25px}
+html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)}
 .rsw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .rs{border-collapse:separate;border-spacing:3px;width:100%;font-size:13px;font-variant-numeric:tabular-nums;table-layout:fixed;min-width:680px}
 .rs th{font-weight:600;font-size:12px;color:var(--ink2);padding:2px}
@@ -558,7 +562,7 @@ const qOk=p=>!S.q||fold(p.n).includes(S.q);
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // club colour used for highlights when a team is selected (readable on light and dark backgrounds)
 const TSEL={BAD:'#E00000',TTT:'#FFE601',AKA:'#0683C2',ELF:'#1C3473',ESP:'#12C329',GC:'#025791',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
-function teamColour(){const r=document.documentElement.style,c=S.team>=0&&TSEL[TCODE[S.team]];if(c)r.setProperty('--hi',c);else r.removeProperty('--hi')}
+function teamColour(){const r=document.documentElement.style,c=S.team>=0&&TSEL[TCODE[S.team]];if(c)r.setProperty('--hi',c);else r.removeProperty('--hi');document.documentElement.classList.toggle('teamsel',!!c)}
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
 function fillTeams(){
