@@ -53,6 +53,7 @@ input{width:min(240px,80vw)}
 .filters select.act{border:2px solid #2EA6FF;padding:0 11px;background:#10273a}
 /* team filter takes the selected team's colour (thin white edge so dark club colours stay visible on the black band) */
 html.teamsel #fTeam.act{border-color:var(--hi);background:color-mix(in srgb,var(--hi) 28%,#1f2025);box-shadow:0 0 0 .5px #fff}
+.filters select option{background:#1f2025;color:var(--bandink)}   /* the open list always looks the same, whatever the box colour */
 .clr{font:inherit;font-size:15px;height:44px;padding:0 16px;border-radius:8px;border:1px solid #3a3b40;background:transparent;color:var(--bandink);cursor:pointer;white-space:nowrap}.clr:disabled{opacity:.4;cursor:default}.filters>.clr{flex:none!important}
 /* phones in landscape and tablets: the five filters and Clear on one compact row */
 @media (min-width:701px) and (max-width:1100px),(min-width:701px) and (max-height:520px){
