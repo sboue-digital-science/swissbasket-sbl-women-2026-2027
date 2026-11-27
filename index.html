@@ -111,10 +111,15 @@ main.band{padding-top:20px}
 .trow .tb{display:grid;gap:2px;position:relative}
 .avgl{position:absolute;bottom:-5px;height:18px;width:0;border-left:2px dashed var(--ink);pointer-events:none;margin-left:-1px}
 .avgk{font-size:13px;color:var(--ink2);margin:0 0 6px;display:flex;align-items:center;gap:6px}.avgk i{display:inline-block;width:0;height:14px;border-left:2px dashed var(--ink)}.trow .tb span{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.trow .bar{background:var(--hi)}.trow.on{background:var(--plane)}.trow.on span{font-weight:600}
+.trow .bar{background:var(--hi)}
+.trow.on2{background:color-mix(in srgb,var(--vs) 8%,transparent)}.trow.on2 .tb>span{font-weight:600}.trow.on{background:var(--plane)}.trow.on span{font-weight:600}
 .trow .val{text-align:right;font-variant-numeric:tabular-nums;font-size:14px}
 .teams{max-height:460px;overflow-y:auto;padding-right:4px}
 /* team cards: radar first, then the tabs and bar list (full row on desktop, stacked on phones) */
+.cmp{padding:14px 20px}.cmpRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.cmpL{font-size:15px}
+#fVs{font:inherit;font-size:15px;height:38px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:0 10px;min-width:220px}
+#fVs.act{border:2px solid var(--vs);padding:0 9px}
+.h2h{font-size:14px;color:var(--ink2);margin-top:8px;line-height:1.6}.h2h b{color:var(--ink)}.h2h .w{font-weight:600;color:var(--ink)}
 .tcw{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;align-items:start}
 @media(max-width:860px){.tcw{grid-template-columns:minmax(0,1fr);gap:8px}}
 .rad svg{display:block;width:100%;max-width:440px;margin:0 auto;overflow:visible}
@@ -241,6 +246,10 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
     <div class="rsw"><table class="rs" id="rsT"></table></div>
   </div>
   <div class="grid" id="teamCards" style="grid-template-columns:minmax(0,1fr)">
+    <div class="card cmp" id="cmpCard" hidden>
+      <div class="cmpRow"><span class="cmpL">Compare <b id="cmpA"></b> with</span><select id="fVs" aria-label="Team to compare with"></select></div>
+      <div id="h2h" class="h2h"></div>
+    </div>
     <div class="card">
       <h2>Team scoring</h2>
       <div class="tcw">
@@ -320,7 +329,7 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
 {
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const f1=d3.format('.1f'),pct=d3.format('.0%');
-const S={te:'epg',ts:'pts',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
+const S={vs:-1,te:'epg',ts:'pts',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
 const M=[['eff','Efficiency'],['pts','Points'],['ast','Assists'],['reb','Rebounds'],['stl','Steals'],['blk','Blocks'],['fg','FG%'],['min','Minutes']];
 const tip=document.getElementById('tip');
 let STG=[],PO=false,D,TEAMS,TC,CN,P=[],TM=[],TS=[];
@@ -367,7 +376,7 @@ function init(){
   const ag=document.getElementById('fAge'),ar=[...new Set(D.filter(p=>p.age!=null).map(p=>Math.floor(p.age/5)*5))].sort((a,b)=>a-b);
   ag.insertAdjacentHTML('beforeend',ar.map(a=>`<option value="${a}">${a}–${a+4}</option>`).join(''));
   ag.onchange=e=>{S.age=+e.target.value;update()};
-  document.getElementById('fClr').onclick=()=>{Object.assign(S,{age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2});lc.value='';document.getElementById('fStg').value='';ct.value='';document.getElementById('fGp').value='2';document.getElementById('fPos').value='A';document.getElementById('fAge').value='0';fillTeams();update()};
+  document.getElementById('fClr').onclick=()=>{Object.assign(S,{age:0,stg:0,lc:'',cit:'',team:-1,vs:-1,pos:'A',gp:2});lc.value='';document.getElementById('fStg').value='';ct.value='';document.getElementById('fGp').value='2';document.getElementById('fPos').value='A';document.getElementById('fAge').value='0';fillTeams();update()};
   document.getElementById('fGp').onchange=e=>{S.gp=+e.target.value;update()};
   document.getElementById('ldTabs').innerHTML=M.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.metric}">${l}</button>`).join('');
   document.querySelectorAll('#ldTabs button').forEach(b=>b.onclick=()=>{S.metric=b.dataset.k;document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));leaders();toURL()});
@@ -384,6 +393,7 @@ function init(){
   document.querySelectorAll('#tsTabs button').forEach(b=>b.onclick=()=>{S.ts=b.dataset.k;document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
   fromURL();fillTeams();
   initShare();
+  document.getElementById('fVs').onchange=e=>{S.vs=+e.target.value;update()};
   document.getElementById('stQ').oninput=e=>{S.q=fold(e.target.value);stats();scatter()};
   document.querySelectorAll('#stTabs button').forEach(b=>b.onclick=()=>{ST.mode=b.dataset.k;document.querySelectorAll('#stTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));stats()});
   document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.metric));
@@ -406,6 +416,7 @@ function fromURL(){
   const ps=key(POSK,g('position'));if(ps&&opt('fPos',ps))S.pos=ps;
   const ag=parseInt(g('age'));if(ag&&opt('fAge',ag))S.age=ag;
   const ti=TEAMS.findIndex(t=>slug(t)===g('team'));if(ti>=0&&(!S.lc||TC[ti]===S.lc)&&stgOk(ti))S.team=ti;
+  const vi=TEAMS.findIndex(t=>slug(t)===g('vs'));if(vi>=0&&S.team>=0&&vi!==S.team)S.vs=vi;
   const ls=g('stat');if(M.some(m=>m[0]===ls))S.metric=ls;
   const ts=g('scoring');if(TSM.some(m=>m[0]===ts))S.ts=ts;
   const te=g('teamstat');if(TEM.some(m=>m[0]===te))S.te=te;
@@ -414,7 +425,7 @@ function fromURL(){
 }
 function toURL(){
   const q=new URLSearchParams();
-  if(S.team>=0)q.set('team',slug(TEAMS[S.team]));
+  if(S.team>=0)q.set('team',slug(TEAMS[S.team]));if(S.team>=0&&S.vs>=0)q.set('vs',slug(TEAMS[S.vs]));
   if(S.stg)q.set('stage',STGK[S.stg]);if(S.lc)q.set('league',S.lc);if(S.cit)q.set('citizenship',S.cit);
   if(S.pos!=='A')q.set('position',POSK[S.pos]);if(S.age)q.set('age',`${S.age}-${S.age+4}`);if(S.gp!==2)q.set('games',S.gp);
   if(S.metric!=='eff')q.set('stat',S.metric);if(S.ts!=='pts')q.set('scoring',S.ts);if(S.te!=='epg')q.set('teamstat',S.te);
@@ -484,7 +495,7 @@ function race(anim){
   const H=m.t+TEAMS.length*rh+24;svg.attr('height',H).attr('viewBox',`0 0 ${W} ${H}`);
   const x=d3.scaleLinear().domain([0,1]).range([0,Math.max(40,W-m.l-nw-m.r)]),x0=m.l+nw;
   const dur=anim&&!matchMedia('(prefers-reduced-motion: reduce)').matches?650:0,sel=S.team;
-  const col=t=>sel<0||t.i===sel?'var(--hi)':'var(--lo)';
+  const vs=S.vs,col=t=>sel<0||t.i===sel?'var(--hi)':t.i===vs?'var(--vs)':'var(--lo)';
   // grid: one line per win
   const gt=narrow?[0,.5,1]:[0,.25,.5,.75,1];
   svg.selectAll('g.gx').data([0]).join('g').attr('class','gx').html(gt.map(t=>`<line x1="${x0+x(t)}" x2="${x0+x(t)}" y1="${m.t}" y2="${H-22}" stroke="var(--grid)"/><text x="${x0+x(t)}" y="${H-6}" text-anchor="middle" font-size="12" fill="var(--ink2)">${Math.round(t*100)}%</text>`).join('')+(W<560?'':`<text x="${W}" y="${H-6}" text-anchor="end" font-size="12" fill="var(--ink2)">Win % →</text>`));
@@ -497,9 +508,9 @@ function race(anim){
       return e});
   g.select('.rbg').attr('width',W);
   g.select('.rk').attr('x',m.l-8).attr('y',ty).attr('dy','.32em').text(d=>d.rk+1);
-    g.select('.nm').attr('x',m.l).attr('y',ty).attr('dy','.32em').attr('font-weight',d=>d.i===sel?700:400).attr('fill','var(--ink)')
+    g.select('.nm').attr('x',m.l).attr('y',ty).attr('dy','.32em').attr('font-weight',d=>d.i===sel||d.i===S.vs?700:400).attr('fill','var(--ink)')
     .text(d=>`${d.n} (${TCODE[d.i]})`).each(function(){let t=this.textContent;while(this.getComputedTextLength&&this.getComputedTextLength()>(narrow?W-m.l-4:nw-10)&&t.length>4){t=t.slice(0,-2);this.textContent=t+'…'}});
-  g.select('.rb').attr('x',x0).attr('y',by).attr('height',bh).attr('fill',col);
+  g.select('.rb').attr('x',x0).attr('y',by).attr('height',bh).attr('fill',col)
   g.select('.vl').attr('y',vy).attr('dy','.32em').attr('fill','var(--ink)').attr('font-size',W<560?11.5:13);
   const tr=g.transition().duration(dur).ease(d3.easeCubicInOut);
   tr.attr('transform',d=>`translate(0,${m.t+d.rk*rh})`);
@@ -518,7 +529,7 @@ function race(anim){
   const today=F.today.map(g=>`${TEAMS[g.h]} ${g.hs}–${g.as} ${TEAMS[g.a]}`);
   document.getElementById('rcD').innerHTML=`After ${fdate(pdate(F.dt))}<small>${esc(F.days.join(', '))} · ${F.n} of ${NGAMES||'all'} games played</small>`;
   document.getElementById('rcD').title=today.join('\n');
-  document.getElementById('rcS').textContent=`The table after each game date, ranked by win percentage (wins ÷ games played); ties broken by wins, then points difference. Next to each bar: games played (GP) – wins–losses – win % – points per game (PPG) – opponents’ points per game (OPPG) – overall points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} highlighted in its club colour.`:' Click a team to select it.');
+  document.getElementById('rcS').textContent=`The table after each game date, ranked by win percentage (wins ÷ games played); ties broken by wins, then points difference. Next to each bar: games played (GP) – wins–losses – win % – points per game (PPG) – opponents’ points per game (OPPG) – overall points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]}${S.vs>=0?' and '+TEAMS[S.vs]:''} highlighted in ${S.vs>=0?'their':'its'} club colour${S.vs>=0?'s':''}.`:' Click a team to select it.');
 }
 // ---- player stats table: one row per player, averages or season totals, sortable ----
 let ST={mode:'avg',k:'eff',dir:-1};
@@ -606,7 +617,7 @@ const RAD={rad1:[['Points',d=>d.pts,''],['Fast break',d=>d.fast,''],['Assists',d
   rad2:[['Efficiency',d=>d.epg,''],['Off. reb',d=>d.oreb,''],['Def. reb',d=>d.dreb,''],['Rebounds',d=>d.reb,''],['Blocks',d=>d.blk,''],['Steals',d=>d.stl,''],['Bench pts',d=>d.bench,'']]};
 function radar(id,n,hlFn){
   const svg=document.getElementById(id);if(!svg||!TM.length)return;
-  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.92),cx=W/2,cy=H/2+18,R=Math.min(W,H)/2-54,k=ax.length;
+  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.92),cx=W/2,cy=H/2+18,R=Math.min(W/2-(S.team>=0&&S.vs>=0?92:66),H/2-54),k=ax.length;
   const cols=ax.map(a=>T.map(a[1])),mn=cols.map(c=>Math.min(...c)),mx=cols.map(c=>Math.max(...c)),av=cols.map(c=>c.reduce((x,y)=>x+y,0)/c.length);
   const sc=(v,j)=>.12+.88*(v-mn[j])/((mx[j]-mn[j])||1),pt=(f,j)=>{const a=-Math.PI/2+j*2*Math.PI/k;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
   const poly=vals=>vals.map((v,j)=>pt(sc(v,j),j).map(x=>x.toFixed(1)).join(',')).join(' ');
@@ -615,12 +626,16 @@ function radar(id,n,hlFn){
   // axis labels with a value underneath: the league average, or the selected team's figure
   const selT=sel>=0?T.find(x=>x.i===sel):null;
   s+=ax.map(([l,f,u],j)=>{const [x,y]=pt(1,j),[lx,ly]=pt(1.19,j),an=Math.abs(lx-cx)<6?'middle':lx>cx?'start':'end',v=selT?f(selT):av[j],top=ly<cy-R*.5;
-    return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly+(top?-12:0)}" text-anchor="${an}" font-size="12" fill="var(--ink2)"><tspan x="${lx}" dy=".1em">${l}</tspan><tspan x="${lx}" dy="1.25em" font-weight="600" fill="var(--ink)">${fmt(v,u)}</tspan></text>`}).join('');
+    return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly+(top?-12:0)}" text-anchor="${an}" font-size="12" fill="var(--ink2)"><tspan x="${lx}" dy=".1em">${l}</tspan>${(()=>{const vsT2=selT&&S.vs>=0?T.find(x=>x.i===S.vs):null;if(!vsT2)return`<tspan x="${lx}" dy="1.25em" font-weight="600" fill="var(--ink)">${fmt(v,u)}</tspan>`;const w=f(vsT2);return`<tspan x="${lx}" dy="1.25em" fill="var(--ink)" font-weight="${v>=w?700:400}">${fmt(v,u)}</tspan><tspan fill="var(--ink2)"> · </tspan><tspan fill="var(--ink)" font-weight="${w>v?700:400}">${fmt(w,u)}</tspan>`})()}</text>`}).join('');
   // no team selected: every team as a hairline in its club colour (grey if a filter leaves it out), league average on top and thicker
   // team selected: the others turn grey, then the average, then the selected team's shape in front
   const on=T.filter(t=>t.i!==sel&&hlFn(t.i)),tc=t=>TSEL[TCODE[t.i]]||'var(--lo)',grey=t=>sel>=0||(on.length&&!hlFn(t.i))||!TSEL[TCODE[t.i]];
-  s+=T.filter(t=>t.i!==sel).sort((a,b)=>grey(b)-grey(a)).map(t=>`<polygon class="rpl" data-i="${t.i}" points="${poly(ax.map(a=>a[1](t)))}" fill="none" style="stroke:${grey(t)?'var(--lo)':tc(t)}" stroke-width="${grey(t)?.75:1}"/>`).join('');
-  s+=`<polygon points="${poly(av)}" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-dasharray="5 3"/>`;
+  s+=T.filter(t=>t.i!==sel&&t.i!==S.vs).sort((a,b)=>grey(b)-grey(a)).map(t=>`<polygon class="rpl" data-i="${t.i}" points="${poly(ax.map(a=>a[1](t)))}" fill="none" style="stroke:${grey(t)?'var(--lo)':tc(t)}" stroke-width="${grey(t)?.75:1}"/>`).join('');
+  const cmp=sel>=0&&S.vs>=0;   // when comparing, the average steps back (lighter, finer) so the two teams stand out
+  s+=`<polygon points="${poly(av)}" fill="none" stroke="${cmp?'var(--ink2)':'var(--ink)'}" stroke-width="${cmp?1.3:2.4}" stroke-dasharray="${cmp?'2 3':'5 3'}"/>`;
+  // comparison team: bold line in its colour (dashed when its colour is close to the main team's), drawn under the main team
+  const vsT=sel>=0&&S.vs>=0?T.find(x=>x.i===S.vs):null;
+  if(vsT)s+=`<polygon class="rvs" points="${poly(ax.map(a=>a[1](vsT)))}" fill="none" style="stroke:var(--vs)" stroke-width="2.4" stroke-linejoin="round" ${VSDASH?'stroke-dasharray="10 4"':''}/>`;
   if(sel>=0){const t=T.find(x=>x.i===sel);if(t){const v=ax.map(a=>a[1](t));
     s+=`<polygon class="rsel" points="${poly(v)}" fill="var(--hi)" fill-opacity=".18" stroke="var(--hi)" stroke-width="2.2" stroke-linejoin="round"/>`;
     s+=v.map((x,j)=>{const [px,py]=pt(sc(x,j),j);return`<circle class="rdot" data-j="${j}" cx="${px}" cy="${py}" r="5" fill="var(--hi)" stroke="var(--bg)" stroke-width="1.5"/>`}).join('')}}
@@ -628,15 +643,31 @@ function radar(id,n,hlFn){
   svg.querySelectorAll('.rdot').forEach(c=>{const j=+c.dataset.j,t=T.find(x=>x.i===sel);onHover(c,e=>showTip(e,`<b>${esc(t.n)}</b><br>${ax[j][0]}: <b>${fmt(ax[j][1](t),ax[j][2])}</b><br>League average ${fmt(av[j],ax[j][2])} · range ${fmt(mn[j],ax[j][2])}–${fmt(mx[j],ax[j][2])}`),id+'d'+j)});
   svg.querySelectorAll('.rpl').forEach(p=>{const t=T.find(x=>x.i===+p.dataset.i);p.style.cursor='pointer';p.onclick=()=>pickTeam(t.i);onHover(p,e=>showTip(e,`<b>${esc(t.n)}</b><br>Click to select`),id+'p'+t.i)});
   const sw=(c,d)=>`<span><i style="background:${c};${d?'height:0;border-top:2px dashed '+c+';background:none;border-radius:0':''}"></i>`;
-  document.getElementById('rdK'+n).innerHTML=(sel>=0?`${sw('var(--hi)')}${esc(TEAMS[sel])}</span>`:`<span>Thin lines: each team in its club colour</span>`)+`${sw('var(--ink)',1)}League average</span>`+(sel>=0||on.length?`${sw('var(--lo)')}Other teams</span>`:'');
-  document.getElementById('rdS'+n).textContent=(sel>=0?`${TEAMS[sel]} against the league; figures are ${TEAMS[sel]}’s. `:'All 9 teams; figures are league averages. Select a team to see its profile. ')+'Each axis runs from the league’s lowest team (centre) to its highest (edge).';
+  document.getElementById('rdK'+n).innerHTML=(sel>=0?`${sw('var(--hi)')}${esc(TEAMS[sel])}</span>`+(S.vs>=0?`${sw('var(--vs)',VSDASH)}${esc(TEAMS[S.vs])}</span>`:''):`<span>Thin lines: each team in its club colour</span>`)+`${sw(sel>=0&&S.vs>=0?'var(--ink2)':'var(--ink)',1)}League average</span>`+(sel>=0||on.length?`${sw('var(--lo)')}Other teams</span>`:'');
+  document.getElementById('rdS'+n).textContent=(sel>=0&&S.vs>=0?`${TEAMS[sel]} against ${TEAMS[S.vs]}; figures: ${TCODE[sel]} · ${TCODE[S.vs]}, the higher in bold. `:sel>=0?`${TEAMS[sel]} against the league; figures are ${TEAMS[sel]}’s. `:'All 9 teams; figures are league averages. Select a team to see its profile. ')+'Each axis runs from the league’s lowest team (centre) to its highest (edge).';
+}
+// ---- team comparison: "Compare with" control and head-to-head line ----
+function compare(){
+  const card=document.getElementById('cmpCard'),on=S.team>=0&&!document.getElementById('teamCards').hidden;card.hidden=!on;if(!on)return;
+  const sel=document.getElementById('fVs'),a=S.team;
+  sel.innerHTML='<option value="-1">No comparison</option>'+TEAMS.map((t,i)=>i===a?'':`<option value="${i}">${esc(t)}</option>`).join('');
+  sel.value=S.vs;sel.classList.toggle('act',S.vs>=0);document.getElementById('cmpA').textContent=TEAMS[a];
+  const h=document.getElementById('h2h');if(S.vs<0){h.innerHTML='Pick a second team to compare their radars, rankings, standings and head-to-head.';return}
+  const b=S.vs,gs=FIX.filter(f=>(f.h===a&&f.a===b)||(f.h===b&&f.a===a)).sort((x,y)=>(x.date||'9').localeCompare(y.date||'9'));
+  const dm=d=>d?fdate(pdate(d)):'date to be set';
+  const items=gs.map(f=>{const home=f.h===a,where=home?'home':'away';if(f.hs==null)return`next: ${dm(f.date)} (${where})`;
+    const my=home?f.hs:f.as,th=home?f.as:f.hs,won=my>th;return`<span class="w">${won?'won':'lost'} ${my}–${th}</span> on ${dm(f.date)} (${where})`});
+  h.innerHTML=`<b>Head-to-head, ${esc(TEAMS[a])} v ${esc(TEAMS[b])}:</b> `+(items.length?items.join(' · '):'no game scheduled');
 }
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // team values: bench minutes as a %, rotation as a whole number, the rest with one decimal
 const fmtT=(k,v)=>k==='bminp'?Math.round(v)+'%':k==='rot'&&Number.isInteger(v)?String(v):f1(v);
 // club colour used for highlights when a team is selected (readable on light and dark backgrounds)
 const TSEL={BAD:'#1D1D1B',TTT:'#FFE601',AKA:'#0683C2',ELF:'#1C3473',ESP:'#12C329',GC:'#025791',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
-function teamColour(){const r=document.documentElement.style,c=S.team>=0&&TSEL[TCODE[S.team]];if(c)r.setProperty('--hi',c);else r.removeProperty('--hi');document.documentElement.classList.toggle('teamsel',!!c)}
+let VSDASH=false;
+const rgbOf=c=>{const pr=document.createElement('i');pr.style.color=c;document.body.appendChild(pr);const m=getComputedStyle(pr).color.match(/[\d.]+/g).map(Number);pr.remove();return m.slice(0,3)};
+function teamColour(){const r=document.documentElement.style,c=S.team>=0&&TSEL[TCODE[S.team]];if(c)r.setProperty('--hi',c);else r.removeProperty('--hi');
+  const v=S.vs>=0&&TSEL[TCODE[S.vs]];if(v){r.setProperty('--vs',v);const a=rgbOf(c),b=rgbOf(v);VSDASH=Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2])<110}else{r.removeProperty('--vs');VSDASH=false}document.documentElement.classList.toggle('teamsel',!!c)}
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
 function fillTeams(){
@@ -655,7 +686,7 @@ function update(){
   const rOff=S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
   // team scoring / efficiency are hidden with a position or age filter
   const tOff=S.pos!=='A'||!!S.age;document.getElementById('teamCards').hidden=tOff;
-  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();counts();if(!rOff)race(0);stats();results();shares();
+  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();compare();counts();if(!rOff)race(0);stats();results();shares();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
@@ -786,7 +817,7 @@ const filtOn=()=>S.team>=0||S.stg||S.lc||S.cit||S.pos!=='A'||S.age;
 const STN={1:'qualifier-only teams',2:'main-stage teams',3:'play-off teams'};
 const stn=v=>v===2&&PO?'main-stage-only teams':STN[v];
 const flabel=()=>{const l=[S.team>=0?TEAMS[S.team]:S.lc?'Teams in '+(CN[S.lc]||S.lc)+(S.stg?' ('+stn(S.stg)+')':''):S.stg?stn(S.stg):'',S.cit?(CN[S.cit]||S.cit)+' citizens':'',S.pos!=='A'?{G:'guards',F:'forwards',C:'centers',U:'position not specified'}[S.pos]:'',S.age?`aged ${S.age}–${S.age+4}`:''].filter(Boolean).join(' · ');return l.charAt(0).toUpperCase()+l.slice(1)};
-function pickTeam(i){S.team=S.team===i?-1:i;if(S.team>=0&&S.lc&&TC[S.team]!==S.lc){S.lc='';document.getElementById('fLc').value=''}if(S.team>=0&&!stgOk(S.team)){S.stg=0;document.getElementById('fStg').value=''}fillTeams();update()}
+function pickTeam(i){S.team=S.team===i?-1:i;if(S.team<0||S.vs===S.team)S.vs=-1;if(S.team>=0&&S.lc&&TC[S.team]!==S.lc){S.lc='';document.getElementById('fLc').value=''}if(S.team>=0&&!stgOk(S.team)){S.stg=0;document.getElementById('fStg').value=''}fillTeams();update()}
 // map zoom state (scale + translate on top of the whole-Europe view), kept between renders for the animation
 let MZ={s:1,tx:0,ty:0},MZsize='',MZraf=0,MAPFULL=false;
 function map(){
@@ -897,7 +928,7 @@ function teams(){
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;
-    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${av/mx*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:fmtT(k,d[k])}</span></div>`}).join('');
+    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':d.i===S.vs?'on2':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${d.i===S.vs?';background:var(--vs)':tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${av/mx*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:fmtT(k,d[k])}</span></div>`}).join('');
     el.querySelectorAll('.trow').forEach(r=>{const go=()=>pickTeam(+r.dataset.i);r.onclick=go;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
     const on=el.querySelector('.on');if(on)el.scrollTop=on.offsetTop-el.offsetTop-el.clientHeight/2;
   }
