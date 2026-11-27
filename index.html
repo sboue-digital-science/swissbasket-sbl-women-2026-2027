@@ -282,7 +282,9 @@ function init(){
   // team aggregates (independent of filters)
   const g=d3.group(D,p=>p.t);
   TM=TEAMS.map((n,i)=>{const ps=g.get(i)||[];const gp=d3.max(ps,p=>p.gp)||0;const sm=k=>d3.sum(ps,p=>p[k]),fgm=sm('fgm'),fga=sm('fga'),tpm=sm('tpm'),tpa=sm('tpa');
-    return{i,n,gp,epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
+    // points allowed: opponents' points per game, from the game results
+    const og=GAMES.filter(g=>g.h===i||g.a===i),opp=og.length?d3.sum(og,g=>g.h===i?g.as:g.hs)/og.length:0;
+    return{i,n,gp,opp,epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
   document.getElementById('tsTabs').innerHTML=TSM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.ts}">${l}</button>`).join('');
   document.querySelectorAll('#tsTabs button').forEach(b=>b.onclick=()=>{S.ts=b.dataset.k;document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
   fromURL();fillTeams();
@@ -640,8 +642,8 @@ function cits(){
   document.getElementById('cit').innerHTML=c.length?c.map(([k,n])=>`<div class="row"><div class="who">${esc(CN[k]||k)}${flags({c:[k]})} <small>— ${pct(n/ps.length)} of players</small></div><div class="val">${n}</div><div class="bar ${S.team<0?'all':''}" style="width:${n/mx*100}%"></div></div>`).join(''):'<div class="empty">No players match these filters.</div>';
 }
 // team scoring metrics: total points, then shooting percentages with made/attempted
-const TSM=[['pts','Points per game'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
-const TSS={pts:'Points per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
+const TSM=[['pts','Points per game'],['opp','Points allowed'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
+const TSS={pts:'Points per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
 // keep the Team efficiency list level with the Team scoring list (which has tabs above it) when side by side
 function alignTeams(){
   const pad=document.getElementById('t2pad'),pad1=document.getElementById('t1pad'),a=document.getElementById('teams'),b=document.getElementById('teams2');
@@ -653,7 +655,7 @@ function alignTeams(){
 }
 addEventListener('resize',()=>{if(TM.length)alignTeams()});
 function teams(){
-  const pc=S.ts!=='pts',nt=TM.filter(t=>t.gp).length;
+  const pc=S.ts!=='pts'&&S.ts!=='opp',nt=TM.filter(t=>t.gp).length;
   // stage, league country, team, citizenship and age range narrow the lists; ranks stay those of the full table.
   // Citizenship and age keep teams with at least one such player on the current roster (played or not).
   // SBL: all 9 teams always listed; teams matching the filters in blue, the others grey.
@@ -668,7 +670,7 @@ function teams(){
   document.querySelector('.nT2').textContent=`Efficiency per game, ${scopeT}${pf}`;
   for(const [id,k] of [['teams',S.ts],['teams2','epg']]){
     const pct=id==='teams'&&pc,vv=d=>pct?(d[k][1]?d[k][0]/d[k][1]:0):d[k];
-    const t=TM.filter(t=>t.gp).sort((a,b)=>vv(b)-vv(a)),mx=vv(t[0])||1;
+    const low=id==='teams'&&k==='opp',t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;
