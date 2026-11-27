@@ -137,7 +137,7 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
 .rs thead th.hc{background:var(--bg);box-shadow:-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
 .rs tbody th.on{box-shadow:inset 0 0 0 2px var(--hi),-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
 .rs thead th:not(.hc){border-radius:5px;padding:6px 2px!important}
-.rs td.up{color:#1d1d1f;font-size:11.5px;background:light-dark(#e6e8eb,#d6d8dd)}
+.rs td.up{color:#1d1d1f;font-size:11.5px;background:light-dark(#d4d6db,#b9bcc3)}
 .rs td.wc{font-weight:600}
 .rs td.tw{background:var(--hi);color:var(--hiText,#fff);font-weight:600}
 .rs td.tl{background:#fff;color:#111214;font-weight:600}
@@ -534,7 +534,7 @@ function results(){
   if(sel>=0){const pr=document.createElement('i');pr.style.color='var(--hi)';T.appendChild(pr);const m=getComputedStyle(pr).color.match(/\d+/g).map(Number);pr.remove();
     const L=m.slice(0,3).map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4}),lum=.2126*L[0]+.7152*L[1]+.0722*L[2];T.style.setProperty('--hiText',lum>.25?'#111214':'#fff')}
   const np=FIX.filter(f=>f.hs!=null).length,sw=c=>`<i style="background:color-mix(in srgb,var(--${c}) ${c==='hi'?28:70}%,transparent)"></i>`;
-  const fut=`<span><i style="background:light-dark(#e6e8eb,#d6d8dd);box-shadow:inset 0 0 0 1px #9a9ca3"></i>Dates: games still to play</span>`;
+  const fut=`<span><i style="background:light-dark(#d4d6db,#b9bcc3);box-shadow:inset 0 0 0 1px #9a9ca3"></i>Dates: games still to play</span>`;
   if(sel>=0)document.getElementById('rsK').innerHTML=`<span><i style="background:var(--hi)"></i>${esc(TEAMS[sel])} won</span><span><i style="background:#fff;box-shadow:inset 0 0 0 1px #9a9ca3"></i>${esc(TEAMS[sel])} lost</span>${fut}`;
   else document.getElementById('rsK').innerHTML=`<span><i style="background:light-dark(#f3f4f6,#ffffff);box-shadow:inset 0 0 0 1px #c9cbd0"></i>Home team</span><span><i style="background:light-dark(#111214,#34363c);box-shadow:0 0 0 1px #fff,0 0 0 2px light-dark(#111214,transparent)"></i>Away team</span><span>Scores in the winning club’s colour</span>${fut}`;
   document.getElementById('rsS').textContent=`All ${FIX.length} games of the season, ${np} played: home team down the side, away team across the top.`+(sel>=0?` ${TEAMS[sel]}’s games are highlighted.`:' Click a team to select it.');
