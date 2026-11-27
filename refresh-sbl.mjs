@@ -220,7 +220,7 @@ function readCsv(f) {
       const L = logs.filter(r => norm(r.team) === norm(n)), min = L.reduce((s, r) => s + r.min, 0), bmin = L.filter(r => !r.starter).reduce((s, r) => s + r.min, 0);
       const pm = {}; for (const r of L) pm[r.player] = (pm[r.player] || 0) + r.min;
       return { gp: t.gp, oreb: t.oreb, dreb: t.dreb, reb: t.reb, blk: t.blk, stl: t.stl, ast: t.ast, to: t.to,
-        bench: t.bench, bminp: min ? Math.round(1000 * bmin / min) / 10 : 0, rot: Object.values(pm).filter(m => m / t.gp >= 10).length }; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
+        bench: t.bench, fast: t.fast, bminp: min ? Math.round(1000 * bmin / min) / 10 : 0, rot: Object.values(pm).filter(m => m / t.gp >= 10).length }; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
     total: sched.length,
     // short team codes (from LiveStats) and the full schedule, for the results grid
     tcode: TEAMS.map(n => (((teams.find(x => norm(x.team) === norm(n)) || {}).code || n.slice(0, 3)) + '').trim().toUpperCase()),

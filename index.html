@@ -361,7 +361,7 @@ function init(){
     // points allowed: opponents' points per game, from the game results
     const og=GAMES.filter(g=>g.h===i||g.a===i),opp=og.length?d3.sum(og,g=>g.h===i?g.as:g.hs)/og.length:0;
     const ts=TS[i]||{},tg=ts.gp||0,per=k=>tg?(ts[k]||0)/tg:0;
-    return{i,n,gp,opp,ast:per('ast'),to:per('to'),bench:per('bench'),bminp:ts.bminp||0,rot:ts.rot||0,oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
+    return{i,n,gp,opp,ast:per('ast'),to:per('to'),bench:per('bench'),fast:per('fast'),bminp:ts.bminp||0,rot:ts.rot||0,oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
   document.getElementById('tsTabs').innerHTML=TSM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.ts}">${l}</button>`).join('');
   document.getElementById('teTabs').innerHTML=TEM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.te}">${l}</button>`).join('');
   document.querySelectorAll('#teTabs button').forEach(b=>b.onclick=()=>{S.te=b.dataset.k;document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
@@ -809,8 +809,8 @@ function cits(){
   document.getElementById('cit').innerHTML=c.length?c.map(([k,n])=>`<div class="row"><div class="who">${esc(CN[k]||k)}${flags({c:[k]})} <small>— ${pct(n/ps.length)} of players</small></div><div class="val">${n}</div><div class="bar ${S.team<0?'all':''}" style="width:${n/mx*100}%"></div></div>`).join(''):'<div class="empty">No players match these filters.</div>';
 }
 // team scoring metrics: total points, then shooting percentages with made/attempted
-const TSM=[['pts','Points per game'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
-const TSS={pts:'Points per game',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
+const TSM=[['pts','Points per game'],['fast','Fast-break points'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
+const TSS={pts:'Points per game',fast:'Fast-break points per game (official LiveStats total)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
 // team efficiency card: efficiency, then rebounds, blocks, steals (official team totals per game)
 const TEM=[['epg','Efficiency'],['opp','Points allowed'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)']];
 const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game'};
@@ -828,7 +828,7 @@ function alignTeams(){
 }
 addEventListener('resize',()=>{if(TM.length)alignTeams()});
 function teams(){
-  const pc=!['pts','ast'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
+  const pc=!['pts','ast','fast'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
   // stage, league country, team, citizenship and age range narrow the lists; ranks stay those of the full table.
   // Citizenship and age keep teams with at least one such player on the current roster (played or not).
   // SBL: all 9 teams always listed; teams matching the filters in blue, the others grey.
