@@ -599,7 +599,10 @@ function counts(){
   const tl=d3.rollup(D.filter(p=>mt(p,['lc','team'])),v=>new Set(v.map(p=>p.t)).size,p=>TC[p.t]);
   for(const o of document.getElementById('fLc').options){if(!o.value)continue;const n=tl.get(o.value)||0;o.textContent=`${cname(o.value)} (${n} team${n===1?'':'s'})`;o.disabled=!n&&o.value!==S.lc}
   const cc=d3.rollup(D.filter(p=>mt(p,['cit'])).flatMap(p=>p.c),v=>v.length,k=>k);
-  for(const o of document.getElementById('fCit').options){if(!o.value)continue;const n=cc.get(o.value)||0;o.textContent=`${cname(o.value)} (${n})`;o.disabled=!n&&o.value!==S.cit}
+  // choices with no matching player are removed (not just greyed out); the full list is kept aside to put them back
+  const cs=document.getElementById('fCit');cs._all=cs._all||[...cs.options];
+  for(const o of cs._all){if(!o.value)continue;const n=cc.get(o.value)||0;o.textContent=`${cname(o.value)} (${n})`;o.disabled=false;o._n=n}
+  cs.replaceChildren(...cs._all.filter(o=>!o.value||o._n||o.value===S.cit));cs.value=S.cit;
 }
 const inScope=p=>S.team<0||p.t===S.team;
 function figs(){
