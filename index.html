@@ -683,7 +683,9 @@ function fillTeams(){
 const PNOUN={A:['player','players'],G:['guard','guards'],F:['forward','forwards'],C:['center','centers'],U:['player','players']};
 const desc=n=>`${PNOUN[S.pos][n===1?0:1]} with ${S.gp}+ games ${scope()}${S.pos==='U'?', position not specified':''}`;
 const scope=()=>(S.team>=0?'at '+TEAMS[S.team]:S.stg?'at '+stn(S.stg)+(S.lc?' in '+(CN[S.lc]||S.lc):''):S.lc?'at teams in '+(CN[S.lc]||S.lc):'in the competition')+(S.cit?', with '+(CN[S.cit]||S.cit)+' citizenship':'')+(S.age?`, aged ${S.age}–${S.age+4}`:'');
+let VTEAM=null;   // team at the last update: a change of main team resets the comparison (not on first load, so shared links keep it)
 function update(){
+  if(VTEAM!==null&&S.team!==VTEAM)S.vs=-1;VTEAM=S.team;
   teamColour();
   MAPFULL=false;   // a new selection zooms again
   P=D.filter(p=>p.gp>=S.gp&&posOk(p)&&ageOk(p)&&stgOk(p.t)&&(!S.lc||TC[p.t]===S.lc)&&(!S.cit||p.c.includes(S.cit)));
