@@ -13,7 +13,9 @@ listed on the [basketplan.ch schedule](https://basketplan.ch/showLeagueSchedule.
 | `player_games.csv` | Game log: one row per player per game |
 | `data.json` | The same tables in one file, for a dashboard |
 | `games/<game number>.json` | The saved box score of each game (downloaded once, never again) |
-| `refresh-sbl.mjs` | The script (Node 18+, no dependencies) |
+| `players_info.csv` | Player profiles from swiss.basketball: team, club, birth year, height, positions, citizenships, games this season per competition, past seasons, photo and profile links |
+| `refresh-sbl.mjs` | The weekly box score script (Node 18+, no dependencies) |
+| `players-sbl.mjs` | The player profile script |
 
 The CSV files open directly in Excel or Google Sheets.
 
@@ -27,6 +29,12 @@ New phases (play-offs etc.) are picked up automatically as long as they appear o
 
 To force a game to be downloaded again (e.g. after a stat correction), run the workflow by hand and enter its
 game number (e.g. `26-00909`) in the *refetch* box.
+
+## Player profiles
+
+`players_info.csv` is not updated automatically. To refresh it, open the **Actions** tab → *SBL Women player profiles (run by hand)* → **Run workflow**. It reads the season's player list on swiss.basketball and each player's profile (about two minutes).
+
+Positions use the 1–5 numbering: 1 PG, 2 SG, 3 SF, 4 PF, 5 C. Only the birth year is published, not the full date.
 
 ## Notes
 
