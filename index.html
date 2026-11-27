@@ -132,7 +132,10 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .shg{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto}
 #shMin,#shPts{min-height:230px}
 /* the table scrolls inside its own box so the heading row stays visible going down, and the names going right */
-.stw{overflow:auto;max-height:calc(100vh - 230px);min-height:320px;scroll-margin-top:200px;margin:0 -4px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.stbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;margin-bottom:12px}.stbar .tabs{margin:0}
+#stQ{font:inherit;font-size:14px;height:36px;padding:0 12px;border-radius:18px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:220px;max-width:100%}
+#stQ:focus{outline:2px solid var(--hi);outline-offset:1px}
+.stw{overflow:auto;max-height:max(320px,calc(100vh - 230px));scroll-margin-top:200px;margin:0 -4px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .st{border-collapse:separate;border-spacing:0;width:auto;min-width:100%;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st th,.st td{padding:7px 5px;text-align:right;border-bottom:1px solid var(--line)}
 .st th{vertical-align:bottom;line-height:1.25;font-weight:600;font-size:13px;color:var(--ink2);cursor:pointer;user-select:none;position:sticky;top:0;z-index:2;background:var(--bg);box-shadow:0 1px 0 var(--line)}
@@ -252,7 +255,10 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
   <div class="card">
     <h2>Player stats</h2>
     <p class="sub" id="stS"></p>
-    <div class="tabs" id="stTabs" role="group" aria-label="Averages or totals"><button type="button" data-k="avg" aria-pressed="true">Averages per game</button><button type="button" data-k="tot" aria-pressed="false">Season totals</button><button type="button" data-k="min" aria-pressed="false">Per minute played</button></div>
+    <div class="stbar">
+      <div class="tabs" id="stTabs" role="group" aria-label="Averages or totals"><button type="button" data-k="avg" aria-pressed="true">Averages per game</button><button type="button" data-k="tot" aria-pressed="false">Season totals</button><button type="button" data-k="min" aria-pressed="false">Per minute played</button></div>
+      <input type="search" id="stQ" placeholder="Find a player" aria-label="Find a player by name" autocomplete="off">
+    </div>
     <div class="stw"><table class="st" id="stT"></table></div>
   </div>
   <div class="card">
@@ -334,6 +340,7 @@ function init(){
   document.querySelectorAll('#tsTabs button').forEach(b=>b.onclick=()=>{S.ts=b.dataset.k;document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
   fromURL();fillTeams();
   initShare();
+  document.getElementById('stQ').oninput=e=>{S.q=fold(e.target.value);stats();scatter()};
   document.querySelectorAll('#stTabs button').forEach(b=>b.onclick=()=>{ST.mode=b.dataset.k;document.querySelectorAll('#stTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));stats()});
   document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.metric));
   document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.ts));
@@ -468,7 +475,7 @@ function stats(){
   if(ST.mode==='min'&&['fgp','tpp','ftp'].includes(ST.k))ST.k='eff',ST.dir=-1;
   const avg=ST.mode==='avg',pm=ST.mode==='min',num=(p,k)=>pm&&k==='min'?p.min:avg?(p.gp?p[k]/p.gp:0):pm?(p.min?p[k]/p.min:null):p[k];
   const val=(p,k)=>k==='n'?p.n:k==='t'?TEAMS[p.t]:k==='age'||k==='h'||k==='sbl'?(p[k]??-1):k==='gp'?p.gp:k==='fgp'?(p.fga?p.fgm/p.fga:-1):k==='tpp'?(p.tpa?p.tpm/p.tpa:-1):k==='ftp'?(p.fta?p.ftm/p.fta:-1):(k==='fg'?num(p,'fgm'):k==='tp'?num(p,'tpm'):k==='ft'?num(p,'ftm'):num(p,k))??-1;
-  const ps=P.filter(inScope).slice().sort((a,b)=>{const x=val(a,ST.k),y=val(b,ST.k);return(typeof x==='string'?x.localeCompare(y):x-y)*ST.dir||b.eff-a.eff});
+  const ps=P.filter(p=>inScope(p)&&qOk(p)).slice().sort((a,b)=>{const x=val(a,ST.k),y=val(b,ST.k);return(typeof x==='string'?x.localeCompare(y):x-y)*ST.dir||b.eff-a.eff});
   const f=x=>x==null?'–':pm?x.toFixed(2):avg?f1(x):Math.round(x),ma=(p,m,a)=>num(p,m)==null?'–':avg||pm?f(num(p,m)):`${f(num(p,m))}/${f(num(p,a))}`,pc=(m,a)=>a?f1(m/a*100):'–';
   // phones show the first name as an initial (M Benjak); family name from the player profile
   const short=p=>{const f=p.fam&&p.n.endsWith(p.fam)?p.fam:p.n.split(' ').slice(-1)[0];return p.n.charAt(0)+' '+f};
@@ -479,7 +486,7 @@ function stats(){
     `<tbody>${ps.map(p=>`<tr>${COLS.map(([k])=>`<td class="${k==='t'?'tm':''}">${cell(p,k)}</td>`).join('')}</tr>`).join('')}</tbody>`;
   if(!ps.length)T.innerHTML+=`<tbody><tr><td colspan="${COLS.length}" class="empty">No players match these filters.</td></tr></tbody>`;
   T.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ST.dir=ST.k===k?-ST.dir:(k==='n'||k==='t'||k==='age'?1:-1);ST.k=k;stats()});
-  document.getElementById('stS').textContent=`${ps.length} ${desc(ps.length)}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. Click a column heading to sort.`;
+  document.getElementById('stS').textContent=`${ps.length} ${desc(ps.length)}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. Click a column heading to sort.`;
 }
 // ---- results grid: home teams down the side, away teams across ----
 function results(){
@@ -520,6 +527,8 @@ function shares(){
       <text x="${W/2}" y="${H-12}" text-anchor="middle" font-size="13" fill="var(--ink2)">${Math.round(a).toLocaleString('en-US').replace(/,/g,'’')} of ${Math.round(t).toLocaleString('en-US').replace(/,/g,'’')} ${unit}</text>`);
   }
 }
+const fold=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+const qOk=p=>!S.q||fold(p.n).includes(S.q);
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
 function fillTeams(){
@@ -573,7 +582,7 @@ function scatter(){
   const x=d3.scaleLinear().domain([0,40]).range([m.l,W-m.r]);
   const y=d3.scaleLinear().domain(d3.extent(D,p=>pg(p,'eff'))).nice().range([H-m.b,m.t]);
   const sel=filtOn(),q=S.q,M1=new Set(P.filter(inScope));
-  const hit=p=>q&&p.n.toLowerCase().includes(q);
+  const hit=p=>q&&fold(p.n).includes(q);
   const pts=D.filter(p=>p.gp>=S.gp).map(p=>({p,x:x(pg(p,'min')),y:y(pg(p,'eff')),on:sel?M1.has(p):true,h:hit(p)}));
   pts.sort((a,b)=>(a.on-b.on)||(a.h-b.h));
   const xt=x.ticks(narrow?4:8),yt=y.ticks(narrow?5:8);
