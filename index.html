@@ -722,7 +722,7 @@ function map(){
   if(MAPFULL)Z={s:1,tx:0,ty:0};
   let s=`<defs><clipPath id="mclip"><rect width="${W}" height="${H}" rx="8"/></clipPath></defs><g clip-path="url(#mclip)"><rect width="${W}" height="${H}" fill="var(--sea)"/>`;
   s+='<g id="mz">'+GEO.features.map(f=>path(f)).filter(Boolean).map(d=>`<path d="${d}" fill="var(--land)" stroke="var(--bg)" stroke-width=".8" vector-effect="non-scaling-stroke"/>`).join('')+'</g>';
-  s+=cl.map((d,k)=>`<circle class="md" data-k="${k}" cx="${d.x}" cy="${d.y}" r="${d.r}" fill="${on?(d.c?'var(--hi)':'var(--lo)'):'var(--all)'}" stroke="${d.sel?'var(--ink)':'var(--bg)'}" stroke-width="${d.sel?2.5:1.5}"/>`).join('');
+  s+=cl.map((d,k)=>`<circle class="md" data-k="${k}" cx="${d.x}" cy="${d.y}" r="${d.r}" fill="${on?(d.c?'var(--hi)':'var(--lo)'):'var(--all)'}"/>`).join('');
   const city=d=>d.name;
   const lab=cl.slice();
   const sl=cl.find(d=>d.sel);if(sl&&!lab.includes(sl))lab.push(sl);
