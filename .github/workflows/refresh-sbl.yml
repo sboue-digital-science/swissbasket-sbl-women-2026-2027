@@ -25,9 +25,15 @@ jobs:
         env:
           SBL_REFETCH: ${{ github.event.inputs.refetch }}
         run: node refresh-sbl.mjs
+      - name: Refresh the link-preview picture (preview.png)
+        continue-on-error: true
+        run: |
+          npm install --no-save --silent playwright@1
+          npx playwright install --with-deps chromium
+          node make-preview.mjs
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add games data.json dash.json *.csv
+          git add games data.json dash.json preview.png *.csv
           if git diff --cached --quiet; then echo "No new games."; else git commit -m "Add new SBL Women box scores" && git push; fi

@@ -16,6 +16,7 @@ listed on the [basketplan.ch schedule](https://basketplan.ch/showLeagueSchedule.
 | `data.json` | The same tables in one file |
 | `dash.json` | What the dashboard reads: player totals joined with their profiles, plus every game result (for the standings race) |
 | `index.html`, `europe.json`, `flags.json` | The dashboard, its basemap and flags |
+| `preview.png`, `make-preview.mjs` | The 1200×630 picture shown when the link is shared, re-drawn after each weekly update |
 | `games/<game number>.json` | The saved box score of each game (downloaded once, never again) |
 | `players_info.csv` | Player profiles from swiss.basketball: team, club, birth year, height, positions, citizenships, games this season per competition, past seasons, photo and profile links |
 | `refresh-sbl.mjs` | The weekly box score script (Node 18+, no dependencies) |
