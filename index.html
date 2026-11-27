@@ -506,9 +506,9 @@ const flags=p=>p.c.map(c=>{const n=esc(CN[c]||c);return FL[c]?`<img class="flag"
 function leaders(){
   const k=S.metric,fg=k==='fg',lab=M.find(m=>m[0]===k)[1];
   const v=p=>fg?(p.fga?p.fgm/p.fga:0):pg(p,k),fmt=x=>fg?f1(x*100)+'%':f1(x);
-  const ps=P.filter(p=>inScope(p)&&(!fg||(p.gp&&p.fga/p.gp>=3))).sort((a,b)=>v(b)-v(a)).slice(0,10);
+  const ps=P.filter(p=>inScope(p)&&(!fg||(p.gp&&p.fga/p.gp>=2))).sort((a,b)=>v(b)-v(a)).slice(0,10);
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
-  document.getElementById('ldS').textContent=`Top 10 ${desc(2)}`+(fg?', at least 3 field goal attempts per game.':'.');
+  document.getElementById('ldS').textContent=`Top 10 ${desc(2)}`+(fg?', at least 2 field goal attempts per game.':'.');
   const mx=d3.max(ps,v)||1;
   document.getElementById('leaders').classList.toggle('fgm',fg);
   document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
