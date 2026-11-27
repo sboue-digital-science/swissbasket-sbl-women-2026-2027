@@ -557,7 +557,7 @@ const fold=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLo
 const qOk=p=>!S.q||fold(p.n).includes(S.q);
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // club colour used for highlights when a team is selected (readable on light and dark backgrounds)
-const TSEL={BAD:'#E00000',TTT:'light-dark(#02374F,#FEDD02)',AKA:'light-dark(#000000,#0E8CDB)',ELF:'light-dark(#293770,#7b8bd0)',ESP:'#12C329',GC:'#0179C1',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
+const TSEL={BAD:'#E00000',TTT:'light-dark(#02374F,#FEDD02)',AKA:'light-dark(#000000,#0E8CDB)',ELF:'light-dark(#1C3473,#7b8bd0)',ESP:'#12C329',GC:'light-dark(#025791,#3d8fd1)',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
 function teamColour(){const r=document.documentElement.style,c=S.team>=0&&TSEL[TCODE[S.team]];if(c)r.setProperty('--hi',c);else r.removeProperty('--hi')}
 const posOk=p=>S.pos==='A'||p.p===S.pos;
 const ageOk=p=>!S.age||(p.age!=null&&Math.floor(p.age)>=S.age&&Math.floor(p.age)<=S.age+4);
