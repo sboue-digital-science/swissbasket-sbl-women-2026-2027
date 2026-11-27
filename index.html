@@ -472,7 +472,7 @@ function results(){
   const narrow=document.getElementById('resCard').clientWidth<600,sel=S.team,ix=d3.range(TEAMS.length);
   const g=new Map(FIX.map(f=>[f.h+'-'+f.a,f])),ddm=d3.timeFormat('%d-%b-%y');
   const nm=i=>narrow?TCODE[i]:TEAMS[i],dim=(h,a)=>sel>=0&&h!==sel&&a!==sel?' dim':'';
-  T.innerHTML=`<thead><tr><th class="hc">Home ↓ · Away →</th>${ix.map(a=>`<th scope="col" class="${a===sel?'on':''}" title="${esc(TEAMS[a])}">${esc(TCODE[a])}</th>`).join('')}</tr></thead><tbody>`+
+  T.innerHTML=`<thead><tr><th class="hc">Home ↓<br>Away →</th>${ix.map(a=>`<th scope="col" class="${a===sel?'on':''}" title="${esc(TEAMS[a])}">${esc(TCODE[a])}</th>`).join('')}</tr></thead><tbody>`+
     ix.map(h=>`<tr><th scope="row" class="${h===sel?'on':''}" title="${esc(TEAMS[h])}">${esc(nm(h))}</th>${ix.map(a=>{if(a===h)return`<td class="x${dim(h,a)}"></td>`;
       const f=g.get(h+'-'+a);if(!f)return`<td class="up${dim(h,a)}">–</td>`;
       if(f.hs==null)return`<td class="up${dim(h,a)}" data-k="${h}-${a}">${f.date?ddm(pdate(f.date)):'–'}</td>`;
