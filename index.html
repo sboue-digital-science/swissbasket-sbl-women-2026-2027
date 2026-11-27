@@ -119,6 +119,11 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .rs td.hw,.rs tbody th{background:var(--home);color:#1d1d1f;box-shadow:inset 0 0 0 1px #c9cbd0;font-weight:600}
 .rs td.aw,.rs thead th:not(.hc){background:var(--away);color:#fff;font-weight:600}
 .rs tbody th{border-radius:5px;padding:7px 6px!important}
+/* first column stays in view when the grid scrolls sideways (phones); the outer shadow masks the gap around it */
+.rs tbody th,.rs thead th.hc{position:sticky;left:0;z-index:2}
+.rs tbody th{box-shadow:inset 0 0 0 1px #c9cbd0,-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
+.rs thead th.hc{background:var(--bg);box-shadow:-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
+.rs tbody th.on{box-shadow:inset 0 0 0 2px var(--hi),-4px 0 0 0 var(--bg),4px 0 0 0 var(--bg)}
 .rs thead th:not(.hc){border-radius:5px;padding:6px 2px!important}
 .rs td.up{color:var(--ink2);font-size:11.5px;background:transparent;box-shadow:inset 0 0 0 1px var(--line)}
 .rs td.x{background:repeating-linear-gradient(135deg,transparent 0 5px,var(--line) 5px 6px)}
