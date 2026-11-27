@@ -207,7 +207,8 @@ function readCsv(f) {
     return { t: ti.get(norm(p.team)), n: p.player, gone: false, no: p.no || null, p: posOf(r, p.pos), pos: r ? r.positions_label : (p.pos || ''),
       by: r && +r.birth_year || null, age: r && +r.birth_year ? year - +r.birth_year : null, h: r && +r.height_cm || null, c: [...new Set(c)],
       gp: p.gp, min: p.min, pts: p.pts, reb: p.reb, ast: p.ast, stl: p.stl, blk: p.blk, to: p.to, eff: p.eff,
-      fgm: p.fgm, fga: p.fga, tpm: p.tpm, tpa: p.tpa, ftm: p.ftm, fta: p.fta, sbl: r && r.seasons_in_sbl !== '' ? +r.seasons_in_sbl : null, pid: r ? r.player_id : null };
+      fgm: p.fgm, fga: p.fga, tpm: p.tpm, tpa: p.tpa, ftm: p.ftm, fta: p.fta, sbl: r && r.seasons_in_sbl !== '' ? +r.seasons_in_sbl : null,
+      fam: r && r.family_name ? r.family_name : p.player.split(' ').slice(-1)[0], pid: r ? r.player_id : null };
   });
   const dg = sched.filter(g => g.status === 'played').map(g => ({ date: g.date.slice(0, 10), day: g.day, phase: g.phase, h: ti.get(norm(g.home)), a: ti.get(norm(g.away)), hs: g.hs, as: g.as }))
     .filter(g => g.h != null && g.a != null);
