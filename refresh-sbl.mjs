@@ -131,7 +131,7 @@ for (const g of saved) {
     for (const k in tm) tt[k] += +t[tm[k]] || 0;
     for (const p of t.pl) {
       const s = { sec: secs(p.sMinutes) }; for (const k of STAT) s[k] = +p[PF[k]] || 0;
-      const name0 = [p.firstName, p.familyName].filter(Boolean).join(' ') || p.name;
+      const name0 = ([p.firstName, p.familyName].filter(Boolean).join(' ') || p.name || '').replace(/\s+/g, ' ').trim();
       const name = NAME_FIX[team + '|' + name0] || name0;
       logs.push({ game: g.no, date: g.date.slice(0, 10), phase: g.phase, team, opponent: oppName, home: i === 0 ? 'H' : 'A', result: `${win ? 'W' : 'L'} ${t.score}-${opp.score}`,
         player: name, no: p.no, starter: p.starter ? 1 : 0, min: r1(s.sec / 60), ...Object.fromEntries(STAT.map(k => [k, s[k]])), eff: eff(s) });
@@ -163,3 +163,57 @@ writeFileSync('players.csv', csv(players));
 writeFileSync('player_games.csv', csv(logs));
 writeFileSync('data.json', JSON.stringify({ asof: new Date().toISOString().slice(0, 10), schedule: SCHEDULE, games: gamesOut, teams, players }, null, 0));
 console.log(`Saved games: ${saved.length} (${added} new this run${failed.length ? `, ${failed.length} failed: ${failed.join(', ')}` : ''}). Teams: ${teams.length}, players: ${players.length}.`);
+
+// ---------- dashboard data (dash.json): box score totals + player profiles (players_info.csv) ----------
+// Home towns from each team's home hall on basketplan.ch
+const TEAM_CITY = {
+  'Baden Basket 54': ['Baden', 47.476, 8.306], 'BCF Elfic Fribourg': ['Fribourg', 46.806, 7.162], 'Nyon Basket Féminin': ['Nyon', 46.383, 6.239],
+  'Ravens de Genève LPLO': ['Geneva', 46.204, 6.143], 'GC Zürich': ['Zürich', 47.377, 8.540], 'Hélios VS Basket': ['Vétroz', 46.222, 7.279],
+  'BBC Troistorrents-Chablais': ['Monthey', 46.255, 6.954], 'BC Alte Kanti Aarau': ['Aarau', 47.392, 8.044], 'Espérance Sportive Pully': ['Pully', 46.510, 6.662],
+};
+const CN = { SUI: 'Switzerland', USA: 'United States', FRA: 'France', CAN: 'Canada', ESP: 'Spain', POL: 'Poland', CRO: 'Croatia', GER: 'Germany', IRL: 'Ireland',
+  GRE: 'Greece', ITA: 'Italy', SWE: 'Sweden', SLO: 'Slovenia', CUB: 'Cuba', HUN: 'Hungary', RUS: 'Russia', POR: 'Portugal', GBR: 'Great Britain', NED: 'Netherlands',
+  ANG: 'Angola', UKR: 'Ukraine', BEL: 'Belgium', TAN: 'Tanzania', SRB: 'Serbia', MNE: 'Montenegro', BIH: 'Bosnia and Herzegovina', AUT: 'Austria', CZE: 'Czechia',
+  ENG: 'England', ISR: 'Israel', LAT: 'Latvia', LTU: 'Lithuania', NGR: 'Nigeria', SEN: 'Senegal', MLI: 'Mali', CMR: 'Cameroon', BRA: 'Brazil', ARG: 'Argentina',
+  AUS: 'Australia', NZL: 'New Zealand', DEN: 'Denmark', FIN: 'Finland', NOR: 'Norway', LUX: 'Luxembourg', TUR: 'Türkiye', ROU: 'Romania', BUL: 'Bulgaria',
+  SVK: 'Slovakia', ALB: 'Albania', KOS: 'Kosovo', MAR: 'Morocco', COD: 'DR Congo', CGO: 'Congo', CIV: "Côte d'Ivoire", JPN: 'Japan', MEX: 'Mexico', DOM: 'Dominican Republic' };
+// basketplan uses a few non-FIBA codes; map them by their two-letter country code
+const ISO2_FIBA = { ME: 'MNE', RS: 'SRB', MO: 'MAC' };
+function readCsv(f) {
+  if (!existsSync(f)) return [];
+  const t = readFileSync(f, 'utf8').replace(/^﻿/, ''), rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < t.length; i++) { const c = t[i];
+    if (q) { if (c === '"') { if (t[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"') q = true; else if (c === ',') { row.push(cur); cur = ''; } else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; } else if (c !== '\r') cur += c; }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  const h = rows.shift(); return rows.filter(r => r.length > 1).map(r => Object.fromEntries(h.map((k, i) => [k, r[i] ?? ''])));
+}
+{
+  const prof = readCsv('players_info.csv'), tok = s => norm(s).replace(/-/g, ' ').split(' ').filter(Boolean);
+  const findProf = (name, team) => {
+    const w = new Set(tok(name)), ok = r => tok(r.family_name).every(x => w.has(x)) && tok(r.first_names).some(x => w.has(x));
+    return prof.find(r => norm(r.team) === norm(team) && ok(r)) || prof.find(ok);
+  };
+  const code = (c, iso2) => ISO2_FIBA[iso2] || c;
+  const TEAMS = teams.map(t => t.team).sort((a, b) => a.localeCompare(b)), ti = new Map(TEAMS.map((t, i) => [norm(t), i]));
+  const year = +new Date().toISOString().slice(0, 4);
+  const posOf = (r, boxPos) => { const n = r && +String(r.positions || '').split(',')[0];
+    if (n) return n <= 2 ? 'G' : n <= 4 ? 'F' : 'C';
+    const b = norm(boxPos); return /guard|^g$/.test(b) ? 'G' : /forward|^f$/.test(b) ? 'F' : /center|centre|^c$/.test(b) ? 'C' : 'U'; };
+  let matched = 0;
+  const dp = players.map(p => {
+    const r = findProf(p.player, p.team); if (r) matched++;
+    const c = r ? [code(r.nationality_1, r.nationality_1_iso2), code(r.nationality_2, r.nationality_2_iso2)].filter(Boolean) : [];
+    return { t: ti.get(norm(p.team)), n: p.player, gone: false, no: p.no || null, p: posOf(r, p.pos), pos: r ? r.positions_label : (p.pos || ''),
+      by: r && +r.birth_year || null, age: r && +r.birth_year ? year - +r.birth_year : null, h: r && +r.height_cm || null, c: [...new Set(c)],
+      gp: p.gp, min: p.min, pts: p.pts, reb: p.reb, ast: p.ast, stl: p.stl, blk: p.blk, to: p.to, eff: p.eff,
+      fgm: p.fgm, fga: p.fga, tpm: p.tpm, tpa: p.tpa, ftm: p.ftm, fta: p.fta, pid: r ? r.player_id : null };
+  });
+  const dg = sched.filter(g => g.status === 'played').map(g => ({ date: g.date.slice(0, 10), day: g.day, phase: g.phase, h: ti.get(norm(g.home)), a: ti.get(norm(g.away)), hs: g.hs, as: g.as }))
+    .filter(g => g.h != null && g.a != null);
+  writeFileSync('dash.json', JSON.stringify({ asof: new Date().toISOString().slice(0, 10), teams: TEAMS, tc: TEAMS.map(() => 'SUI'),
+    cn: CN, city: TEAMS.map(t => TEAM_CITY[t] || null), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
+    total: sched.length }));
+  const unknown = [...new Set(dp.flatMap(p => p.c))].filter(c => !CN[c]);
+  console.log(`dash.json: ${dp.length} players (${matched} with a profile), ${dg.length} games${unknown.length ? `; country codes without a name: ${unknown.join(', ')}` : ''}.`);
+}
