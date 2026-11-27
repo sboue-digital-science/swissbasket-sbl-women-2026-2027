@@ -656,13 +656,13 @@ function cits(){
   document.getElementById('cit').innerHTML=c.length?c.map(([k,n])=>`<div class="row"><div class="who">${esc(CN[k]||k)}${flags({c:[k]})} <small>— ${pct(n/ps.length)} of players</small></div><div class="val">${n}</div><div class="bar ${S.team<0?'all':''}" style="width:${n/mx*100}%"></div></div>`).join(''):'<div class="empty">No players match these filters.</div>';
 }
 // team scoring metrics: total points, then shooting percentages with made/attempted
-const TSM=[['pts','Points per game'],['opp','Points allowed'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
-const TSS={pts:'Points per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
+const TSM=[['pts','Points per game'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
+const TSS={pts:'Points per game',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
 // team efficiency card: efficiency, then rebounds, blocks, steals (official team totals per game)
-const TEM=[['epg','Efficiency'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers']];
-const TES={epg:'Efficiency per game',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)'};
+const TEM=[['epg','Efficiency'],['opp','Points allowed'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers']];
+const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)'};
 const TED={epg:'Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.',
-  reb:'Official team totals: rebounds credited to the team rather than to a player are included.',blk:'Official team totals per game played.',stl:'Official team totals per game played.',to:'Official team totals per game played, including turnovers credited to the team rather than to a player.'};
+  reb:'Official team totals: rebounds credited to the team rather than to a player are included.',blk:'Official team totals per game played.',stl:'Official team totals per game played.',opp:'Points scored by opponents, divided by the team’s games played.',to:'Official team totals per game played, including turnovers credited to the team rather than to a player.'};
 TED.oreb=TED.dreb=TED.reb;
 // keep the Team efficiency list level with the Team scoring list (which has tabs above it) when side by side
 function alignTeams(){
@@ -675,7 +675,7 @@ function alignTeams(){
 }
 addEventListener('resize',()=>{if(TM.length)alignTeams()});
 function teams(){
-  const pc=!['pts','opp','ast'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
+  const pc=!['pts','ast'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
   // stage, league country, team, citizenship and age range narrow the lists; ranks stay those of the full table.
   // Citizenship and age keep teams with at least one such player on the current roster (played or not).
   // SBL: all 9 teams always listed; teams matching the filters in blue, the others grey.
@@ -691,7 +691,7 @@ function teams(){
   document.querySelector('#t2pad .def').textContent=TED[S.te];
   for(const [id,k] of [['teams',S.ts],['teams2',S.te]]){
     const pct=id==='teams'&&pc,vv=d=>pct?(d[k][1]?d[k][0]/d[k][1]:0):d[k];
-    const low=(id==='teams'&&k==='opp')||(id==='teams2'&&k==='to'),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
+    const low=id==='teams2'&&(k==='opp'||k==='to'),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
     // league average: mean of the 9 teams' per-game values; for percentages, all made / all attempted
     const av=pct?d3.sum(t,d=>d[k][0])/(d3.sum(t,d=>d[k][1])||1):d3.mean(t,vv),avTxt=pct?f1(av*100)+'%':f1(av);
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
