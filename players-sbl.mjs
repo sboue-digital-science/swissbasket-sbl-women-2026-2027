@@ -68,6 +68,8 @@ for (const p of roster) {
       positions_label: pos.map(n => POS[n] || n).join('/'),
       nationality_1: o.nationality_1 || '',
       nationality_2: o.nationality_2 || '',
+      nationality_1_iso2: o.nat1Iso2 || '',
+      nationality_2_iso2: o.nat2Iso2 || '',
       sbl_games_2026_27: sbl,
       other_competitions_2026_27: cur.filter(h => h.league !== 'SB League Women').map(h => `${h.league} – ${h.team} (${h.g})`).join('; '),
       seasons_in_sbl: new Set(H.filter(h => h.league === 'SB League Women').map(h => h.season)).size,
