@@ -494,7 +494,7 @@ function race(anim){
   g.select('.vl').attr('x',d=>narrow?m.l:x0+x(d.wp)+8);
   // phones: two lines (record, then scoring)
   if(two)g.select('.vl').html(d=>{const p=parts(d);return`<tspan x="${m.l}">${p.slice(0,3).join(' — ')}</tspan><tspan x="${m.l}" dy="15">${p.slice(3).join(' — ')}</tspan>`});
-  else tr.select('.vl').attr('x',d=>narrow?m.l:x0+x(d.wp)+8).text(d=>parts(d).join(W<560?'\u2009—\u2009':' — '));
+  else tr.select('.vl').attr('x',d=>narrow?m.l:x0+x(d.wp)+8).text(d=>parts(d).join(W<560?'\u2009–\u2009':' – '));
   g.on('click',(e,d)=>pickTeam(d.i));
   g.each(function(d){onHover(this,e=>{const t=RF[RK].st.find(x=>x.i===d.i),df=t.pf-t.pa;
     showTip(e,`<b>${t.rk+1}. ${esc(t.n)}</b><br>Win percentage ${Math.round(t.wp*100)}%<br>${t.w} win${t.w===1?'':'s'}, ${t.l} loss${t.l===1?'':'es'} in ${t.gp} game${t.gp===1?'':'s'}<br>Home ${t.hw}–${t.hl} · Away ${t.aw}–${t.al}<br>Points ${t.pf}–${t.pa} (${df>0?'+':df<0?'−':''}${Math.abs(df)})<br>After ${fdate(pdate(RF[RK].dt))}`)},'race'+d.i)});
@@ -502,7 +502,7 @@ function race(anim){
   const today=F.today.map(g=>`${TEAMS[g.h]} ${g.hs}–${g.as} ${TEAMS[g.a]}`);
   document.getElementById('rcD').innerHTML=`After ${fdate(pdate(F.dt))}<small>${esc(F.days.join(', '))} · ${F.n} of ${NGAMES||'all'} games played</small>`;
   document.getElementById('rcD').title=today.join('\n');
-  document.getElementById('rcS').textContent=`The table after each game date, ranked by win percentage (wins ÷ games played); ties broken by wins, then points difference. Next to each bar: games — wins–losses — win % — points per game (PPG) — opponents’ points per game (OPPG) — overall points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} highlighted in its club colour.`:' Click a team to select it.');
+  document.getElementById('rcS').textContent=`The table after each game date, ranked by win percentage (wins ÷ games played); ties broken by wins, then points difference. Next to each bar: games – wins–losses – win % – points per game (PPG) – opponents’ points per game (OPPG) – overall points difference. Press Play to watch the season unfold, or drag the slider to any date.`+(sel>=0?` ${TEAMS[sel]} highlighted in its club colour.`:' Click a team to select it.');
 }
 // ---- player stats table: one row per player, averages or season totals, sortable ----
 let ST={mode:'avg',k:'eff',dir:-1};
