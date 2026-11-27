@@ -178,12 +178,6 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
       <div class="teams" id="teams2"></div>
     </div>
   </div>
-  <div class="card">
-    <h2>Where the teams play</h2>
-    <p class="sub" id="mpS"></p>
-    <div class="key" id="mpKey"></div>
-    <div class="fig" id="map"><svg role="img" aria-label="Map of team home cities"></svg><button id="mapBtn" class="mapbtn" type="button" hidden></button></div>
-  </div>
   <div class="grid grid2">
     <div class="card">
       <h2>Player profile</h2>
@@ -219,6 +213,12 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
     <p class="sub" id="stS"></p>
     <div class="tabs" id="stTabs" role="group" aria-label="Averages or totals"><button type="button" data-k="avg" aria-pressed="true">Averages per game</button><button type="button" data-k="tot" aria-pressed="false">Season totals</button><button type="button" data-k="min" aria-pressed="false">Per minute played</button></div>
     <div class="stw"><table class="st" id="stT"></table></div>
+  </div>
+  <div class="card">
+    <h2>Where the teams play</h2>
+    <p class="sub" id="mpS"></p>
+    <div class="key" id="mpKey"></div>
+    <div class="fig" id="map"><svg role="img" aria-label="Map of team home cities"></svg><button id="mapBtn" class="mapbtn" type="button" hidden></button></div>
   </div>
   <footer><p class="credit">Designed and built by <a href="https://sboue-digital-science.com/" target="_top">S Boue Digital Science</a></p>Source: game box scores from FIBA LiveStats, linked from the basketplan.ch schedule; player profiles (year of birth, height, positions, citizenships) from swiss.basketball. Data as of <span id="asof2"></span>. Efficiency is FIBA's: points + rebounds + assists + steals + blocks − missed shots − turnovers. Positions are grouped from each player's first listed position (1–2 guard, 3–4 forward, 5 center). Players listed for a game who have not played yet appear only with the 0+ games filter. The standings race is an unofficial table: wins, then fewer losses, then points difference; head-to-head rules are not applied. Home towns are those of each team's home hall. Basemap: Natural Earth via world-atlas. Flags: flag-icons.</footer>
 </div></main>
