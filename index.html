@@ -154,7 +154,7 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 <section class="figband"><div class="wrap figs" id="figs"></div></section>
 
 <main class="band"><div class="wrap" style="display:grid;gap:20px">
-  <div class="card">
+  <div class="card" id="raceCard">
     <h2>Standings race</h2>
     <p class="sub" id="rcS">The table after each game date: wins, then fewer losses, then points difference.</p>
     <div class="rctl"><button id="rcPlay" class="rbtn" type="button">▶ Play</button><input id="rcR" type="range" min="0" max="0" value="0" aria-label="Game date"><div class="rdate" id="rcD" aria-live="polite"></div></div>
@@ -440,7 +440,9 @@ const scope=()=>(S.team>=0?'at '+TEAMS[S.team]:S.stg?'at '+stn(S.stg)+(S.lc?' in
 function update(){
   MAPFULL=false;   // a new selection zooms again
   P=D.filter(p=>p.gp>=S.gp&&posOk(p)&&ageOk(p)&&stgOk(p.t)&&(!S.lc||TC[p.t]===S.lc)&&(!S.cit||p.c.includes(S.cit)));
-  figs();scatter();leaders();ages();cits();map();teams();counts();race(0);stats();
+  // the standings race is shown only without team, position, citizenship or age filters
+  const rOff=S.team>=0||S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
+  figs();scatter();leaders();ages();cits();map();teams();counts();if(!rOff)race(0);stats();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
