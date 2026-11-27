@@ -135,6 +135,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:8px 10px;border-radius:8px;font-size:13px;line-height:1.35;opacity:0;transition:opacity .12s;z-index:9;max-width:min(440px,calc(100vw - 16px))}
 .tip b{font-size:15px}
 .key{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.key b.lnk{display:inline-block;width:16px;height:0;border-top:2px solid;margin-right:6px;vertical-align:3px}
 .key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
 footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;color:var(--ink)}.credit a{color:light-dark(#111214,#fff);font-weight:600;text-decoration:none}   /* never the team colour */.credit a:hover{text-decoration:underline}
 .note{margin:12px 0 0;font-size:13px;color:var(--ink2)}
@@ -770,7 +771,9 @@ function hist(id,bins,key,lab,every,range){
   const box=document.getElementById(id),svg=box.querySelector('svg');
   const W=box.clientWidth,H=box.clientHeight,m={t:30,r:6,b:range?60:30,l:30};
   const sel=filtOn(),tm=P.filter(inScope),base=D.filter(p=>p.gp>=S.gp);
-  const B=bins.map(a=>({a,n:base.filter(p=>key(p)===a).length,k:tm.filter(p=>key(p)===a).length}));
+  // comparison team (when the compare control is showing): drawn as a line over the selected team's columns
+  const vsP=vsLine()?P.filter(p=>p.t===S.vs):null;
+  const B=bins.map(a=>({a,n:base.filter(p=>key(p)===a).length,k:tm.filter(p=>key(p)===a).length,v:vsP?vsP.filter(p=>key(p)===a).length:0}));
   const x=d3.scaleBand().domain(B.map(b=>b.a)).range([m.l,W-m.r]).paddingInner(.18);
   const y=d3.scaleLinear().domain([0,d3.max(B,b=>b.n)||1]).nice().range([H-m.b,m.t]);
   const bw=Math.min(24,x.bandwidth()),off=(x.bandwidth()-bw)/2,rad=Math.min(4,bw/2);
@@ -784,6 +787,9 @@ function hist(id,bins,key,lab,every,range){
         o+=`<text x="${x0+bw/2}" y="${top-6}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">${b.k}</text>`}}
     return o+`<rect class="ab" data-j="${j}" x="${x(b.a)}" y="${m.t}" width="${x.bandwidth()}" height="${y(0)-m.t}" fill="transparent"/>`}).join('');
   s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
+  if(vsP){const pts=B.map(b=>[x(b.a)+x.bandwidth()/2,y(b.v)]),d='M'+pts.map(p=>p.join(',')).join('L');
+    s+=`<g class="hvs" pointer-events="none"><path d="${d}" fill="none" stroke="var(--bg)" stroke-width="5" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="var(--vs)" stroke-width="2" stroke-linejoin="round" ${VSDASH?'stroke-dasharray="6 3"':''}/>`+
+      B.map((b,j)=>b.v?`<circle cx="${pts[j][0]}" cy="${pts[j][1]}" r="4" fill="var(--vs)" stroke="var(--bg)" stroke-width="2"/>`:'').join('')+'</g>'}
   const ev=every(W);
   // x labels: single value, or a range written on three lines (min, –, max)
   s+=B.filter((b,j)=>j%ev===0).map(b=>{const cx=x(b.a)+x.bandwidth()/2,y0=H-m.b+16;
@@ -795,9 +801,12 @@ function hist(id,bins,key,lab,every,range){
     // with a filter on, list the highlighted players (name, flags, age, height, position, team), tallest first; others stay a count
     const who=sel&&k?tm.filter(p=>key(p)===b.a).sort((p,q)=>(q.h||0)-(p.h||0)):[];
     const line=p=>`${esc(p.n)}${flags(p)} — ${[p.age!=null?p.age+' years':'',p.h?p.h+' cm':'',p.pos||''].filter(Boolean).join(' · ')} — ${esc(TEAMS[p.t])}`;
-    onHover(r,e=>showTip(e,sel?(k?`<b>${k}</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${who.slice(0,12).map(line).join('<br>')}${who.length>12?`<br>+ ${who.length-12} more`:''}`:`<b>0</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${tn}`):`<b>${n}</b> player${n>1?'s':''}<br>${lab(b.a)}`))});
+    const vw=vsP?vsP.filter(p=>key(p)===b.a).sort((p,q)=>(q.h||0)-(p.h||0)):[];
+    const vt=vsP?`<hr style="border:0;border-top:1px solid rgba(255,255,255,.25);margin:6px 0"><b>${b.v}</b> ${esc(TEAMS[S.vs])}${vw.length?'<br>'+vw.slice(0,8).map(line).join('<br>')+(vw.length>8?`<br>+ ${vw.length-8} more`:''):''}`:'';
+    onHover(r,e=>showTip(e,(sel?(k?`<b>${k}</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${who.slice(0,12).map(line).join('<br>')}${who.length>12?`<br>+ ${who.length-12} more`:''}`:`<b>0</b> of ${n} player${n>1?'s':''} ${lab(b.a)}<br>${tn}`):`<b>${n}</b> player${n>1?'s':''}<br>${lab(b.a)}`)+vt))});
   return{tm,base};
 }
+const vsLine=()=>S.team>=0&&S.vs>=0&&!document.getElementById('teamCards').hidden;
 function ages(){
   if(!D)return;
   const amax=Math.floor(d3.max(D,p=>p.age)||0),hs=D.map(p=>p.h).filter(h=>h>0);
@@ -806,9 +815,10 @@ function ages(){
   const h0=Math.floor(d3.min(hs)/5)*5,h1=Math.floor(d3.max(hs)/5)*5;
   hist('hgt',d3.range(h0,h1+1,5),p=>p.h>0?Math.floor(p.h/5)*5:null,a=>`${a}–${a+4} cm`,W=>W<420?2:1,5);
   const sel=filtOn(),tn=esc(flabel());
-  document.getElementById('agKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${tn}</span><span><i style="background:var(--lo)"></i>Other players</span>`:'';
+  document.getElementById('agKey').innerHTML=sel?`<span><i style="background:var(--hi)"></i>${tn}</span>${vsLine()?`<span><b class="lnk" style="border-top-color:var(--vs)${VSDASH?';border-top-style:dashed':''}"></b>${esc(TEAMS[S.vs])}</span>`:''}<span><i style="background:var(--lo)"></i>Other players</span>`:'';
   const yg=tm.filter(p=>p.age<20).length,wh=base.filter(p=>p.h>0).length;
-  document.getElementById('agS').textContent=(sel?`Grey: all ${base.length} players with ${S.gp}+ games. In colour: the ${tm.length} ${desc(tm.length)}, with their count above; ${yg} of them ${yg===1?'is':'are'} under 20.`:`${base.length} players with ${S.gp}+ games; ${yg} ${yg===1?'is':'are'} under 20.`)+` Age = ${new Date().getFullYear()} minus year of birth (only the year is published); heights where listed (${wh} of ${base.length}).`;
+  const vn=vsLine()?P.filter(p=>p.t===S.vs):null,vy=vn?vn.filter(p=>p.age<20).length:0;
+  document.getElementById('agS').textContent=(sel?`Grey: all ${base.length} players with ${S.gp}+ games. In colour: the ${tm.length} ${desc(tm.length)}, with their count above; ${yg} of them ${yg===1?'is':'are'} under 20.`+(vn?` Line: the ${vn.length} ${TEAMS[S.vs]} players, for comparison; ${vy} of them under 20.`:''):`${base.length} players with ${S.gp}+ games; ${yg} ${yg===1?'is':'are'} under 20.`)+` Age = ${new Date().getFullYear()} minus year of birth (only the year is published); heights where listed (${wh} of ${base.length}).`;
 }
 // stage filter: before the play-offs start, main stage = reached at least the regular season (play-off
 // qualifiers included); once they start, it becomes 'main stage only' and play-off teams move to Play-offs
