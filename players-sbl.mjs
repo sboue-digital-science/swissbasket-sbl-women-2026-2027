@@ -25,6 +25,9 @@ const roster = [...list.matchAll(/<PlayerTeam ([^>]*)>([\s\S]*?)<\/PlayerTeam>/g
   return { id, ...a, teams };
 }).filter(p => p.id);
 if (!roster.length) throw new Error('Player list is empty — the feed may have changed.');
+// Players missing from the site's list but playing in SBL (profile id from their swiss.basketball page, ?pid=…)
+const EXTRA_IDS = ['112234' /* Louise Forsyth, Hélios VS Basket */, ...(process.env.SBL_EXTRA_IDS || '').split(',').map(s => s.trim()).filter(Boolean)];
+for (const id of EXTRA_IDS) if (!roster.some(p => p.id === id)) roster.push({ id, teams: [], extra: true });
 console.log(`Player list: ${roster.length} players`);
 
 const rows = [], failed = [];
@@ -45,6 +48,12 @@ for (const p of roster) {
     const H = [...hist].map(([k, g]) => { const [season, league, team] = k.split('|'); return { season, league, team, g }; });
     const cur = H.filter(h => h.season === '2026/2027'), past = H.filter(h => h.season !== '2026/2027');
     const sbl = cur.filter(h => h.league === 'SB League Women').reduce((s, h) => s + h.g, 0);
+    if (p.extra) {   // team and club from the profile itself
+      const lg = [...x.matchAll(/<LLHSTLeague leagueName="([^"]*)"[^>]*>([\s\S]*?)<\/LLHSTLeague>/g)].find(m => m[1] === 'SB League Women' && m[2].includes(`seasonId id="${SEASON}"`));
+      const v = lg && lg[2].match(/<value ([^>]*)>/);
+      if (v) { const a = attrs(v[1]); p.teams = [{ teamName: a.teamName, clubName: a.clubName }]; }
+      p.pseudonym = o.pseudonym || `${o.playerFamilyName} ${(o.playerFirstName || '').split(' ')[0]}`;
+    }
     const pos = (o.positionsStr || '').split(',').map(s => s.trim()).filter(Boolean);
     rows.push({
       player_id: p.id,

@@ -113,6 +113,8 @@ const PF = { min: 'sMinutes', pts: 'sPoints', fgm: 'sFieldGoalsMade', fga: 'sFie
   ast: 'sAssists', stl: 'sSteals', blk: 'sBlocks', to: 'sTurnovers', pf: 'sFoulsPersonal', pm: 'sPlusMinusPoints' };
 const STAT = Object.keys(PF).filter(k => k !== 'min');
 
+// Box score names that LiveStats got wrong, per team: 'Team|name in box score' → correct name
+const NAME_FIX = { 'Baden Basket 54|Brunner Nora': 'Nora Brunner' };
 const logs = [], P = new Map(), T = new Map();
 for (const g of saved) {
   // LiveStats lists the home team first; swap if the scores say otherwise
@@ -129,7 +131,8 @@ for (const g of saved) {
     for (const k in tm) tt[k] += +t[tm[k]] || 0;
     for (const p of t.pl) {
       const s = { sec: secs(p.sMinutes) }; for (const k of STAT) s[k] = +p[PF[k]] || 0;
-      const name = [p.firstName, p.familyName].filter(Boolean).join(' ') || p.name;
+      const name0 = [p.firstName, p.familyName].filter(Boolean).join(' ') || p.name;
+      const name = NAME_FIX[team + '|' + name0] || name0;
       logs.push({ game: g.no, date: g.date.slice(0, 10), phase: g.phase, team, opponent: oppName, home: i === 0 ? 'H' : 'A', result: `${win ? 'W' : 'L'} ${t.score}-${opp.score}`,
         player: name, no: p.no, starter: p.starter ? 1 : 0, min: r1(s.sec / 60), ...Object.fromEntries(STAT.map(k => [k, s[k]])), eff: eff(s) });
       const pk = tk + '|' + norm(name);
