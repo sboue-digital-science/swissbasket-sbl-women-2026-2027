@@ -228,7 +228,7 @@ function readCsv(f) {
       const L = logs.filter(r => norm(r.team) === norm(n)), min = L.reduce((s, r) => s + r.min, 0), bmin = L.filter(r => !r.starter).reduce((s, r) => s + r.min, 0);
       const pm = {}; for (const r of L) pm[r.player] = (pm[r.player] || 0) + r.min;
       return { gp: t.gp, oreb: t.oreb, dreb: t.dreb, reb: t.reb, blk: t.blk, stl: t.stl, ast: t.ast, to: t.to,
-        bench: t.bench, fast: t.fast, bminp: min ? Math.round(1000 * bmin / min) / 10 : 0, rot: Object.values(pm).filter(m => m / t.gp >= 10).length }; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
+        bench: t.bench, fast: t.fast, paint: t.paint, second: t.second, fromTo: t.fromTo, bminp: min ? Math.round(1000 * bmin / min) / 10 : 0, rot: Object.values(pm).filter(m => m / t.gp >= 10).length }; }), stage: TEAMS.map(() => 2), po: false, players: dp, games: dg,
     total: sched.length,
     // short team codes (from LiveStats) and the full schedule, for the results grid
     tcode: TEAMS.map(n => (((teams.find(x => norm(x.team) === norm(n)) || {}).code || n.slice(0, 3)) + '').trim().toUpperCase()),
@@ -236,7 +236,7 @@ function readCsv(f) {
     tg: TG.map(x => { const L = logs.filter(r => r.game === x.no && r.team === x.team), min = L.reduce((s, r) => s + r.min, 0);
       return { d: x.date, t: ti.get(norm(x.team)), o: ti.get(norm(x.oppName)), h: x.home ? 1 : 0, pts: x.pts, opp: x.opp, fast: x.fast, ast: x.ast,
         fg: [x.fgm, x.fga], p2: [x.fgm - x.tpm, x.fga - x.tpa], p3: [x.tpm, x.tpa], ft: [x.ftm, x.fta], epg: L.reduce((s, r) => s + r.eff, 0),
-        oreb: x.oreb, dreb: x.dreb, reb: x.reb, blk: x.blk, stl: x.stl, to: x.to, bench: x.bench,
+        oreb: x.oreb, dreb: x.dreb, reb: x.reb, blk: x.blk, stl: x.stl, to: x.to, bench: x.bench, paint: x.paint, second: x.second, fromTo: x.fromTo,
         bminp: min ? Math.round(1000 * L.filter(r => !r.starter).reduce((s, r) => s + r.min, 0) / min) / 10 : 0, rot: L.filter(r => r.min >= 10).length }; })
       .filter(x => x.t != null && x.o != null),
     fixtures: sched.map(g => ({ date: g.date.slice(0, 10), day: g.day, h: ti.get(norm(g.home)), a: ti.get(norm(g.away)), hs: g.hs, as: g.as })).filter(g => g.h != null && g.a != null) }));
