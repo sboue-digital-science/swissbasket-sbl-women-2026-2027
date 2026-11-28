@@ -120,18 +120,17 @@ const STAT = Object.keys(PF).filter(k => k !== 'min');
 // Box score names that LiveStats got wrong, per team: 'Team|name in box score' → correct name
 const NAME_FIX = { 'Baden Basket 54|Brunner Nora': 'Nora Brunner' };
 // ---------- shot zones (FIBA court, metres; basket 1.575 m from the baseline, court 15 m wide) ----------
-// 14 zones: the paint (whole key), short mid-range L/C/R (within 5.4 m of the basket), long mid-range baseline L,
-// wing L, centre, wing R, baseline R (up to the 3-point line), corner 3 L/R, wing 3 L/R and top 3.
+// 7 zones: the paint (whole key); mid-range (inside the 3-point line, outside the paint) left / centre / right;
+// 3-pointers left / centre / right (corners belong to left and right). Centre = within 25° of straight out from the basket.
 // Left/right as seen with the basket at the top of the drawing (left = the side with small y).
-const ZONES = ['paint', 'smL', 'smC', 'smR', 'lmBL', 'lmWL', 'lmC', 'lmWR', 'lmBR', 'c3L', 'w3L', 't3', 'w3R', 'c3R'];
+const ZONES = ['paint', 'm2L', 'm2C', 'm2R', 't3L', 't3C', 't3R'];
 function zoneOf(x, y, pts) {
   if (x > 50) { x = 100 - x; y = 100 - y; }          // teams change baskets at half-time: fold onto one half
-  const X = x / 100 * 28, Y = y / 100 * 15, dx = X - 1.575, dy = Y - 7.5, d = Math.hypot(dx, dy);
+  const X = x / 100 * 28, Y = y / 100 * 15, dx = X - 1.575, dy = Y - 7.5;
   const a = Math.atan2(Math.abs(dy), dx) * 180 / Math.PI, side = dy < 0 ? 'L' : 'R';   // a: 0° straight out, 90° along the baseline
-  if (pts === 3) return X < 2.99 ? 'c3' + side : a < 20 ? 't3' : 'w3' + side;
+  if (pts === 3) return a < 25 ? 't3C' : 't3' + side;
   if (Math.abs(dy) < 2.45 && X < 5.8) return 'paint';
-  if (d < 5.4) return Math.abs(dy) < 2.45 ? 'smC' : 'sm' + side;
-  return a < 20 ? 'lmC' : a < 60 ? 'lmW' + side : 'lmB' + side;
+  return a < 25 ? 'm2C' : 'm2' + side;
 }
 const SZ = { t: new Map(), o: new Map(), p: new Map() }, zadd = (m, k, z, r) => { if (!m.has(k)) m.set(k, ZONES.map(() => [0, 0])); const c = m.get(k)[ZONES.indexOf(z)]; c[1]++; c[0] += r; };
 const logs = [], P = new Map(), T = new Map(), LAST = new Map(), TG = [], FD = new Map();   // FD: fouls drawn per player (dashboard only)   // TG: each team's stats game by game (dashboard "Evolution over time")   // LAST: date of each player's last game with minutes (dashboard popup)
