@@ -353,7 +353,8 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const f1=d3.format('.1f'),pct=d3.format('.0%');
 const S={v1:'cmp',v2:'cmp',vs:-1,te:'epg',ts:'pts',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
-const M=[['eff','Efficiency'],['pts','Points'],['ast','Assists'],['reb','Rebounds'],['stl','Steals'],['blk','Blocks'],['fg','FG%'],['min','Minutes']];
+const M=[['eff','Efficiency'],['pts','Points'],['ast','Assists'],['reb','Rebounds'],['stl','Steals'],['blk','Blocks'],['fg','FG%'],['min','Minutes'],['pm','Plus-minus']];
+const sgn=t=>/^[-−]/.test(t)?'−'+t.slice(1):(/^0(\.0+)?$/.test(t)?'':'+')+t;   // +4.5, −2.0, 0
 const tip=document.getElementById('tip');
 let STG=[],PO=false,D,TEAMS,TC,CN,P=[],TM=[],TS=[];
 const pg=(p,k)=>p.gp?p[k]/p.gp:0;
@@ -403,13 +404,20 @@ function init(){
   document.getElementById('fGp').onchange=e=>{S.gp=+e.target.value;update()};
   document.getElementById('ldTabs').innerHTML=M.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.metric}">${l}</button>`).join('');
   document.querySelectorAll('#ldTabs button').forEach(b=>b.onclick=()=>{S.metric=b.dataset.k;document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));leaders();toURL()});
+  // per-game advanced stats (possessions, ratings, Four Factors), each game paired with the opponent's record of it
+  // possessions estimate: FGA − OREB + TO + 0.44 × FTA, averaged over both teams (same number of possessions each)
+  const est=x=>x.fg[1]-x.oreb+x.to+.44*x.ft[1],om=new Map(TG.map(x=>[x.d+'|'+x.t+'|'+x.o,x]));
+  for(const x of TG){const o=om.get(x.d+'|'+x.o+'|'+x.t);x.odreb=o?o.dreb:0;x.poss=o?(est(x)+est(o))/2:est(x);
+    Object.assign(x,ADV(x.pts,x.opp,x.poss,x.fg,x.p3[0],x.ft,x.oreb,x.odreb,x.to,1))}
   // team aggregates (independent of filters)
   const g=d3.group(D,p=>p.t);
   TM=TEAMS.map((n,i)=>{const ps=g.get(i)||[];const gp=d3.max(ps,p=>p.gp)||0;const sm=k=>d3.sum(ps,p=>p[k]),fgm=sm('fgm'),fga=sm('fga'),tpm=sm('tpm'),tpa=sm('tpa');
     // points allowed: opponents' points per game, from the game results
     const og=GAMES.filter(g=>g.h===i||g.a===i),opp=og.length?d3.sum(og,g=>g.h===i?g.as:g.hs)/og.length:0;
     const ts=TS[i]||{},tg=ts.gp||0,per=k=>tg?(ts[k]||0)/tg:0;
-    return{i,n,gp,opp,ast:per('ast'),to:per('to'),bench:per('bench'),fast:per('fast'),bminp:ts.bminp||0,rot:ts.rot||0,oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
+    const gm=TG.filter(x=>x.t===i),sg=f=>d3.sum(gm,f);
+    const adv=gm.length?ADV(sg(x=>x.pts),sg(x=>x.opp),sg(x=>x.poss),[sg(x=>x.fg[0]),sg(x=>x.fg[1])],sg(x=>x.p3[0]),[sg(x=>x.ft[0]),sg(x=>x.ft[1])],sg(x=>x.oreb),sg(x=>x.odreb),sg(x=>x.to),gm.length):{};
+    return{i,n,gp,opp,...adv,ast:per('ast'),to:per('to'),bench:per('bench'),fast:per('fast'),bminp:ts.bminp||0,rot:ts.rot||0,oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
   document.getElementById('tsTabs').innerHTML=TSM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.ts}">${l}</button>`).join('');
   document.getElementById('teTabs').innerHTML=TEM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.te}">${l}</button>`).join('');
   document.querySelectorAll('#teTabs button').forEach(b=>b.onclick=()=>{S.te=b.dataset.k;document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
@@ -559,7 +567,7 @@ function race(anim){
 }
 // ---- player stats table: one row per player, averages or season totals, sortable ----
 let ST={mode:'avg',k:'eff',dir:-1};
-const STC=[['n','Player'],['t','Team'],['age','Age'],['h','Height<br>(cm)'],['sbl','SBL<br>seasons'],['gp','Games'],['min','Min'],['pts','Pts'],['reb','Reb'],['ast','Ast'],['stl','Stl'],['blk','Blk'],['to','TO'],['fg','FG'],['fgp','FG<br>%'],['tp','3-pt'],['tpp','3-pt<br>%'],['ft','FT'],['ftp','FT<br>%'],['eff','Eff']];
+const STC=[['n','Player'],['t','Team'],['age','Age'],['h','Height<br>(cm)'],['sbl','SBL<br>seasons'],['gp','Games'],['min','Min'],['pts','Pts'],['reb','Reb'],['ast','Ast'],['stl','Stl'],['blk','Blk'],['to','TO'],['fg','FG'],['fgp','FG<br>%'],['tp','3-pt'],['tpp','3-pt<br>%'],['ft','FT'],['ftp','FT<br>%'],['eff','Eff'],['pm','+/−']];
 function stats(){
   // avg: per game played · tot: season totals · min: per minute on court (the minutes column stays the season total)
   if(ST.mode==='min'&&['fgp','tpp','ftp'].includes(ST.k))ST.k='eff',ST.dir=-1;
@@ -569,7 +577,7 @@ function stats(){
   const f=x=>x==null?'–':pm?x.toFixed(2):avg?f1(x):Math.round(x),ma=(p,m,a)=>num(p,m)==null?'–':avg||pm?f(num(p,m)):`${f(num(p,m))}/${f(num(p,a))}`,pc=(m,a)=>a?f1(m/a*100):'–';
   // phones show the first name as an initial (M Benjak); family name from the player profile
   const short=p=>{const f=p.fam&&p.n.endsWith(p.fam)?p.fam:p.n.split(' ').slice(-1)[0];return p.n.charAt(0)+' '+f};
-  const cell=(p,k)=>k==='n'?`<span class="fn">${esc(p.n)}</span><span class="sn">${esc(short(p))}</span>${flags(p)}`:k==='t'?esc(TEAMS[p.t]):k==='age'||k==='sbl'?(p[k]??'–'):k==='h'?(p.h||'–'):k==='gp'?p.gp:k==='fg'?ma(p,'fgm','fga'):k==='tp'?ma(p,'tpm','tpa'):k==='ft'?ma(p,'ftm','fta'):pm&&k==='min'?Math.round(p.min):k==='fgp'?pc(p.fgm,p.fga):k==='tpp'?pc(p.tpm,p.tpa):k==='ftp'?pc(p.ftm,p.fta):f(num(p,k));
+  const cell=(p,k)=>k==='n'?`<span class="fn">${esc(p.n)}</span><span class="sn">${esc(short(p))}</span>${flags(p)}`:k==='t'?esc(TEAMS[p.t]):k==='age'||k==='sbl'?(p[k]??'–'):k==='h'?(p.h||'–'):k==='gp'?p.gp:k==='fg'?ma(p,'fgm','fga'):k==='tp'?ma(p,'tpm','tpa'):k==='ft'?ma(p,'ftm','fta'):pm&&k==='min'?Math.round(p.min):k==='fgp'?pc(p.fgm,p.fga):k==='tpp'?pc(p.tpm,p.tpa):k==='ftp'?pc(p.ftm,p.fta):k==='pm'?(p.pm==null?'–':sgn(String(f(num(p,k))))):f(num(p,k));
   const COLS=pm?STC.filter(([k])=>!['fgp','tpp','ftp'].includes(k)):STC;
   const T=document.getElementById('stT');
   T.innerHTML=`<thead><tr>${COLS.map(([k,l])=>`<th scope="col" data-k="${k}" class="${k==='t'?'tm':''}"${ST.k===k?` aria-sort="${ST.dir<0?'descending':'ascending'}"`:''}>${l}</th>`).join('')}</tr></thead>`+
@@ -577,7 +585,7 @@ function stats(){
   if(!ps.length)T.innerHTML+=`<tbody><tr><td colspan="${COLS.length}" class="empty">No players match these filters.</td></tr></tbody>`;
   T.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ST.dir=ST.k===k?-ST.dir:(k==='n'||k==='t'||k==='age'?1:-1);ST.k=k;stats()});
   const nv=vsOn?ps.filter(p=>p.t===S.vs).length:0;
-  document.getElementById('stS').textContent=`${vsOn?`${ps.length-nv} ${desc(ps.length-nv)} and ${nv} from ${TEAMS[S.vs]} for comparison (marked in its colour)`:`${ps.length} ${desc(ps.length)}`}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. Click a column heading to sort.`;
+  document.getElementById('stS').textContent=`${vsOn?`${ps.length-nv} ${desc(ps.length-nv)} and ${nv} from ${TEAMS[S.vs]} for comparison (marked in its colour)`:`${ps.length} ${desc(ps.length)}`}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. +/−: the team’s points difference while the player is on court. Click a column heading to sort.`;
 }
 // ---- results grid: home teams down the side, away teams across ----
 const lumOf=c=>{const pr=document.createElement('i');pr.style.color=c;document.body.appendChild(pr);const m=getComputedStyle(pr).color.match(/[\d.]+/g).map(Number);pr.remove();
@@ -688,7 +696,7 @@ function compare(){
 }
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // team values: bench minutes as a %, rotation as a whole number, the rest with one decimal
-const fmtT=(k,v)=>k==='bminp'?Math.round(v)+'%':k==='rot'&&Number.isInteger(v)?String(v):f1(v);
+const fmtT=(k,v)=>PCTN.has(k)?f1(v)+'%':k==='bminp'?Math.round(v)+'%':k==='rot'&&Number.isInteger(v)?String(v):f1(v);
 // club colour used for highlights when a team is selected (readable on light and dark backgrounds)
 const TSEL={BAD:'#1D1D1B',TTT:'#FFE601',AKA:'#0683C2',ELF:'#1C3473',ESP:'#12C329',GC:'#025791',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
 // chart colour: as TSEL, except Baden turns white in dark mode so its marks and lines stay visible (results grid keeps TSEL)
@@ -785,13 +793,13 @@ function scatter(){
 const flags=p=>p.c.map(c=>{const n=esc(CN[c]||c);return FL[c]?`<img class="flag" src="${FL[c]}" alt="${n}" title="${n}">`:`<span class="flagx" title="${n}">${esc(c)}</span>`}).join('');
 function leaders(){
   const k=S.metric,fg=k==='fg',lab=M.find(m=>m[0]===k)[1];
-  const v=p=>fg?(p.fga?p.fgm/p.fga:0):pg(p,k),fmt=x=>fg?f1(x*100)+'%':f1(x);
+  const v=p=>fg?(p.fga?p.fgm/p.fga:0):pg(p,k),fmt=x=>fg?f1(x*100)+'%':k==='pm'?sgn(f1(x)):f1(x);
   const ok=p=>!fg||(p.gp&&p.fga/p.gp>=2),vsOn=vsLine();
   // when comparing, the top 10 of each team in one list, the comparison team's bars in its colour
   const ps=vsOn?[...P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10),...P.filter(p=>p.t===S.vs&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10)].sort((a,b)=>v(b)-v(a))
     :P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10);
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
-  document.getElementById('ldS').textContent=(vsOn?`Top 10 ${desc(2)}, with the top 10 of ${TEAMS[S.vs]} (in its colour)`:`Top 10 ${desc(2)}`)+(fg?', at least 2 field goal attempts per game on average.':'.');
+  document.getElementById('ldS').textContent=(vsOn?`Top 10 ${desc(2)}, with the top 10 of ${TEAMS[S.vs]} (in its colour)`:`Top 10 ${desc(2)}`)+(fg?', at least 2 field goal attempts per game on average.':k==='pm'?'. Plus-minus: the team’s points difference while the player is on court (from the official box scores), per game played.':'.');
   const mx=d3.max(ps,v)||1;
   document.getElementById('leaders').classList.toggle('fgm',fg);
   document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who">${pname(p)}${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%${vsOn&&p.t===S.vs?';background:var(--vs)':''}"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
@@ -926,17 +934,26 @@ function cits(){
   document.getElementById('ctS').textContent=`Top citizenships among the ${ps.length} ${desc(ps.length)}. A dual national counts for each passport.`;
   document.getElementById('cit').innerHTML=c.length?c.map(([k,n])=>`<div class="row"><div class="who">${esc(CN[k]||k)}${flags({c:[k]})} <small>— ${pct(n/ps.length)} of players</small></div><div class="val">${n}</div><div class="bar ${S.team<0?'all':''}" style="width:${n/mx*100}%"></div></div>`).join(''):'<div class="empty">No players match these filters.</div>';
 }
+// pace, offensive / defensive rating (points per 100 possessions) and Dean Oliver's Four Factors, from totals over n games
+const ADV=(pts,opp,poss,fg,tpm,ft,oreb,odreb,to,n)=>({pace:poss/n,ortg:poss?100*pts/poss:0,drtg:poss?100*opp/poss:0,
+  efg:fg[1]?100*(fg[0]+.5*tpm)/fg[1]:0,ftr:fg[1]?100*ft[0]/fg[1]:0,tovp:100*to/((fg[1]+.44*ft[1]+to)||1),orbp:100*oreb/((oreb+odreb)||1)});
+const PCTN=new Set(['efg','ftr','tovp','orbp']);   // shown as %, but not made/attempted
 // team scoring metrics: total points, then shooting percentages with made/attempted
-const TSM=[['pts','Points per game'],['fast','Fast-break points'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %']];
-const TSS={pts:'Points per game',fast:'Fast-break points per game (official LiveStats total)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)'};
+const TSM=[['pts','Points per game'],['fast','Fast-break points'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %'],['ortg','Off. rating'],['efg','eFG%'],['ftr','FT rate']];
+const TSS={pts:'Points per game',fast:'Fast-break points per game (official LiveStats total)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)',ortg:'Offensive rating: points scored per 100 possessions',efg:'Effective field goal % (a made 3 counts as 1.5 makes): (FGM + 0.5 × 3PM) ÷ FGA',ftr:'Free-throw rate: free throws made per 100 field-goal attempts'};
 // team efficiency card: efficiency, then rebounds, blocks, steals (official team totals per game)
-const TEM=[['epg','Efficiency'],['opp','Points allowed'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)']];
-const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game'};
+const TEM=[['epg','Efficiency'],['opp','Points allowed'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)'],['pace','Pace'],['drtg','Def. rating'],['tovp','Turnover %'],['orbp','Off. reb %']];
+const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game',pace:'Pace: possessions per game',drtg:'Defensive rating: points allowed per 100 possessions (fewest ranked first)',tovp:'Turnover %: turnovers per 100 possessions (fewest ranked first)',orbp:'Offensive rebound %: share of available offensive rebounds won'};
 const TED={epg:'Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.',
   reb:'Official team totals: rebounds credited to the team rather than to a player are included.',blk:'Official team totals per game played.',stl:'Official team totals per game played.',opp:'Points scored by opponents, divided by the team’s games played.',to:'Official team totals per game played, including turnovers credited to the team rather than to a player.',bminp:'How much a team rotates: the % of its playing time that goes to players who did not start the game.',bench:'What the bench produces: points scored by players who did not start, per game (official LiveStats total).',rot:'Rotation size: players whose minutes, spread over all the team’s games, average at least 10 per game.'};
 TED.oreb=TED.dreb=TED.reb;
+TED.pace='Possessions estimated from the box score (field-goal attempts − offensive rebounds + turnovers + 0.44 × free-throw attempts), averaged with the opponent’s estimate for the same game. Faster teams play more possessions.';
+TED.drtg='Points allowed per 100 possessions: unlike points allowed per game, it is not inflated by a fast pace.';
+TED.tovp='Turnovers ÷ (field-goal attempts + 0.44 × free-throw attempts + turnovers), one of the Four Factors.';
+TED.orbp='Offensive rebounds ÷ (own offensive rebounds + opponent’s defensive rebounds), one of the Four Factors.';
 // per-game wording where the season definition does not fit a single game
 const TEDG={rot:'Rotation in that game: players who played at least 10 minutes.',bminp:'How much the team rotated in that game: the % of playing time that went to players who did not start.',
+  pace:'Possessions in that game (box-score estimate, averaged with the opponent’s).',drtg:'Points allowed per 100 possessions in that game.',
   epg:'Team efficiency in that game = the sum of its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers).',opp:'Points scored by the opponent in that game.'};
 // "Evolution over time": one bar per game of the selected team; x label = date, opponent code, home/away
 // The y axis sits outside the scrolling area so it stays in view when the games no longer fit (phones, late season);
@@ -954,7 +971,7 @@ function evo(id,k,pct,av,box,H=300){
   if(!d3.sum(GS,g=>g.length)){el.innerHTML='<div class="empty">No box scores yet for this team.</div>';return}
   const m={t:20,r:8,b:58,l:38},Wa=Math.max(200,(el.clientWidth||600)-m.l);
   const y=d3.scaleLinear().domain([0,Math.max(d3.max(GS.flat(),val)||0,av||0)*(pct?1.14:1.08)||1]).nice().range([H-m.b,m.t]),ticks=y.ticks(4);
-  const ax=`<svg class="evy" width="${m.l}" height="${H}" aria-hidden="true">`+ticks.map(t=>`<text x="${m.l-6}" y="${y(t)}" dy=".32em" text-anchor="end" font-size="11" fill="var(--ink2)">${pct||k==='bminp'?t+'%':t}</text>`).join('')+'</svg>';
+  const ax=`<svg class="evy" width="${m.l}" height="${H}" aria-hidden="true">`+ticks.map(t=>`<text x="${m.l-6}" y="${y(t)}" dy=".32em" text-anchor="end" font-size="11" fill="var(--ink2)">${pct||k==='bminp'||PCTN.has(k)?t+'%':t}</text>`).join('')+'</svg>';
   const one=(G,ti,col,n)=>{
     if(!G.length)return `<div class="empty">No box scores yet for ${esc(TEAMS[ti])}.</div>`;
     const W=Math.max(Wa,m.r+G.length*(box?50:58));   // full screen packs games a little tighter so a whole season fits
@@ -1002,7 +1019,7 @@ function alignTeams(){
 }
 addEventListener('resize',()=>{if(TM.length)alignTeams()});
 function teams(){
-  const pc=!['pts','ast','fast'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
+  const pc=['fg','p2','p3','ft'].includes(S.ts),nt=TM.filter(t=>t.gp).length;
   // stage, league country, team, citizenship and age range narrow the lists; ranks stay those of the full table.
   // Citizenship and age keep teams with at least one such player on the current roster (played or not).
   // SBL: all 9 teams always listed; teams matching the filters in blue, the others grey.
@@ -1019,7 +1036,7 @@ function teams(){
   const AV={};
   for(const [id,k] of [['teams',S.ts],['teams2',S.te]]){
     const pct=id==='teams'&&pc,vv=d=>pct?(d[k][1]?d[k][0]/d[k][1]:0):d[k];
-    const low=id==='teams2'&&(k==='opp'||k==='to'),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
+    const low=id==='teams2'&&['opp','to','drtg','tovp'].includes(k),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
     // league average: mean of the 9 teams' per-game values; for percentages, all made / all attempted
     const av=pct?d3.sum(t,d=>d[k][0])/(d3.sum(t,d=>d[k][1])||1):d3.mean(t,vv),avTxt=pct?f1(av*100)+'%':fmtT(k,av);AV[id]=pct?av*100:av;
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
@@ -1039,7 +1056,7 @@ function teams(){
     if(time){
       document.querySelector(c===1?'.nT':'.nT2').textContent=(c===1?TSS:TES)[k]+(S.team>=0?`, game by game: ${TEAMS[S.team]}${vsLine()?' (top) and '+TEAMS[S.vs]+' (bottom), same scale':''}, oldest first. Dashed line: league average`:'');
       if(c===2&&TEDG[k])document.querySelector('#t2pad .def').textContent=TEDG[k];
-      evo('tev'+c,k,c===1&&!['pts','ast','fast'].includes(k),AV[c===1?'teams':'teams2']);
+      evo('tev'+c,k,c===1&&['fg','p2','p3','ft'].includes(k),AV[c===1?'teams':'teams2']);
     }
   }
   alignTeams();
