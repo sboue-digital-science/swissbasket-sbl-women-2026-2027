@@ -948,6 +948,7 @@ function evo(id,k,pct,av,box,H=300){
   // comparison mode: one chart per team, stacked, on the same y scale
   const tms=vsLine()?[[S.team,'var(--hi)'],[S.vs,'var(--vs)']]:[[S.team,'var(--hi)']],two=tms.length>1;
   if(box&&two)H=Math.max(220,(H-50)/2);
+  else if(two)H=190;   // in the card, two compact charts: the trend matters more than the height (plot area about half the single chart's)
   const val=x=>pct?(x[k][1]?x[k][0]/x[k][1]*100:0):x[k],fmt=v=>pct?f1(v)+'%':Number.isInteger(v)?String(v):fmtT(k,v),ddm=d3.timeFormat('%d-%b-%y');
   const GS=tms.map(([t])=>TG.filter(x=>x.t===t).sort((a,b)=>a.d.localeCompare(b.d)));
   if(!d3.sum(GS,g=>g.length)){el.innerHTML='<div class="empty">No box scores yet for this team.</div>';return}
