@@ -152,6 +152,10 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 .pbtn{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left;text-decoration:underline dotted var(--ink2);text-underline-offset:3px}
 .pbtn:hover{text-decoration:underline solid}
 #plzTabs{margin:4px 0 12px}
+.szbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:4px 0 8px}.szbar .seg{margin:0}
+#szP{font:inherit;font-size:14px;height:34px;border-radius:17px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:0 12px;max-width:100%}
+.szc{display:flex;flex-wrap:wrap;gap:18px 28px;justify-content:center}.szc figure{margin:0;flex:1 1 300px;max-width:520px}.szc figcaption{font-weight:600;font-size:15px;margin:0 0 6px;display:flex;align-items:center;gap:6px}
+.szc figcaption i{width:10px;height:10px;border-radius:2px;display:inline-block}.szc svg{display:block;width:100%;height:auto}
 .evtop{display:flex;justify-content:flex-end;margin:-4px 0 2px}
 .evzb{font:inherit;font-size:12px;height:28px;padding:0 10px;border:1px solid var(--line);border-radius:14px;background:transparent;color:var(--ink2);cursor:pointer}
 .evzb:hover{color:var(--ink);border-color:var(--ink2)}
@@ -315,6 +319,16 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
       </div>
     </div>
   </div>
+  <div class="card" id="szCard">
+    <h2 id="szT">Shooting by court zone</h2>
+    <p class="sub" id="szS"></p>
+    <div class="szbar">
+      <div class="seg" id="szV" role="group" aria-label="Shots"><button type="button" data-v="t" aria-pressed="true">Shots taken</button><button type="button" data-v="o" aria-pressed="false">Shots conceded</button></div>
+      <select id="szP" aria-label="Player" hidden></select>
+    </div>
+    <div class="key" id="szK"></div>
+    <div class="szc" id="szC"></div>
+  </div>
   <div class="grid grid2">
     <div class="card">
       <h2>Player profile</h2>
@@ -369,7 +383,7 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
 {
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const f1=d3.format('.1f'),pct=d3.format('.0%');
-const S={v1:'cmp',v2:'cmp',v3:'cmp',vs:-1,te:'epg',ts:'pts',td:'opp',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
+const S={sz:'t',szp:-1,v1:'cmp',v2:'cmp',v3:'cmp',vs:-1,te:'epg',ts:'pts',td:'opp',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
 const M=[['eff','Efficiency'],['pts','Points'],['ast','Assists'],['reb','Rebounds'],['stl','Steals'],['blk','Blocks'],['fg','FG%'],['min','Minutes'],['pm','Plus-minus']];
 const sgn=t=>/^[-−]/.test(t)?'−'+t.slice(1):(/^0(\.0+)?$/.test(t)?'':'+')+t;   // +4.5, −2.0, 0
 const tip=document.getElementById('tip');
@@ -387,11 +401,11 @@ document.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!e.targe
 addEventListener('scroll',()=>{if(TIPKEY)hideTip()},{passive:true});
 const pname=p=>esc(p.n)+(p.gone?' †':'');
 
-let GEO,CITY,FL={},ASOF='',GAMES=[],NGAMES=0,FIX=[],TCODE=[],TG=[];
+let GEO,CITY,FL={},ASOF='',GAMES=[],NGAMES=0,FIX=[],TCODE=[],TG=[],SHZ=null;
 Promise.all([fetch('dash.json',{cache:'no-cache'}).then(r=>r.json()),fetch('europe.json').then(r=>r.json()),fetch('flags.json').then(r=>r.json()).catch(()=>({}))]).then(([d,g,f])=>{FL=f;D=d.players;D.forEach((p,i)=>{p.ix=i;p.log=[]});for(const r of d.plog||[])if(D[r[0]])D[r[0]].log.push({d:r[1],o:r[2],h:r[3],min:r[4],pts:r[5],reb:r[6],ast:r[7],eff:r[8],pm:r[9],w:r[10]});
   // FIBA still lists some players with the former Serbia and Montenegro code (SCG): count it as Serbia
   D.forEach(p=>{p.c=[...new Set(p.c.map(c=>c==='SCG'?'SRB':c))]});
-  TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];FIX=d.fixtures||[];TCODE=d.tcode||d.teams.map(t=>t.slice(0,3).toUpperCase());TS=d.ts||[];TG=d.tg||[];NGAMES=d.total||0;GEO=g;init()});
+  TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];FIX=d.fixtures||[];TCODE=d.tcode||d.teams.map(t=>t.slice(0,3).toUpperCase());TS=d.ts||[];TG=d.tg||[];SHZ=d.shz||null;NGAMES=d.total||0;GEO=g;init()});
 
 function init(){
   const played=D.filter(p=>p.gp>0),nc=new Set(played.flatMap(p=>p.c)).size,nt=TEAMS.length;
@@ -443,6 +457,8 @@ function init(){
     document.getElementById(tid).innerHTML=CARDS[c][1].map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S[key]}">${l}</button>`).join('');
     document.querySelectorAll(`#${tid} button`).forEach(b=>b.onclick=()=>{S[key]=b.dataset.k;document.querySelectorAll(`#${tid} button`).forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()})}
   for(const c of [1,2,3])document.querySelectorAll(`#tv${c} button`).forEach(b=>b.onclick=()=>{S['v'+c]=b.dataset.v;teams();toURL()});
+  document.querySelectorAll('#szV button').forEach(b=>b.onclick=()=>{S.sz=b.dataset.v;zones();toURL()});
+  document.getElementById('szP').onchange=e=>{S.szp=+e.target.value;zones();toURL()};
   fromURL();fillTeams();
   initShare();
   document.getElementById('fVs').onchange=e=>{S.vs=+e.target.value;update()};
@@ -474,6 +490,7 @@ function fromURL(){
   const ts=g('scoring');if(TSM.some(m=>m[0]===ts))S.ts=ts;else if(ts==='ortg')S.te=ts;   // older links: Off. rating used to be under scoring
   const te=g('teamstat');if(TEM.some(m=>m[0]===te))S.te=te;else if(TDM.some(m=>m[0]===te))S.td=te;   // older links: defensive stats used to be under teamstat
   const td=g('defstat');if(TDM.some(m=>m[0]===td))S.td=td;
+  if(g('shots')==='conceded')S.sz='o';{const sp=g('shooter');if(sp){const p=D.find(p=>slug(p.n)===sp);if(p)S.szp=p.ix}}
   if(g('scoringview')==='time')S.v1='time';if(g('teamstatview')==='time')S.v2='time';if(g('defview')==='time')S.v3='time';
   document.getElementById('fGp').value=S.gp;document.getElementById('fStg').value=S.stg||'';document.getElementById('fLc').value=S.lc;
   document.getElementById('fCit').value=S.cit;document.getElementById('fPos').value=S.pos;document.getElementById('fAge').value=S.age;
@@ -484,7 +501,7 @@ function toURL(){
   if(S.stg)q.set('stage',STGK[S.stg]);if(S.lc)q.set('league',S.lc);if(S.cit)q.set('citizenship',S.cit);
   if(S.pos!=='A')q.set('position',POSK[S.pos]);if(S.age)q.set('age',`${S.age}-${S.age+4}`);if(S.gp!==2)q.set('games',S.gp);
   if(S.metric!=='eff')q.set('stat',S.metric);if(S.ts!=='pts')q.set('scoring',S.ts);if(S.te!=='epg')q.set('teamstat',S.te);
-  if(S.td!=='opp')q.set('defstat',S.td);
+  if(S.td!=='opp')q.set('defstat',S.td);if(S.sz==='o')q.set('shots','conceded');if(S.szp>=0&&D[S.szp])q.set('shooter',slug(D[S.szp].n));
   if(S.v1==='time')q.set('scoringview','time');if(S.v2==='time')q.set('teamstatview','time');if(S.v3==='time')q.set('defview','time');
   const u=location.pathname+(q.toString()?'?'+q.toString().replace(/%2C/g,','):'')+location.hash;
   if(u!==location.pathname+location.search+location.hash)try{history.replaceState(null,'',u)}catch(e){}
@@ -762,7 +779,7 @@ function update(){
   const tOff=S.pos!=='A'||!!S.age;document.getElementById('teamCards').hidden=tOff;
   // results grid: about teams, so hidden while a player filter (citizenship, position or age) is on
   const resOff=!!S.cit||S.pos!=='A'||!!S.age;document.getElementById('resCard').hidden=resOff;
-  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();compare();counts();if(!rOff)race(0);stats();if(!resOff)results();shares();
+  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();document.getElementById('szCard').hidden=tOff||!SHZ;if(!tOff&&SHZ)zones();compare();counts();if(!rOff)race(0);stats();if(!resOff)results();shares();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
@@ -1057,6 +1074,71 @@ function evo(id,k,pct,av,box,H=300){
   el.querySelectorAll('.evh').forEach(r=>{const n=+r.dataset.n,g=GS[n][+r.dataset.i],w=g.pts>g.opp;
     onHover(r,e=>showTip(e,`<b>${esc(TEAMS[tms[n][0]])}</b><br>${fdate(pdate(g.d))} · ${g.h?'Home vs':'Away at'} ${esc(TEAMS[g.o])}<br>${w?'Won':'Lost'} ${g.pts}–${g.opp}<br>${esc(CARDS[+id.slice(3)][1].find(t=>t[0]===k)[1])}: <b>${fmt(val(g))}</b>${pct?` (${g[k][0]}/${g[k][1]})`:''}<br>League average: ${fmt(av)}`),'ev'+id+(box?'z':'')+n+'-'+r.dataset.i)});
 }
+// ---- shooting by court zone: NBA-style half court, 14 zones, each coloured against the league ----
+// Court in metres (FIBA): 15 m wide, basket 1.575 m from the baseline, key 4.9 × 5.8 m, 3-point line 6.75 m (6.6 m in the corners,
+// straight up to 2.99 m), short mid-range ring 5.4 m. Zones as in the weekly script (zoneOf in refresh-sbl.mjs).
+const SZN={paint:'Paint',smL:'Short mid-range left',smC:'Short mid-range centre',smR:'Short mid-range right',lmBL:'Long mid-range baseline left',lmWL:'Long mid-range wing left',lmC:'Long mid-range centre',lmWR:'Long mid-range wing right',lmBR:'Long mid-range baseline right',c3L:'Corner 3 left',w3L:'Wing 3 left',t3:'Top 3',w3R:'Wing 3 right',c3R:'Corner 3 right'};
+const SZC={good:'#4f9d63',mid:'#d9b43c',bad:'#d0603f',few:'var(--lo)'};
+let SZID=0;
+function zcourt(Z,ref,mode,W){
+  // Z: [made, att] per zone; ref: league [made, att] per zone; mode: 't' taken, 'o' conceded (low is good), 'l' league view
+  const id='sz'+(SZID++),k=W/15,Xm=10.4,H=Math.round(Xm*k),bx=7.5,by=1.575,P=(Y,X)=>`${(Y*k).toFixed(1)},${(X*k).toFixed(1)}`;
+  const zi=z=>SHZ.z.indexOf(z),pc=(c)=>c[1]?c[0]/c[1]:0,lgAll=ref.reduce((a,c,i)=>a+c[0]*(SHZ.z[i].endsWith('3')||/^[cwt]3/.test(SHZ.z[i])?3:2),0)/(d3.sum(ref,c=>c[1])||1);
+  const is3=z=>/3/.test(z);
+  const col=z=>{const c=Z[zi(z)],r=ref[zi(z)];if(!c||c[1]<5)return SZC.few;
+    if(mode==='l'){const pps=pc(c)*(is3(z)?3:2),d=pps-lgAll;return d>=.06?SZC.good:d<=-.06?SZC.bad:SZC.mid}
+    const d=(pc(c)-pc(r))*100*(mode==='o'?-1:1);return d>=3?SZC.good:d<=-3?SZC.bad:SZC.mid};
+  const wedge=(side,a1,a2)=>{const pt=a=>{const r=30,t=a*Math.PI/180;return P(bx+(side==='L'?-1:1)*r*Math.sin(t),by+r*Math.cos(t))};const st=[];for(let a=a1;a<=a2;a+=5)st.push(pt(a));st.push(pt(a2));return`M${P(bx,by)}L${st.join('L')}Z`};
+  const both=(a)=>`M${P(bx,by)}L${[-a,-a/2,0,a/2,a].map(t=>{const r=30,tt=t*Math.PI/180;return P(bx+r*Math.sin(tt),by+r*Math.cos(tt))}).join('L')}Z`;
+  const a3=Math.asin(6.6/6.75)*180/Math.PI,arcY=y=>Math.sqrt(6.75**2-(y-bx)**2)+by;   // 3-point arc
+  const arc=`M${P(.9,0)}L${P(.9,2.99)}A${6.75*k},${6.75*k} 0 0 0 ${P(14.1,2.99)}L${P(14.1,0)}`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Shot chart by zone"><defs><clipPath id="${id}c"><rect width="${W}" height="${H}"/></clipPath><clipPath id="${id}a"><path d="${arc}Z"/></clipPath><clipPath id="${id}i"><circle cx="${bx*k}" cy="${by*k}" r="${5.4*k}"/></clipPath></defs><g clip-path="url(#${id}c)">`;
+  // 3-point zones, then long mid-range inside the arc, short mid-range inside the ring, the paint on top
+  s+=`<path d="${wedge('L',20,180)}" fill="${col('w3L')}"/><path d="${wedge('R',20,180)}" fill="${col('w3R')}"/><path d="${both(20)}" fill="${col('t3')}"/>`;
+  s+=`<rect x="0" y="0" width="${.9*k}" height="${2.99*k}" fill="${col('c3L')}"/><rect x="${14.1*k}" y="0" width="${.9*k}" height="${2.99*k}" fill="${col('c3R')}"/>`;
+  s+=`<g clip-path="url(#${id}a)"><path d="${wedge('L',60,180)}" fill="${col('lmBL')}"/><path d="${wedge('R',60,180)}" fill="${col('lmBR')}"/><path d="${wedge('L',20,60)}" fill="${col('lmWL')}"/><path d="${wedge('R',20,60)}" fill="${col('lmWR')}"/><path d="${both(20)}" fill="${col('lmC')}"/></g>`;
+  s+=`<g clip-path="url(#${id}i)"><rect x="0" y="0" width="${5.05*k}" height="${H}" fill="${col('smL')}"/><rect x="${9.95*k}" y="0" width="${5.05*k}" height="${H}" fill="${col('smR')}"/><rect x="${5.05*k}" y="0" width="${4.9*k}" height="${H}" fill="${col('smC')}"/></g>`;
+  // zone boundaries (white), then the paint and the court lines
+  const ln=(a,b)=>`<line x1="${a[0]*k}" y1="${a[1]*k}" x2="${b[0]*k}" y2="${b[1]*k}"/>`,ray=(side,a,r1,r2)=>{const t=a*Math.PI/180,sg=side==='L'?-1:1;return ln([bx+sg*r1*Math.sin(t),by+r1*Math.cos(t)],[bx+sg*r2*Math.sin(t),by+r2*Math.cos(t)])};
+  s+=`<g stroke="var(--bg)" stroke-width="2.5" fill="none"><path d="${arc}"/><circle cx="${bx*k}" cy="${by*k}" r="${5.4*k}"/>${['L','R'].map(sd=>ray(sd,20,5.4,6.75)+ray(sd,60,5.4,6.75)+ray(sd,20,6.75,30)).join('')}${ln([0,2.99],[.9,2.99])}${ln([14.1,2.99],[15,2.99])}</g>`;
+  s+=`<rect x="${5.05*k}" y="0" width="${4.9*k}" height="${5.8*k}" fill="${col('paint')}" stroke="var(--bg)" stroke-width="2.5"/>`;
+  s+=`<g stroke="var(--ink2)" stroke-width="1" fill="none" opacity=".55"><circle cx="${bx*k}" cy="${by*k}" r="${.225*k}"/>${ln([6.6,1.2],[8.4,1.2])}<path d="M${P(6.25,1.575)}A${1.25*k},${1.25*k} 0 0 0 ${P(8.75,1.575)}"/><path d="M${P(5.7,5.8)}A${1.8*k},${1.8*k} 0 0 0 ${P(9.3,5.8)}"/></g>`;
+  s+=`<rect x=".5" y=".5" width="${W-1}" height="${H-1}" fill="none" stroke="var(--line)"/></g>`;
+  // labels: made/attempted and % in a dark box
+  const LP={paint:[7.5,3.4],smL:[3.55,2.6],smR:[11.45,2.6],smC:[7.5,6.4],lmBL:[1.9,4.4],lmBR:[13.1,4.4],lmWL:[3.45,7.0],lmWR:[11.55,7.0],lmC:[7.5,7.75],c3L:[.45,1.4],c3R:[14.55,1.4],w3L:[1.6,8.9],w3R:[13.4,8.9],t3:[7.5,9.45]};
+  const fs=W<360?10:11.5,bwid=W<360?44:54,bh=W<360?26:30;
+  s+=SHZ.z.map((z,i)=>{const c=Z[i]||[0,0];if(!c[1])return'';let [yy,xx]=LP[z];const cx=Math.max(bwid/2+2,Math.min(W-bwid/2-2,yy*k)),cy=xx*k;
+    return`<g class="szl" data-z="${i}"><rect x="${cx-bwid/2}" y="${cy-bh/2}" width="${bwid}" height="${bh}" rx="4" fill="rgba(20,20,24,.55)"/><text x="${cx}" y="${cy-(bh>26?2:1)}" text-anchor="middle" font-size="${fs}" fill="#fff">${c[0]}/${c[1]}</text><text x="${cx}" y="${cy+(bh>26?11:10)}" text-anchor="middle" font-size="${fs}" font-weight="700" fill="#fff">${f1(pc(c)*100)}%</text></g>`}).join('');
+  return s+'</svg>';
+}
+function zones(){
+  if(!SHZ)return;
+  const el=document.getElementById('szC'),W=Math.min(520,Math.max(260,(el.clientWidth||600)/(S.team>=0&&vsLine()?2:1)-(S.team>=0&&vsLine()?16:0)));
+  const sum=arrs=>SHZ.z.map((_,i)=>arrs.reduce((a,A)=>A?[a[0]+A[i][0],a[1]+A[i][1]]:a,[0,0]));
+  const lg=sum(SHZ.t);                        // league: every shot taken
+  const sel=S.team,psel=document.getElementById('szP');
+  // player choice: only for shots taken by the selected team
+  const roster=sel>=0?D.filter(p=>p.t===sel&&SHZ.p[p.ix]).sort((a,b)=>d3.sum(SHZ.p[b.ix],c=>c[1])-d3.sum(SHZ.p[a.ix],c=>c[1])):[];
+  if(S.szp>=0&&(!D[S.szp]||D[S.szp].t!==sel))S.szp=-1;
+  psel.hidden=!(sel>=0&&S.sz==='t');psel.innerHTML=`<option value="-1">All players</option>`+roster.map(p=>`<option value="${p.ix}">${esc(p.n)} (${d3.sum(SHZ.p[p.ix],c=>c[1])} shots)</option>`).join('');psel.value=S.szp;
+  document.querySelectorAll('#szV button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.sz));
+  const one=(ti,colv)=>{const Z=S.sz==='o'?SHZ.o[ti]:S.szp>=0&&ti===sel?SHZ.p[S.szp]:SHZ.t[ti];const n=Z?d3.sum(Z,c=>c[1]):0,m=Z?d3.sum(Z,c=>c[0]):0;
+    return`<figure><figcaption>${colv?`<i style="background:${colv}"></i>`:''}${esc(S.szp>=0&&ti===sel&&S.sz==='t'?D[S.szp].n:TEAMS[ti])} · ${m}/${n} (${f1(n?m/n*100:0)}%)</figcaption>${Z?zcourt(Z,lg,S.sz,W):'<div class="empty">No shot data yet.</div>'}</figure>`};
+  SZID=0;
+  if(sel<0){const n=d3.sum(lg,c=>c[1]),m=d3.sum(lg,c=>c[0]);el.innerHTML=`<figure><figcaption>All teams · ${m}/${n} (${f1(m/n*100)}%)</figcaption>${zcourt(lg,lg,'l',W)}</figure>`}
+  else el.innerHTML=one(sel,'var(--hi)')+(vsLine()?one(S.vs,'var(--vs)'):'');
+  const who=sel<0?'every shot in the league':S.sz==='o'?`shots taken by ${TEAMS[sel]}’s opponents`+(vsLine()?` (and ${TEAMS[S.vs]}’s)`:''):S.szp>=0?`${D[S.szp].n}’s shots`:`${TEAMS[sel]}’s shots`+(vsLine()?` and ${TEAMS[S.vs]}’s`:'');
+  document.getElementById('szS').textContent=`Field goals by zone, from the official shot charts: ${who}. Each zone shows made/attempted and FG%. `+(sel<0?'Colour: points per shot in that zone against the league’s overall average (a 3 is worth 1.5 times a 2). Select a team to see how it compares zone by zone.':S.sz==='o'?'Colour: opponents’ FG% against the league’s FG% in the same zone, so green = the defence holds opponents below the league (by 3 points or more).':'Colour: FG% against the league’s FG% in the same zone (green 3 points or more above, red 3 or more below).')+' Zones with fewer than 5 attempts are grey.';
+  const sw=(c,t)=>`<span><i style="background:${c}"></i>${t}</span>`;
+  document.getElementById('szK').innerHTML=sel<0?sw(SZC.good,'Above league average')+sw(SZC.mid,'Around average')+sw(SZC.bad,'Below average')+sw('var(--lo)','Fewer than 5 shots')
+    :S.sz==='o'?sw(SZC.good,'Opponents shoot 3+ pts below the league')+sw(SZC.mid,'Within 3 pts')+sw(SZC.bad,'3+ pts above')+sw('var(--lo)','Fewer than 5 shots')
+    :sw(SZC.good,'3+ pts above the league')+sw(SZC.mid,'Within 3 pts')+sw(SZC.bad,'3+ pts below')+sw('var(--lo)','Fewer than 5 shots');
+  // hover: zone name, made/attempted, FG%, league FG%
+  el.querySelectorAll('figure').forEach((fg,f)=>{const ti=f===0?sel:S.vs;const Z=sel<0?lg:S.sz==='o'?SHZ.o[ti]:S.szp>=0&&ti===sel?SHZ.p[S.szp]:SHZ.t[ti];if(!Z)return;
+    fg.querySelectorAll('.szl').forEach(g=>{const i=+g.dataset.z,c=Z[i],r=lg[i],tot=d3.sum(Z,x=>x[1]);
+      onHover(g,e=>showTip(e,`<b>${SZN[SHZ.z[i]]}</b><br>${c[0]}/${c[1]} · <b>${f1(c[1]?c[0]/c[1]*100:0)}%</b><br>${f1(c[1]/tot*100)}% of the shots<br>League in this zone: ${f1(r[1]?r[0]/r[1]*100:0)}% (${r[0]}/${r[1]})`),'sz'+f+'-'+i)})});
+}
+addEventListener('resize',()=>{if(SHZ&&!document.getElementById('szCard').hidden)zones()});
 // ---- player game by game: click a player's name (stats table, leaders) ----
 const PLM=[['min','Minutes'],['pts','Points'],['reb','Rebounds'],['ast','Assists'],['eff','Efficiency'],['pm','Plus-minus']];
 let PLZ=null,PLK='pts';   // open player index, metric shown
