@@ -1140,19 +1140,21 @@ function zones(){
 }
 addEventListener('resize',()=>{if(SHZ&&!document.getElementById('szCard').hidden)zones()});
 // ---- player game by game: click a player's name (stats table, leaders) ----
-const PLM=[['min','Minutes'],['pts','Points'],['reb','Rebounds'],['ast','Assists'],['eff','Efficiency'],['pm','Plus-minus']];
+const PLM=[['min','Minutes'],['pts','Points'],['reb','Rebounds'],['ast','Assists'],['eff','Efficiency'],['pm','Plus-minus'],['shots','Shooting map']];
 let PLZ=null,PLK='pts';   // open player index, metric shown
 document.addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(b){e.preventDefault();PLZ=+b.dataset.pi;plOpen()}});
 function plOpen(){
   const p=D[PLZ],o=document.getElementById('plz');if(!p)return;
+  if(PLK==='shots'&&!(SHZ&&SHZ.p[PLZ]))PLK='pts';   // no shots yet: back to points
   document.getElementById('plzT').textContent=`${p.n} · ${TEAMS[p.t]}`;
-  document.getElementById('plzS').textContent=`Evolution over time: game by game, oldest first (games she played). Dashed line: her season average. ${p.log.length} game${p.log.length===1?'':'s'} · ${f1(pg(p,'min'))} min · ${f1(pg(p,'pts'))} pts · ${f1(pg(p,'eff'))} efficiency per game.`;
-  document.getElementById('plzTabs').innerHTML=PLM.map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===PLK}">${l}</button>`).join('');
+  document.getElementById('plzS').textContent=`${PLK==='shots'?'Shooting map: her field goals by court zone, season to date.':'Evolution over time: game by game, oldest first (games she played). Dashed line: her season average.'} ${p.log.length} game${p.log.length===1?'':'s'} · ${f1(pg(p,'min'))} min · ${f1(pg(p,'pts'))} pts · ${f1(pg(p,'eff'))} efficiency per game.`;
+  document.getElementById('plzTabs').innerHTML=PLM.filter(([k])=>k!=='shots'||(SHZ&&SHZ.p[PLZ])).map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===PLK}">${l}</button>`).join('');
   document.querySelectorAll('#plzTabs button').forEach(b=>b.onclick=()=>{PLK=b.dataset.k;plOpen()});
   o.hidden=false;document.body.style.overflow='hidden';plChart(p);document.getElementById('plzX').focus({preventScroll:true});
 }
 function plClose(){document.getElementById('plz').hidden=true;document.body.style.overflow='';PLZ=null;hideTip()}
 function plChart(p){
+  if(PLK==='shots')return plShots(p);
   const el=document.getElementById('plzC'),k=PLK,G=p.log.slice().sort((a,b)=>a.d.localeCompare(b.d)),col=TCOL(TCODE[p.t])||'var(--all)';
   if(!G.length){el.innerHTML='<div class="empty">No games with minutes yet.</div>';return}
   const fmt=v=>k==='pm'?(v>0?'+':v<0?'−':'')+(Number.isInteger(v)?Math.abs(v):f1(Math.abs(v))):Number.isInteger(v)?String(v):f1(v),ddm=d3.timeFormat('%d-%b-%y');
@@ -1173,6 +1175,16 @@ function plChart(p){
   const sc=el.querySelector('.evs');sc.scrollLeft=sc.scrollWidth;
   el.querySelectorAll('.plh').forEach(rc=>{const g=G[+rc.dataset.i];
     onHover(rc,e=>showTip(e,`<b>${fdate(pdate(g.d))}</b> · ${g.h?'Home vs':'Away at'} ${esc(TEAMS[g.o])} · ${g.w?'Won':'Lost'}<br>${f1(g.min)} min · ${g.pts} pts · ${g.reb} reb · ${g.ast} ast<br>Efficiency ${g.eff} · plus-minus ${(g.pm>0?'+':g.pm<0?'−':'')+Math.abs(g.pm)}<br>Season average ${PLM.find(t=>t[0]===k)[1].toLowerCase()}: ${fmt(Math.round(av*10)/10)}`),'pl'+rc.dataset.i)});
+}
+// her shots by zone, on the same court and colour scale as the Shooting by court zone panel
+function plShots(p){
+  const el=document.getElementById('plzC'),Z=SHZ.p[p.ix],lg=SHZ.z.map((_,i)=>SHZ.t.reduce((a,A)=>A?[a[0]+A[i][0],a[1]+A[i][1]]:a,[0,0]));
+  const W=Math.min(560,Math.max(260,el.clientWidth||520)),n=d3.sum(Z,c=>c[1]),m=d3.sum(Z,c=>c[0]);SZID=100;
+  el.innerHTML=`<div class="szc"><figure><figcaption>${esc(p.n)} · ${m}/${n} (${f1(n?m/n*100:0)}%)</figcaption>${zcourt(Z,lg,'t',W)}</figure></div>`+
+    `<div class="key" style="justify-content:center;margin-top:10px"><span class="szg"><b>FG%</b> ≤25%<i style="background:linear-gradient(90deg,${[SZC.bad,SZC.mid,SZC.good]})"></i>≥55%</span><span><i style="background:var(--lo)"></i>Fewer than 5 shots</span></div>`+
+    `<p class="note" style="text-align:center">Season to date, all her field goals. Shot positions come from the official FIBA LiveStats shot charts and may be approximate.</p>`;
+  el.querySelectorAll('.szl').forEach(g=>{const i=+g.dataset.z,c=Z[i],r=lg[i];
+    onHover(g,e=>showTip(e,`<b>${SZN[SHZ.z[i]]}</b><br>${c[0]}/${c[1]} · <b>${f1(c[1]?c[0]/c[1]*100:0)}%</b><br>${f1(c[1]/n*100)}% of her shots<br>League in this zone: ${f1(r[1]?r[0]/r[1]*100:0)}%`),'plsz'+i)});
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&PLZ!=null)plClose()});
 addEventListener('resize',()=>{if(PLZ!=null)plChart(D[PLZ])});
