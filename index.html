@@ -608,7 +608,7 @@ function stats(){
   if(!ps.length)T.innerHTML+=`<tbody><tr><td colspan="${COLS.length}" class="empty">No players match these filters.</td></tr></tbody>`;
   T.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ST.dir=ST.k===k?-ST.dir:(k==='n'||k==='t'||k==='age'?1:-1);ST.k=k;stats()});
   const nv=vsOn?ps.filter(p=>p.t===S.vs).length:0;
-  document.getElementById('stS').textContent=`${vsOn?`${ps.length-nv} ${desc(ps.length-nv)} and ${nv} from ${TEAMS[S.vs]} for comparison (each team marked in its colour)`:`${ps.length} ${desc(ps.length)}`}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. Team: 3-letter code (hover for the name). Fouls = fouls committed; fouls drawn = fouls committed against the player. +/−: the team’s points difference while the player is on court. Click a column heading to sort.`;
+  document.getElementById('stS').textContent=`${vsOn?`${ps.length-nv} ${desc(ps.length-nv)} and ${nv} from ${TEAMS[S.vs]} for comparison (each team marked in its colour)`:`${ps.length} ${desc(ps.length)}`}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. Team: 3-letter code (hover for the name). Fouls = fouls committed; fouls drawn = fouls committed against the player. +/−: the team’s points difference while the player is on court. Click a column heading to sort, or a name to see the player’s evolution over time, game by game.`;
 }
 // ---- results grid: home teams down the side, away teams across ----
 const lumOf=c=>{const pr=document.createElement('i');pr.style.color=c;document.body.appendChild(pr);const m=getComputedStyle(pr).color.match(/[\d.]+/g).map(Number);pr.remove();
@@ -836,7 +836,8 @@ function leaders(){
   const ps=vsOn?[...P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10),...P.filter(p=>p.t===S.vs&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10)].sort((a,b)=>v(b)-v(a))
     :P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10);
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
-  document.getElementById('ldS').textContent=(vsOn?`Top 10 ${desc(2)}, with the top 10 of ${TEAMS[S.vs]} (in its colour)`:`Top 10 ${desc(2)}`)+(fg?', at least 2 field goal attempts per game on average.':k==='pm'?'. Plus-minus: the team’s points difference while the player is on court (from the official box scores), per game played.':'.');
+  const dd=desc(2),Dd=dd.charAt(0).toUpperCase()+dd.slice(1);   // "Top 10 players …" for the league, "Players …" once a team is selected
+  document.getElementById('ldS').textContent=(S.team<0?`Top 10 ${dd}`:vsOn?`${Dd}, with ${TEAMS[S.vs]}’s (in its colour)`:Dd)+(fg?', at least 2 field goal attempts per game on average.':k==='pm'?'. Plus-minus: the team’s points difference while the player is on court (from the official box scores), per game played.':'.')+' Click a name to see her evolution over time, game by game.';
   const mx=d3.max(ps,v)||1;
   document.getElementById('leaders').classList.toggle('fgm',fg);
   document.getElementById('leaders').innerHTML=ps.length?ps.map(p=>`<div class="row"><div class="who"><button type="button" class="pbtn" data-pi="${p.ix}" title="Game by game">${pname(p)}</button>${flags(p)} <small>— ${p.gp} game${p.gp===1?'':'s'} — ${esc(TEAMS[p.t])}</small></div><div class="val">${fg?`<span class="fp">${fmt(v(p))}</span><small class="fa">(${p.fgm}/${p.fga})</small>`:fmt(v(p))}</div><div class="bar ${S.team<0?'all':''}" style="width:${Math.max(1,v(p)/mx*100)}%${vsOn&&p.t===S.vs?';background:var(--vs)':''}"></div></div>`).join('')+(ps.some(p=>p.gone)?'<p class="note">† No longer on the team’s current FIBA roster; games played this season still count.</p>':''):'<div class="empty">No players match these filters.</div>';
@@ -1063,7 +1064,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('.pbtn');if(b){e.
 function plOpen(){
   const p=D[PLZ],o=document.getElementById('plz');if(!p)return;
   document.getElementById('plzT').textContent=`${p.n} · ${TEAMS[p.t]}`;
-  document.getElementById('plzS').textContent=`Game by game, oldest first (games she played). Dashed line: her season average. ${p.log.length} game${p.log.length===1?'':'s'} · ${f1(pg(p,'min'))} min · ${f1(pg(p,'pts'))} pts · ${f1(pg(p,'eff'))} efficiency per game.`;
+  document.getElementById('plzS').textContent=`Evolution over time: game by game, oldest first (games she played). Dashed line: her season average. ${p.log.length} game${p.log.length===1?'':'s'} · ${f1(pg(p,'min'))} min · ${f1(pg(p,'pts'))} pts · ${f1(pg(p,'eff'))} efficiency per game.`;
   document.getElementById('plzTabs').innerHTML=PLM.map(([k,l])=>`<button type="button" data-k="${k}" aria-pressed="${k===PLK}">${l}</button>`).join('');
   document.querySelectorAll('#plzTabs button').forEach(b=>b.onclick=()=>{PLK=b.dataset.k;plOpen()});
   o.hidden=false;document.body.style.overflow='hidden';plChart(p);document.getElementById('plzX').focus({preventScroll:true});
