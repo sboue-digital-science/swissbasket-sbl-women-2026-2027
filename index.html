@@ -661,7 +661,7 @@ function radar(id,n,hlFn){
   // axis labels with a value underneath: the league average, or the selected team's figure
   const selT=sel>=0?T.find(x=>x.i===sel):null,PILLS=[];
   s+=ax.map(([l,f,u],j)=>{const [x,y]=pt(1,j),[lx,ly]=pt(1.19,j),an=Math.abs(lx-cx)<6?'middle':lx>cx?'start':'end',v=selT?f(selT):av[j],top=ly<cy-R*.5;
-    // values sit in rounded pills drawn last (see below): league average in its ink, selected / comparison team in its colour
+    // values sit in rounded pills drawn last (see below), filled with the league-average ink or the selected / comparison team's colour
     const vsT2=selT&&S.vs>=0?T.find(x=>x.i===S.vs):null,w=vsT2?f(vsT2):null;
     PILLS.push({x:lx,y:ly+(top?-12:0)+18,an,p:vsT2?[[fmt(v,u),'var(--hi)',v>=w],[fmt(w,u),'var(--vs)',w>v]]:[[fmt(v,u),selT?'var(--hi)':'var(--ink)',true]]});
     return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly+(top?-12:0)}" text-anchor="${an}" font-size="12" fill="var(--ink2)"><tspan x="${lx}" dy=".1em">${l}</tspan></text>`}).join('');
@@ -677,7 +677,7 @@ function radar(id,n,hlFn){
   if(sel>=0){const t=T.find(x=>x.i===sel);if(t){const v=ax.map(a=>a[1](t));
     s+=`<polygon class="rsel" points="${poly(v)}" fill="var(--hi)" fill-opacity=".18" stroke="var(--hi)" stroke-width="2.2" stroke-linejoin="round"/>`;
     s+=v.map((x,j)=>{const [px,py]=pt(sc(x,j),j);return`<circle class="rdot" data-j="${j}" cx="${px}" cy="${py}" r="5" fill="var(--hi)" stroke="var(--bg)" stroke-width="1.5"/>`}).join('')}}
-  s+=PILLS.map((g,q)=>`<g class="rpill" data-q="${q}">`+g.p.map(([t,c,b])=>`<rect height="18" rx="9" fill="var(--bg)" stroke="${c}" stroke-width="1.5"/><text font-size="12" text-anchor="middle" fill="var(--ink)" font-weight="${b?700:400}">${t}</text>`).join('')+'</g>').join('');
+  s+=PILLS.map((g,q)=>`<g class="rpill" data-q="${q}">`+g.p.map(([t,c,b])=>`<rect height="18" rx="9" fill="${c}"/><text font-size="12" text-anchor="middle" fill="${lumOf(c)>.4?'#111214':'#fff'}" font-weight="${b?700:400}">${t}</text>`).join('')+'</g>').join('');
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);svg.innerHTML=s;
   // lay out the pills now that their text can be measured: side by side, aligned like the axis name
   svg.querySelectorAll('.rpill').forEach(gr=>{const g=PILLS[+gr.dataset.q],ts=[...gr.querySelectorAll('text')],rs=[...gr.querySelectorAll('rect')];
