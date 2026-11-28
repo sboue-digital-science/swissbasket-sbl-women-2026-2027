@@ -96,7 +96,7 @@ main.band{padding-top:20px}
 .fgm .row{grid-template-columns:minmax(0,1fr) 116px}
 .tpct .trow{grid-template-columns:28px minmax(0,1fr) 140px}.tpct .val{display:flex;justify-content:flex-end;gap:4px}.tpct .fa{width:80px}
 .ph{font-size:14px;font-weight:600;margin:12px 0 0}
-.def{margin:0;font-size:13px;line-height:1.4;color:var(--ink2)}#t2pad{padding-bottom:12px}
+.def{margin:0;font-size:13px;line-height:1.4;color:var(--ink2)}#t2pad,#t3pad{padding-bottom:12px}
 .mapbtn{position:absolute;top:10px;right:10px;z-index:2;font:inherit;font-size:14px;font-weight:600;height:36px;padding:0 14px;border-radius:18px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15)}
 .mapbtn:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
 .tgap{color:var(--ink2);padding:0 6px 0 22px;line-height:1.2;letter-spacing:2px}
@@ -284,9 +284,9 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
       </div>
     </div>
     <div class="card">
-      <h2>Team efficiency</h2>
+      <h2>Team offensive efficiency</h2>
       <div class="tcw">
-        <div class="rad"><p class="sub rdS" id="rdS2"></p><div class="key rdK" id="rdK2"></div><svg id="rad2" role="img" aria-label="Radar of team efficiency stats"></svg></div>
+        <div class="rad"><p class="sub rdS" id="rdS2"></p><div class="key rdK" id="rdK2"></div><svg id="rad2" role="img" aria-label="Radar of team offensive efficiency stats"></svg></div>
         <div>
           <div class="seg" id="tv2" role="group" aria-label="View"><button type="button" data-v="cmp" aria-pressed="true">Comparison to other teams</button><button type="button" data-v="time" aria-pressed="false">Evolution over time</button></div>
           <p class="sub"><span class="nT2">Efficiency per game, all teams</span><span class="clk">. Click a team to select it.</span></p>
@@ -294,6 +294,20 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
           <div id="t2pad"><p class="def">Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.</p></div>
           <div class="teams" id="teams2"></div>
           <div class="tev" id="tev2" hidden></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Team defensive efficiency</h2>
+      <div class="tcw">
+        <div class="rad"><p class="sub rdS" id="rdS3"></p><div class="key rdK" id="rdK3"></div><svg id="rad3" role="img" aria-label="Radar of team defensive efficiency stats"></svg></div>
+        <div>
+          <div class="seg" id="tv3" role="group" aria-label="View"><button type="button" data-v="cmp" aria-pressed="true">Comparison to other teams</button><button type="button" data-v="time" aria-pressed="false">Evolution over time</button></div>
+          <p class="sub"><span class="nT3">Points allowed per game, all teams</span><span class="clk">. Click a team to select it.</span></p>
+          <div class="tabs" id="tdTabs"></div>
+          <div id="t3pad"><p class="def"></p></div>
+          <div class="teams" id="teams3"></div>
+          <div class="tev" id="tev3" hidden></div>
         </div>
       </div>
     </div>
@@ -352,7 +366,7 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
 {
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const f1=d3.format('.1f'),pct=d3.format('.0%');
-const S={v1:'cmp',v2:'cmp',vs:-1,te:'epg',ts:'pts',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
+const S={v1:'cmp',v2:'cmp',v3:'cmp',vs:-1,te:'epg',ts:'pts',td:'opp',age:0,stg:0,lc:'',cit:'',team:-1,pos:'A',gp:2,q:'',metric:'eff',sort:'eff',dir:-1,all:false};
 const M=[['eff','Efficiency'],['pts','Points'],['ast','Assists'],['reb','Rebounds'],['stl','Steals'],['blk','Blocks'],['fg','FG%'],['min','Minutes'],['pm','Plus-minus']];
 const sgn=t=>/^[-−]/.test(t)?'−'+t.slice(1):(/^0(\.0+)?$/.test(t)?'':'+')+t;   // +4.5, −2.0, 0
 const tip=document.getElementById('tip');
@@ -380,7 +394,6 @@ function init(){
   const played=D.filter(p=>p.gp>0),nc=new Set(played.flatMap(p=>p.c)).size,nt=TEAMS.length;
   HDEF=`${played.length} players from ${nc} nationalities in ${nt} teams have stepped on court so far`;document.getElementById('title').textContent=HDEF;
   document.getElementById('upd').textContent='last updated '+ASOF;document.getElementById('asof2').textContent=ASOF;
-  document.querySelector('.nT2').textContent=`Efficiency per game, all ${nt} teams`;
   const sel=document.getElementById('fTeam'),lc=document.getElementById('fLc'),ct=document.getElementById('fCit');
   const cname=k=>CN[k]||k;
   const lcs=d3.rollups(TC,v=>v.length,k=>k).sort((a,b)=>cname(a[0]).localeCompare(cname(b[0])));
@@ -408,7 +421,10 @@ function init(){
   // possessions estimate: FGA − OREB + TO + 0.44 × FTA, averaged over both teams (same number of possessions each)
   const est=x=>x.fg[1]-x.oreb+x.to+.44*x.ft[1],om=new Map(TG.map(x=>[x.d+'|'+x.t+'|'+x.o,x]));
   for(const x of TG){const o=om.get(x.d+'|'+x.o+'|'+x.t);x.odreb=o?o.dreb:0;x.poss=o?(est(x)+est(o))/2:est(x);
-    Object.assign(x,ADV(x.pts,x.opp,x.poss,x.fg,x.p3[0],x.ft,x.oreb,x.odreb,x.to,1))}
+    Object.assign(x,ADV(x.pts,x.opp,x.poss,x.fg,x.p3[0],x.ft,x.oreb,x.odreb,x.to,1));
+    // defence: the opponent's side of the same game (their shooting, turnovers, offensive rebounds, points by source)
+    const O=o||{fg:[0,0],p3:[0,0],ft:[0,0],to:0,oreb:0,paint:0,second:0,fromTo:0};x.O=O;
+    Object.assign(x,DEF(x.dreb,O.oreb,O.fg,O.p3[0],O.ft,O.to,O.paint,O.second,O.fromTo,1),{net:x.ortg-x.drtg})}
   // team aggregates (independent of filters)
   const g=d3.group(D,p=>p.t);
   TM=TEAMS.map((n,i)=>{const ps=g.get(i)||[];const gp=d3.max(ps,p=>p.gp)||0;const sm=k=>d3.sum(ps,p=>p[k]),fgm=sm('fgm'),fga=sm('fga'),tpm=sm('tpm'),tpa=sm('tpa');
@@ -417,12 +433,13 @@ function init(){
     const ts=TS[i]||{},tg=ts.gp||0,per=k=>tg?(ts[k]||0)/tg:0;
     const gm=TG.filter(x=>x.t===i),sg=f=>d3.sum(gm,f);
     const adv=gm.length?ADV(sg(x=>x.pts),sg(x=>x.opp),sg(x=>x.poss),[sg(x=>x.fg[0]),sg(x=>x.fg[1])],sg(x=>x.p3[0]),[sg(x=>x.ft[0]),sg(x=>x.ft[1])],sg(x=>x.oreb),sg(x=>x.odreb),sg(x=>x.to),gm.length):{};
-    return{i,n,gp,opp,...adv,ast:per('ast'),to:per('to'),bench:per('bench'),fast:per('fast'),paint:per('paint'),lead:per('lead'),second:per('second'),fromTo:per('fromTo'),bminp:ts.bminp||0,rot:ts.rot||0,oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
-  document.getElementById('tsTabs').innerHTML=TSM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.ts}">${l}</button>`).join('');
-  document.getElementById('teTabs').innerHTML=TEM.map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S.te}">${l}</button>`).join('');
-  document.querySelectorAll('#teTabs button').forEach(b=>b.onclick=()=>{S.te=b.dataset.k;document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
-  document.querySelectorAll('#tsTabs button').forEach(b=>b.onclick=()=>{S.ts=b.dataset.k;document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()});
-  for(const c of [1,2])document.querySelectorAll(`#tv${c} button`).forEach(b=>b.onclick=()=>{S['v'+c]=b.dataset.v;teams();toURL()});
+    const def=gm.length?DEF(sg(x=>x.dreb),sg(x=>x.O.oreb),[sg(x=>x.O.fg[0]),sg(x=>x.O.fg[1])],sg(x=>x.O.p3[0]),[sg(x=>x.O.ft[0]),sg(x=>x.O.ft[1])],sg(x=>x.O.to),sg(x=>x.O.paint),sg(x=>x.O.second),sg(x=>x.O.fromTo),gm.length):{};
+    return{i,n,gp,opp,...adv,...def,net:(adv.ortg||0)-(adv.drtg||0),ast:per('ast'),to:per('to'),bench:per('bench'),fast:per('fast'),paint:per('paint'),lead:per('lead'),second:per('second'),fromTo:per('fromTo'),bminp:ts.bminp||0,rot:ts.rot||0,oreb:per('oreb'),dreb:per('dreb'),reb:per('reb'),blk:per('blk'),stl:per('stl'),epg:gp?sm('eff')/gp:0,pts:gp?sm('pts')/gp:0,fg:[fgm,fga],p2:[fgm-tpm,fga-tpa],p3:[tpm,tpa],ft:[sm('ftm'),sm('fta')]}});
+  CARDS[1][1]=TSM;CARDS[2][1]=TEM;CARDS[3][1]=TDM;
+  for(const [c,tid] of [[1,'tsTabs'],[2,'teTabs'],[3,'tdTabs']]){const key=CARDS[c][0];
+    document.getElementById(tid).innerHTML=CARDS[c][1].map(([k,l])=>`<button data-k="${k}" aria-pressed="${k===S[key]}">${l}</button>`).join('');
+    document.querySelectorAll(`#${tid} button`).forEach(b=>b.onclick=()=>{S[key]=b.dataset.k;document.querySelectorAll(`#${tid} button`).forEach(x=>x.setAttribute('aria-pressed',x===b));teams();toURL()})}
+  for(const c of [1,2,3])document.querySelectorAll(`#tv${c} button`).forEach(b=>b.onclick=()=>{S['v'+c]=b.dataset.v;teams();toURL()});
   fromURL();fillTeams();
   initShare();
   document.getElementById('fVs').onchange=e=>{S.vs=+e.target.value;update()};
@@ -431,6 +448,7 @@ function init(){
   document.querySelectorAll('#ldTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.metric));
   document.querySelectorAll('#tsTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.ts));
   document.querySelectorAll('#teTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.te));
+  document.querySelectorAll('#tdTabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k===S.td));
   initRace();
   for(const [id,fn] of [['teamCards',()=>{if(!document.getElementById('teamCards').hidden)teams()}],['resCard',()=>results()],['shMin',()=>shares()],['shPl',()=>shares()],['race',()=>race(0)],['sc',()=>scatter()],['age',()=>ages()],['hgt',()=>ages()],['map',()=>map()]]){const el=document.getElementById(id);new ResizeObserver(fn).observe(el)}
   update();
@@ -451,8 +469,9 @@ function fromURL(){
   const vi=TEAMS.findIndex(t=>slug(t)===g('vs'));if(vi>=0&&S.team>=0&&vi!==S.team)S.vs=vi;
   const ls=g('stat');if(M.some(m=>m[0]===ls))S.metric=ls;
   const ts=g('scoring');if(TSM.some(m=>m[0]===ts))S.ts=ts;
-  const te=g('teamstat');if(TEM.some(m=>m[0]===te))S.te=te;
-  if(g('scoringview')==='time')S.v1='time';if(g('teamstatview')==='time')S.v2='time';
+  const te=g('teamstat');if(TEM.some(m=>m[0]===te))S.te=te;else if(TDM.some(m=>m[0]===te))S.td=te;   // older links: defensive stats used to be under teamstat
+  const td=g('defstat');if(TDM.some(m=>m[0]===td))S.td=td;
+  if(g('scoringview')==='time')S.v1='time';if(g('teamstatview')==='time')S.v2='time';if(g('defview')==='time')S.v3='time';
   document.getElementById('fGp').value=S.gp;document.getElementById('fStg').value=S.stg||'';document.getElementById('fLc').value=S.lc;
   document.getElementById('fCit').value=S.cit;document.getElementById('fPos').value=S.pos;document.getElementById('fAge').value=S.age;
 }
@@ -462,7 +481,8 @@ function toURL(){
   if(S.stg)q.set('stage',STGK[S.stg]);if(S.lc)q.set('league',S.lc);if(S.cit)q.set('citizenship',S.cit);
   if(S.pos!=='A')q.set('position',POSK[S.pos]);if(S.age)q.set('age',`${S.age}-${S.age+4}`);if(S.gp!==2)q.set('games',S.gp);
   if(S.metric!=='eff')q.set('stat',S.metric);if(S.ts!=='pts')q.set('scoring',S.ts);if(S.te!=='epg')q.set('teamstat',S.te);
-  if(S.v1==='time')q.set('scoringview','time');if(S.v2==='time')q.set('teamstatview','time');
+  if(S.td!=='opp')q.set('defstat',S.td);
+  if(S.v1==='time')q.set('scoringview','time');if(S.v2==='time')q.set('teamstatview','time');if(S.v3==='time')q.set('defview','time');
   const u=location.pathname+(q.toString()?'?'+q.toString().replace(/%2C/g,','):'')+location.hash;
   if(u!==location.pathname+location.search+location.hash)try{history.replaceState(null,'',u)}catch(e){}
 }
@@ -649,7 +669,8 @@ const qOk=p=>!S.q||fold(p.n).includes(S.q);
 // ---- radars (team scoring / team efficiency): only stats where more is better ----
 // each axis runs from the league's lowest team (centre) to its highest (edge)
 const RAD={rad1:[['Points',d=>d.pts,''],['Fast break',d=>d.fast,''],['Assists',d=>d.ast,''],['FG %',d=>d.fg[1]?100*d.fg[0]/d.fg[1]:0,'%'],['2-pt %',d=>d.p2[1]?100*d.p2[0]/d.p2[1]:0,'%'],['3-pt %',d=>d.p3[1]?100*d.p3[0]/d.p3[1]:0,'%'],['FT %',d=>d.ft[1]?100*d.ft[0]/d.ft[1]:0,'%']],
-  rad2:[['Efficiency',d=>d.epg,''],['Off. reb',d=>d.oreb,''],['Def. reb',d=>d.dreb,''],['Rebounds',d=>d.reb,''],['Blocks',d=>d.blk,''],['Steals',d=>d.stl,''],['Bench pts',d=>d.bench,'']]};
+  rad2:[['Efficiency',d=>d.epg,''],['Net rating',d=>d.net,''],['Off. reb',d=>d.oreb,''],['Off. reb %',d=>d.orbp,'%'],['Rebounds',d=>d.reb,''],['Bench pts',d=>d.bench,''],['Time leading',d=>d.lead,' min']],
+  rad3:[['Def. reb',d=>d.dreb,''],['Def. reb %',d=>d.drbp,'%'],['Blocks',d=>d.blk,''],['Steals',d=>d.stl,''],['Forced TO %',d=>d.ftov,'%']]};
 function radar(id,n,hlFn){
   const svg=document.getElementById(id);if(!svg||!TM.length)return;
   const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.92),cx=W/2,cy=H/2+18,R=Math.min(W/2-(S.team>=0&&S.vs>=0?100:70),H/2-58),k=ax.length;
@@ -707,7 +728,7 @@ function compare(){
 }
 // ---- team colours (from the clubs' logos and websites; Nyon and Ravens as chosen) ----
 // team values: bench minutes as a %, rotation as a whole number, the rest with one decimal
-const fmtT=(k,v)=>PCTN.has(k)?f1(v)+'%':k==='lead'?f1(v)+' min':k==='bminp'?Math.round(v)+'%':k==='rot'&&Number.isInteger(v)?String(v):f1(v);
+const fmtT=(k,v)=>k==='net'?(v>0?'+':v<0?'−':'')+f1(Math.abs(v)):PCTN.has(k)?f1(v)+'%':k==='lead'?f1(v)+' min':k==='bminp'?Math.round(v)+'%':k==='rot'&&Number.isInteger(v)?String(v):f1(v);
 // club colour used for highlights when a team is selected (readable on light and dark backgrounds)
 const TSEL={BAD:'#1D1D1B',TTT:'#FFE601',AKA:'#0683C2',ELF:'#1C3473',ESP:'#12C329',GC:'#025791',HEL:'#EE7F1F',NBF:'#DF79B1',GEN:'#E50270'};
 // chart colour: as TSEL, except Baden turns white in dark mode so its marks and lines stay visible (results grid keeps TSEL)
@@ -950,19 +971,38 @@ function cits(){
 // pace, offensive / defensive rating (points per 100 possessions) and Dean Oliver's Four Factors, from totals over n games
 const ADV=(pts,opp,poss,fg,tpm,ft,oreb,odreb,to,n)=>({pace:poss/n,ortg:poss?100*pts/poss:0,drtg:poss?100*opp/poss:0,
   efg:fg[1]?100*(fg[0]+.5*tpm)/fg[1]:0,ftr:fg[1]?100*ft[0]/fg[1]:0,tovp:100*to/((fg[1]+.44*ft[1]+to)||1),orbp:100*oreb/((oreb+odreb)||1)});
-const PCTN=new Set(['efg','ftr','tovp','orbp']);   // shown as %, but not made/attempted
+// defensive Four Factors (the opponent's, plus our defensive rebound %) and points conceded by source, from totals over n games
+const DEF=(dreb,ooreb,ofg,otpm,oft,oto,opaint,osecond,ofromTo,n)=>({drbp:100*dreb/((dreb+ooreb)||1),ftov:100*oto/((ofg[1]+.44*oft[1]+oto)||1),
+  oefg:ofg[1]?100*(ofg[0]+.5*otpm)/ofg[1]:0,oftr:ofg[1]?100*oft[0]/ofg[1]:0,opaint:opaint/n,osecond:osecond/n,ofromTo:ofromTo/n});
+const PCTN=new Set(['efg','ftr','tovp','orbp','drbp','ftov','oefg','oftr']);   // shown as %, but not made/attempted
 // team scoring metrics: total points, then shooting percentages with made/attempted
 const TSM=[['pts','Points per game'],['fast','Fast-break points'],['paint','Points in the paint'],['second','Second-chance points'],['fromTo','Points from turnovers'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %'],['ortg','Off. rating'],['efg','eFG%'],['ftr','FT rate']];
 const TSS={pts:'Points per game',fast:'Fast-break points per game (official LiveStats total)',paint:'Points in the paint per game (official LiveStats total)',second:'Second-chance points per game: scored after an offensive rebound (official LiveStats total)',fromTo:'Points from turnovers per game: scored after the opponent turned the ball over (official LiveStats total)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)',ortg:'Offensive rating: points scored per 100 possessions',efg:'Effective field goal % (a made 3 counts as 1.5 makes): (FGM + 0.5 × 3PM) ÷ FGA',ftr:'Free-throw rate: free throws made per 100 field-goal attempts'};
 // team efficiency card: efficiency, then rebounds, blocks, steals (official team totals per game)
-const TEM=[['epg','Efficiency'],['opp','Points allowed'],['oreb','Off. rebounds'],['dreb','Def. rebounds'],['reb','Rebounds'],['blk','Blocks'],['stl','Steals'],['to','Turnovers'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)'],['pace','Pace'],['lead','Time leading'],['drtg','Def. rating'],['tovp','Turnover %'],['orbp','Off. reb %']];
-const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game',pace:'Pace: possessions per game',lead:'Minutes in the lead per game (official LiveStats total)',drtg:'Defensive rating: points allowed per 100 possessions (fewest ranked first)',tovp:'Turnover %: turnovers per 100 possessions (fewest ranked first)',orbp:'Offensive rebound %: share of available offensive rebounds won'};
+const TEM=[['epg','Efficiency'],['net','Net rating'],['pace','Pace'],['lead','Time leading'],['oreb','Off. rebounds'],['orbp','Off. reb %'],['reb','Rebounds'],['to','Turnovers'],['tovp','Turnover %'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)']];
+// team defensive efficiency card
+const TDM=[['opp','Points allowed'],['drtg','Def. rating'],['dreb','Def. rebounds'],['drbp','Def. reb %'],['blk','Blocks'],['stl','Steals'],['ftov','Forced turnover %'],['oefg','Opp. eFG%'],['oftr','Opp. FT rate'],['opaint','Opp. paint points'],['osecond','Opp. second-chance pts'],['ofromTo','Opp. points off turnovers']];
+// card number → state key, metric list, list element, title span; lower is better for these
+const CARDS={1:['ts',null,'teams','.nT'],2:['te',null,'teams2','.nT2'],3:['td',null,'teams3','.nT3']};
+const LOWK=new Set(['to','tovp','opp','drtg','oefg','oftr','opaint','osecond','ofromTo']);
+const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game',pace:'Pace: possessions per game',lead:'Minutes in the lead per game (official LiveStats total)',drtg:'Defensive rating: points allowed per 100 possessions (fewest ranked first)',tovp:'Turnover %: turnovers per 100 possessions (fewest ranked first)',orbp:'Offensive rebound %: share of available offensive rebounds won',
+  net:'Net rating: offensive rating minus defensive rating (points per 100 possessions outscored by)',drbp:'Defensive rebound %: share of the opponent’s misses rebounded',
+  ftov:'Forced turnover %: opponent turnovers per 100 opponent possessions',oefg:'Opponents’ effective field goal % (fewest ranked first)',oftr:'Opponents’ free-throw rate: free throws made per 100 field-goal attempts (fewest ranked first)',
+  opaint:'Opponents’ points in the paint per game (fewest ranked first)',osecond:'Opponents’ second-chance points per game (fewest ranked first)',ofromTo:'Opponents’ points off our turnovers per game (fewest ranked first)'};
 const TED={epg:'Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.',
   reb:'Official team totals: rebounds credited to the team rather than to a player are included.',blk:'Official team totals per game played.',stl:'Official team totals per game played.',opp:'Points scored by opponents, divided by the team’s games played.',to:'Official team totals per game played, including turnovers credited to the team rather than to a player.',bminp:'How much a team rotates: the % of its playing time that goes to players who did not start the game.',bench:'What the bench produces: points scored by players who did not start, per game (official LiveStats total).',rot:'Rotation size: players whose minutes, spread over all the team’s games, average at least 10 per game.'};
 TED.oreb=TED.dreb=TED.reb;
 TED.pace='Possessions estimated from the box score (field-goal attempts − offensive rebounds + turnovers + 0.44 × free-throw attempts), averaged with the opponent’s estimate for the same game. Faster teams play more possessions.';
 TED.lead='Minutes per game with the team ahead on the scoreboard, out of 40 (more with overtime). Shows how much of the game a team controls, not only the result.';
-TED.drtg='Points allowed per 100 possessions: unlike points allowed per game, it is not inflated by a fast pace.';
+TED.net='How much better a team is than its opponents, per 100 possessions: offensive rating − defensive rating. Positive = outscoring opponents; the best single measure of team strength.';
+TED.drbp='Defensive rebounds ÷ (own defensive rebounds + opponent’s offensive rebounds), one of the defensive Four Factors: ending the opponent’s possession.';
+TED.ftov='Opponent turnovers ÷ (opponent field-goal attempts + 0.44 × free-throw attempts + turnovers): how often the defence takes the ball away.';
+TED.oefg='The opponents’ (FGM + 0.5 × 3PM) ÷ FGA: how well the defence contests shots. Lower is better.';
+TED.oftr='The opponents’ free throws made per 100 field-goal attempts: how often the defence fouls. Lower is better.';
+TED.opaint='Points the opponents scored in the paint, per game (official LiveStats totals). Lower is better.';
+TED.osecond='Points the opponents scored after an offensive rebound, per game. Lower is better.';
+TED.ofromTo='Points the opponents scored after our turnovers, per game. Lower is better.';
+TED.dreb=TED.reb;TED.drtg='Points allowed per 100 possessions: unlike points allowed per game, it is not inflated by a fast pace.';
 TED.tovp='Turnovers ÷ (field-goal attempts + 0.44 × free-throw attempts + turnovers), one of the Four Factors.';
 TED.orbp='Offensive rebounds ÷ (own offensive rebounds + opponent’s defensive rebounds), one of the Four Factors.';
 // per-game wording where the season definition does not fit a single game
@@ -980,11 +1020,12 @@ function evo(id,k,pct,av,box,H=300){
   const tms=vsLine()?[[S.team,'var(--hi)'],[S.vs,'var(--vs)']]:[[S.team,'var(--hi)']],two=tms.length>1;
   if(box&&two)H=Math.max(220,(H-50)/2);
   else if(two)H=190;   // in the card, two compact charts: the trend matters more than the height (plot area about half the single chart's)
-  const val=x=>pct?(x[k][1]?x[k][0]/x[k][1]*100:0):x[k],fmt=v=>pct?f1(v)+'%':Number.isInteger(v)?String(v):fmtT(k,v),ddm=d3.timeFormat('%d-%b-%y');
+  const val=x=>pct?(x[k][1]?x[k][0]/x[k][1]*100:0):x[k],fmt=v=>pct?f1(v)+'%':Number.isInteger(v)&&k!=='net'?String(v):fmtT(k,v),ddm=d3.timeFormat('%d-%b-%y');
   const GS=tms.map(([t])=>TG.filter(x=>x.t===t).sort((a,b)=>a.d.localeCompare(b.d)));
   if(!d3.sum(GS,g=>g.length)){el.innerHTML='<div class="empty">No box scores yet for this team.</div>';return}
   const m={t:20,r:8,b:58,l:38},Wa=Math.max(200,(el.clientWidth||600)-m.l);
-  const y=d3.scaleLinear().domain([0,Math.max(d3.max(GS.flat(),val)||0,av||0)*(pct?1.14:1.08)||1]).nice().range([H-m.b,m.t]),ticks=y.ticks(4);
+  const lo=Math.min(0,d3.min(GS.flat(),val)||0),hi=Math.max(0,d3.max(GS.flat(),val)||0,av||0);
+  const y=d3.scaleLinear().domain([lo?lo-(hi-lo)*.12:0,hi*(pct?1.14:1.08)||1]).nice().range([H-m.b,m.t]),ticks=y.ticks(4);
   const ax=`<svg class="evy" width="${m.l}" height="${H}" aria-hidden="true">`+ticks.map(t=>`<text x="${m.l-6}" y="${y(t)}" dy=".32em" text-anchor="end" font-size="11" fill="var(--ink2)">${pct||k==='bminp'||PCTN.has(k)?t+'%':t}</text>`).join('')+'</svg>';
   const one=(G,ti,col,n)=>{
     if(!G.length)return `<div class="empty">No box scores yet for ${esc(TEAMS[ti])}.</div>`;
@@ -993,13 +1034,14 @@ function evo(id,k,pct,av,box,H=300){
     let s=`<svg width="${W}" height="${H}" role="img" aria-label="Bar chart of ${esc(TEAMS[ti])} game by game">`;
     s+=ticks.map(t=>`<line x1="0" x2="${W-m.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)"/>`).join('');
     const bw=x.bandwidth(),r=Math.min(4,bw/2);
-    s+=G.map((g,i)=>{const x0=x(i),y0=y(val(g)),yb=y(0),h=yb-y0,rr=Math.min(r,h);
-      return `<path d="M${x0},${yb}V${y0+rr}Q${x0},${y0} ${x0+rr},${y0}H${x0+bw-rr}Q${x0+bw},${y0} ${x0+bw},${y0+rr}V${yb}Z" fill="${col}"/>`+
+    s+=G.map((g,i)=>{const x0=x(i),y0=y(val(g)),yb=y(0),h=Math.abs(yb-y0),rr=Math.min(r,h),dn=y0>yb;   // dn: negative value, bar hangs below zero
+      return (dn?`<path d="M${x0},${yb}V${y0-rr}Q${x0},${y0} ${x0+rr},${y0}H${x0+bw-rr}Q${x0+bw},${y0} ${x0+bw},${y0-rr}V${yb}Z" fill="${col}"/>`
+        :`<path d="M${x0},${yb}V${y0+rr}Q${x0},${y0} ${x0+rr},${y0}H${x0+bw-rr}Q${x0+bw},${y0} ${x0+bw},${y0+rr}V${yb}Z" fill="${col}"/>`)+
         `<text x="${x0+bw/2}" y="${H-m.b+16}" text-anchor="middle" font-size="11" fill="var(--ink2)"><tspan x="${x0+bw/2}">${ddm(pdate(g.d))}</tspan><tspan x="${x0+bw/2}" dy="14" fill="var(--ink)" font-weight="600">${esc(TCODE[g.o])}</tspan><tspan x="${x0+bw/2}" dy="14">${g.h?'Home':'Away'}</tspan></text>`}).join('');
     s+=`<line x1="0" x2="${W-m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
     if(av!=null)s+=`<line x1="0" x2="${W-m.r}" y1="${y(av)}" y2="${y(av)}" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>`;
     // value above each bar; for percentages a second row with made/attempted
-    if(bw>=26)s+=G.map((g,i)=>`<text x="${x(i)+bw/2}" y="${y(val(g))-(pct?19:5)}" text-anchor="middle" font-size="11" fill="var(--ink)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">${fmt(val(g))}${pct?`<tspan x="${x(i)+bw/2}" dy="13" font-size="10" fill="var(--ink2)">${g[k][0]}/${g[k][1]}</tspan>`:''}</text>`).join('');
+    if(bw>=26)s+=G.map((g,i)=>`<text x="${x(i)+bw/2}" y="${val(g)<0?y(val(g))+13:y(val(g))-(pct?19:5)}" text-anchor="middle" font-size="11" fill="var(--ink)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">${fmt(val(g))}${pct?`<tspan x="${x(i)+bw/2}" dy="13" font-size="10" fill="var(--ink2)">${g[k][0]}/${g[k][1]}</tspan>`:''}</text>`).join('');
     s+=G.map((g,i)=>`<rect class="evh" data-n="${n}" data-i="${i}" x="${x(i)-x.step()*x.paddingInner()/2}" y="${m.t}" width="${x.step()}" height="${H-m.t}" fill="transparent"/>`).join('')+'</svg>';
     return `<div class="evw">${ax}<div class="evs">${s}</div></div>`;
   };
@@ -1008,12 +1050,12 @@ function evo(id,k,pct,av,box,H=300){
   el.querySelectorAll('.evs').forEach(sc=>sc.scrollLeft=sc.scrollWidth);
   if(!box)el.querySelector('.evzb').onclick=()=>{EVZ=[id,k,pct,av];evzOpen()};
   el.querySelectorAll('.evh').forEach(r=>{const n=+r.dataset.n,g=GS[n][+r.dataset.i],w=g.pts>g.opp;
-    onHover(r,e=>showTip(e,`<b>${esc(TEAMS[tms[n][0]])}</b><br>${fdate(pdate(g.d))} · ${g.h?'Home vs':'Away at'} ${esc(TEAMS[g.o])}<br>${w?'Won':'Lost'} ${g.pts}–${g.opp}<br>${esc((id==='tev1'?TSM:TEM).find(t=>t[0]===k)[1])}: <b>${fmt(val(g))}</b>${pct?` (${g[k][0]}/${g[k][1]})`:''}<br>League average: ${fmt(av)}`),'ev'+id+(box?'z':'')+n+'-'+r.dataset.i)});
+    onHover(r,e=>showTip(e,`<b>${esc(TEAMS[tms[n][0]])}</b><br>${fdate(pdate(g.d))} · ${g.h?'Home vs':'Away at'} ${esc(TEAMS[g.o])}<br>${w?'Won':'Lost'} ${g.pts}–${g.opp}<br>${esc(CARDS[+id.slice(3)][1].find(t=>t[0]===k)[1])}: <b>${fmt(val(g))}</b>${pct?` (${g[k][0]}/${g[k][1]})`:''}<br>League average: ${fmt(av)}`),'ev'+id+(box?'z':'')+n+'-'+r.dataset.i)});
 }
 function evzOpen(){
-  const [id,k,pct,av]=EVZ,o=document.getElementById('evz'),c=id==='tev1';
-  document.getElementById('evzT').textContent=`${TEAMS[S.team]}${vsLine()?' vs '+TEAMS[S.vs]:''} · ${(c?TSM:TEM).find(t=>t[0]===k)[1]}`;
-  document.getElementById('evzS').textContent=`${(c?TSS:TES)[k]}, game by game, oldest first. Dashed line: league average.`;
+  const [id,k,pct,av]=EVZ,o=document.getElementById('evz'),c=+id.slice(3);
+  document.getElementById('evzT').textContent=`${TEAMS[S.team]}${vsLine()?' vs '+TEAMS[S.vs]:''} · ${CARDS[c][1].find(t=>t[0]===k)[1]}`;
+  document.getElementById('evzS').textContent=`${(c===1?TSS:TES)[k]}, game by game, oldest first. Dashed line: league average.`;
   o.hidden=false;document.body.style.overflow='hidden';
   evo(id,k,pct,av,document.getElementById('evzC'),Math.max(260,Math.min(620,innerHeight-150)));
   document.getElementById('evzX').focus();
@@ -1025,7 +1067,7 @@ addEventListener('resize',()=>{if(EVZ)evzOpen()});
 function alignTeams(){
   const pad=document.getElementById('t2pad'),pad1=document.getElementById('t1pad'),a=document.getElementById('teams'),b=document.getElementById('teams2');
   pad.style.minHeight='0px';pad1.style.height='0px';
-  if(S.v1==='time'||S.v2==='time')return;
+  if(S.v1==='time'||S.v2==='time'||S.v3==='time')return;
   const ca=a.closest('.card').getBoundingClientRect(),cb=b.closest('.card').getBoundingClientRect();
   if(Math.abs(ca.top-cb.top)>2)return;   // cards stacked (phones): nothing to align
   const dy=a.getBoundingClientRect().top-b.getBoundingClientRect().top;
@@ -1046,31 +1088,35 @@ function teams(){
   const pf=S.pos!=='A'||S.cit||S.age?'. Team totals include all players':'';
   document.querySelector('.nT').textContent=`${TSS[S.ts]}, ${scopeT}${pf}`;
   document.querySelector('.nT2').textContent=`${TES[S.te]}, ${scopeT}${pf}`;
-  document.querySelector('#t2pad .def').textContent=TED[S.te];
+  document.querySelector('.nT3').textContent=`${TES[S.td]}, ${scopeT}${pf}`;
+  document.querySelector('#t2pad .def').textContent=TED[S.te]||'';
+  document.querySelector('#t3pad .def').textContent=TED[S.td]||'';
   const AV={};
-  for(const [id,k] of [['teams',S.ts],['teams2',S.te]]){
+  for(const [id,k] of [['teams',S.ts],['teams2',S.te],['teams3',S.td]]){
     const pct=id==='teams'&&pc,vv=d=>pct?(d[k][1]?d[k][0]/d[k][1]:0):d[k];
-    const low=id==='teams2'&&['opp','to','drtg','tovp'].includes(k),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a)),mx=d3.max(t,vv)||1;
+    const low=id!=='teams'&&LOWK.has(k),t=TM.filter(t=>t.gp).sort((a,b)=>low?vv(a)-vv(b):vv(b)-vv(a));
+    // bars from zero; when some values are negative (net rating), a zero line sits inside the track
+    const mn=Math.min(0,d3.min(t,vv)),mx=Math.max(0,d3.max(t,vv)),rg=(mx-mn)||1,bl=v=>(Math.min(v,0)-mn)/rg*100,bw=v=>Math.abs(v)/rg*100;
     // league average: mean of the 9 teams' per-game values; for percentages, all made / all attempted
     const av=pct?d3.sum(t,d=>d[k][0])/(d3.sum(t,d=>d[k][1])||1):d3.mean(t,vv),avTxt=pct?f1(av*100)+'%':fmtT(k,av);AV[id]=pct?av*100:av;
     const el=document.getElementById(id);el.classList.toggle('tpct',pct);
     const gap='<div class="tgap" aria-hidden="true">…</div>';
     let last=-1;
-    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':d.i===S.vs?'on2':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="width:${vv(d)/mx*100}%${d.i===S.vs?';background:var(--vs)':tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${av/mx*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:fmtT(k,d[k])}</span></div>`}).join('');
+    el.innerHTML=`<div class="avgk"><i></i>League average: ${avTxt}</div>`+t.map((d,i)=>{const g='';last=i;return g+`<div class="trow ${d.i===S.team?'on':d.i===S.vs?'on2':''}" tabindex="0" role="button" data-i="${d.i}"><span class="rk">${i+1}</span><div class="tb"><span>${esc(d.n)} <small style="color:var(--ink2)">— ${d.gp} games</small></span><div class="bar" style="margin-left:${bl(vv(d))}%;width:${bw(vv(d))}%${d.i===S.vs?';background:var(--vs)':tf&&!keep(d.i)?';background:var(--lo)':''}"></div><i class="avgl" style="left:${(av-mn)/rg*100}%"></i></div><span class="val">${pct?`<span class="fp">${f1(vv(d)*100)}%</span><small class="fa">(${d[k][0]}/${d[k][1]})</small>`:fmtT(k,d[k])}</span></div>`}).join('');
     el.querySelectorAll('.trow').forEach(r=>{const go=()=>pickTeam(+r.dataset.i);r.onclick=go;r.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}}});
     const on=el.querySelector('.on');if(on)el.scrollTop=on.offsetTop-el.offsetTop-el.clientHeight/2;
   }
-  radar('rad1',1,i=>tf&&keep(i));radar('rad2',2,i=>tf&&keep(i));
+  radar('rad1',1,i=>tf&&keep(i));radar('rad2',2,i=>tf&&keep(i));radar('rad3',3,i=>tf&&keep(i));
   // view switch: league comparison (bar lists) or the selected team game by game
-  for(const c of [1,2]){
-    const time=S['v'+c]==='time',k=c===1?S.ts:S.te,card=document.getElementById('tev'+c).closest('.card');
+  for(const c of [1,2,3]){
+    const time=S['v'+c]==='time',k=S[CARDS[c][0]],card=document.getElementById('tev'+c).closest('.card');
     document.querySelectorAll(`#tv${c} button`).forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S['v'+c]));
-    document.getElementById(c===1?'teams':'teams2').hidden=time;document.getElementById('tev'+c).hidden=!time;
+    document.getElementById(CARDS[c][2]).hidden=time;document.getElementById('tev'+c).hidden=!time;
     card.querySelector('.clk').hidden=time;
     if(time){
-      document.querySelector(c===1?'.nT':'.nT2').textContent=(c===1?TSS:TES)[k]+(S.team>=0?`, game by game: ${TEAMS[S.team]}${vsLine()?' (top) and '+TEAMS[S.vs]+' (bottom), same scale':''}, oldest first. Dashed line: league average`:'');
-      if(c===2&&TEDG[k])document.querySelector('#t2pad .def').textContent=TEDG[k];
-      evo('tev'+c,k,c===1&&['fg','p2','p3','ft'].includes(k),AV[c===1?'teams':'teams2']);
+      document.querySelector(CARDS[c][3]).textContent=(c===1?TSS:TES)[k]+(S.team>=0?`, game by game: ${TEAMS[S.team]}${vsLine()?' (top) and '+TEAMS[S.vs]+' (bottom), same scale':''}, oldest first. Dashed line: league average`:'');
+      if(c>1&&TEDG[k])document.querySelector(`#t${c}pad .def`).textContent=TEDG[k];
+      evo('tev'+c,k,c===1&&['fg','p2','p3','ft'].includes(k),AV[CARDS[c][2]]);
     }
   }
   alignTeams();
