@@ -154,6 +154,7 @@ footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;co
 #plzTabs{margin:4px 0 12px}
 .szbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:4px 0 8px}.szbar .seg{margin:0}
 #szP{font:inherit;font-size:14px;height:34px;border-radius:17px;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:0 12px;max-width:100%}
+.szg{display:inline-flex;align-items:center;gap:6px}.szg i{width:120px!important;height:10px!important;border-radius:5px!important;display:inline-block}
 .szc{display:flex;flex-wrap:wrap;gap:18px 28px;justify-content:center}.szc figure{margin:0;flex:1 1 300px;max-width:520px}.szc figcaption{font-weight:600;font-size:15px;margin:0 0 6px;display:flex;align-items:center;gap:6px}
 .szc figcaption i{width:10px;height:10px;border-radius:2px;display:inline-block}.szc svg{display:block;width:100%;height:auto}
 .evtop{display:flex;justify-content:flex-end;margin:-4px 0 2px}
@@ -1080,15 +1081,15 @@ function evo(id,k,pct,av,box,H=300){
 // centre = within 25° of straight out from the basket.
 const SZN={paint:'Paint',m2L:'Mid-range left',m2C:'Mid-range centre',m2R:'Mid-range right',t3L:'3-pointers left (incl. corner)',t3C:'3-pointers centre',t3R:'3-pointers right (incl. corner)'};
 const SZC={good:'#4f9d63',mid:'#d9b43c',bad:'#d0603f',few:'var(--lo)'};
+const SZLO=.25,SZHI=.55,SZT=v=>Math.max(0,Math.min(1,(v-SZLO)/(SZHI-SZLO))),SZSCALE=d3.interpolateRgbBasis([SZC.bad,SZC.mid,SZC.good]);
 let SZID=0;
 function zcourt(Z,ref,mode,W){
   // Z: [made, att] per zone; ref: league [made, att] per zone; mode: 't' taken, 'o' conceded (low is good), 'l' league view
   const id='sz'+(SZID++),k=W/15,Xm=10.4,H=Math.round(Xm*k),bx=7.5,by=1.575,P=(Y,X)=>`${(Y*k).toFixed(1)},${(X*k).toFixed(1)}`;
   const zi=z=>SHZ.z.indexOf(z),pc=(c)=>c[1]?c[0]/c[1]:0,lgAll=ref.reduce((a,c,i)=>a+c[0]*(SHZ.z[i].endsWith('3')||/^[cwt]3/.test(SHZ.z[i])?3:2),0)/(d3.sum(ref,c=>c[1])||1);
   const is3=z=>/3/.test(z);
-  const col=z=>{const c=Z[zi(z)],r=ref[zi(z)];if(!c||c[1]<5)return SZC.few;
-    if(mode==='l'){const pps=pc(c)*(is3(z)?3:2),d=pps-lgAll;return d>=.06?SZC.good:d<=-.06?SZC.bad:SZC.mid}
-    const d=(pc(c)-pc(r))*100*(mode==='o'?-1:1);return d>=3?SZC.good:d<=-3?SZC.bad:SZC.mid};
+  // colour = the zone's FG% on a red–yellow–green scale (25% or less → 55% or more); for shots conceded the scale is reversed
+  const col=z=>{const c=Z[zi(z)];if(!c||c[1]<5)return SZC.few;return SZSCALE(mode==='o'?1-SZT(pc(c)):SZT(pc(c)))};
   const wedge=(side,a1,a2)=>{const pt=a=>{const r=30,t=a*Math.PI/180;return P(bx+(side==='L'?-1:1)*r*Math.sin(t),by+r*Math.cos(t))};const st=[];for(let a=a1;a<=a2;a+=5)st.push(pt(a));st.push(pt(a2));return`M${P(bx,by)}L${st.join('L')}Z`};
   const both=(a)=>`M${P(bx,by)}L${[-a,-a/2,0,a/2,a].map(t=>{const r=30,tt=t*Math.PI/180;return P(bx+r*Math.sin(tt),by+r*Math.cos(tt))}).join('L')}Z`;
   const a3=Math.asin(6.6/6.75)*180/Math.PI,arcY=y=>Math.sqrt(6.75**2-(y-bx)**2)+by;   // 3-point arc
@@ -1127,11 +1128,10 @@ function zones(){
   if(sel<0){const n=d3.sum(lg,c=>c[1]),m=d3.sum(lg,c=>c[0]);el.innerHTML=`<figure><figcaption>All teams · ${m}/${n} (${f1(m/n*100)}%)</figcaption>${zcourt(lg,lg,'l',W)}</figure>`}
   else el.innerHTML=one(sel,'var(--hi)')+(vsLine()?one(S.vs,'var(--vs)'):'');
   const who=sel<0?'every shot in the league':S.sz==='o'?`shots taken by ${TEAMS[sel]}’s opponents`+(vsLine()?` (and ${TEAMS[S.vs]}’s)`:''):S.szp>=0?`${D[S.szp].n}’s shots`:`${TEAMS[sel]}’s shots`+(vsLine()?` and ${TEAMS[S.vs]}’s`:'');
-  document.getElementById('szS').textContent=`Field goals by zone, from the official shot charts: ${who}. Each zone shows made/attempted and FG%. `+(sel<0?'Colour: points per shot in that zone against the league’s overall average (a 3 is worth 1.5 times a 2). Select a team to see how it compares zone by zone.':S.sz==='o'?'Colour: opponents’ FG% against the league’s FG% in the same zone, so green = the defence holds opponents below the league (by 3 points or more).':'Colour: FG% against the league’s FG% in the same zone (green 3 points or more above, red 3 or more below).')+' Zones with fewer than 5 attempts are grey.';
+  document.getElementById('szS').textContent=`Field goals by zone, from the official shot charts: ${who}. Each zone shows made/attempted and FG%. `+(S.sz==='o'&&sel>=0?'Colour: the opponents’ FG% in the zone, reversed so that green = opponents shoot poorly there (25% or less) and red = they shoot well (55% or more).':'Colour: FG% in the zone, from red (25% or less) through yellow (40%) to green (55% or more).')+(sel<0?' Select a team to see its own chart.':'')+' Zones with fewer than 5 attempts are grey.';
   const sw=(c,t)=>`<span><i style="background:${c}"></i>${t}</span>`;
-  document.getElementById('szK').innerHTML=sel<0?sw(SZC.good,'Above league average')+sw(SZC.mid,'Around average')+sw(SZC.bad,'Below average')+sw('var(--lo)','Fewer than 5 shots')
-    :S.sz==='o'?sw(SZC.good,'Opponents shoot 3+ pts below the league')+sw(SZC.mid,'Within 3 pts')+sw(SZC.bad,'3+ pts above')+sw('var(--lo)','Fewer than 5 shots')
-    :sw(SZC.good,'3+ pts above the league')+sw(SZC.mid,'Within 3 pts')+sw(SZC.bad,'3+ pts below')+sw('var(--lo)','Fewer than 5 shots');
+  const rev=S.sz==='o'&&sel>=0,grad=`<span class="szg"><b>${rev?'Opponents’ FG%':'FG%'}</b> ≤25%<i style="background:linear-gradient(90deg,${rev?[SZC.good,SZC.mid,SZC.bad]:[SZC.bad,SZC.mid,SZC.good]})"></i>≥55%</span>`;
+  document.getElementById('szK').innerHTML=grad+sw('var(--lo)','Fewer than 5 shots');
   // hover: zone name, made/attempted, FG%, league FG%
   el.querySelectorAll('figure').forEach((fg,f)=>{const ti=f===0?sel:S.vs;const Z=sel<0?lg:S.sz==='o'?SHZ.o[ti]:S.szp>=0&&ti===sel?SHZ.p[S.szp]:SHZ.t[ti];if(!Z)return;
     fg.querySelectorAll('.szl').forEach(g=>{const i=+g.dataset.z,c=Z[i],r=lg[i],tot=d3.sum(Z,x=>x[1]);
