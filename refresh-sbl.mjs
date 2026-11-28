@@ -115,7 +115,7 @@ const STAT = Object.keys(PF).filter(k => k !== 'min');
 
 // Box score names that LiveStats got wrong, per team: 'Team|name in box score' → correct name
 const NAME_FIX = { 'Baden Basket 54|Brunner Nora': 'Nora Brunner' };
-const logs = [], P = new Map(), T = new Map(), LAST = new Map(), TG = [];   // TG: each team's stats game by game (dashboard "Evolution over time")   // LAST: date of each player's last game with minutes (dashboard popup)
+const logs = [], P = new Map(), T = new Map(), LAST = new Map(), TG = [], FD = new Map();   // FD: fouls drawn per player (dashboard only)   // TG: each team's stats game by game (dashboard "Evolution over time")   // LAST: date of each player's last game with minutes (dashboard popup)
 for (const g of saved) {
   // LiveStats lists the home team first; swap if the scores say otherwise
   if (g.tm[0].score === g.as && g.tm[1].score === g.hs && g.hs !== g.as) g.tm.reverse();
@@ -143,6 +143,7 @@ for (const g of saved) {
       const pp = P.get(pk); pp.no = p.no || pp.no; pp.pos = p.pos || pp.pos;
       if (s.sec > 0) { pp.gp++; if (p.starter) pp.gs++; const lk = team + '|' + name, d = g.date.slice(0, 10); if (!(LAST.get(lk) >= d)) LAST.set(lk, d); }
       pp.sec += s.sec; for (const k of STAT) pp[k] += s[k];
+      FD.set(team + '|' + name, (FD.get(team + '|' + name) || 0) + (+p.sFoulsOn || 0));
     }
   });
 }
@@ -215,7 +216,7 @@ function readCsv(f) {
       by: r && +r.birth_year || null, age: r && +r.birth_year ? year - +r.birth_year : null, h: r && +r.height_cm || null, c: [...new Set(c)],
       gp: p.gp, min: p.min, pts: p.pts, reb: p.reb, ast: p.ast, stl: p.stl, blk: p.blk, to: p.to, eff: p.eff,
       fgm: p.fgm, fga: p.fga, tpm: p.tpm, tpa: p.tpa, ftm: p.ftm, fta: p.fta, sbl: r && r.seasons_in_sbl !== '' ? +r.seasons_in_sbl : null,
-      fam: r && r.family_name ? r.family_name : p.player.split(' ').slice(-1)[0], pid: r ? r.player_id : null, pm: p.pm, last: LAST.get(p.team + '|' + p.player) || null };
+      fam: r && r.family_name ? r.family_name : p.player.split(' ').slice(-1)[0], pid: r ? r.player_id : null, pm: p.pm, pf: p.pf, fd: FD.get(p.team + '|' + p.player) || 0, last: LAST.get(p.team + '|' + p.player) || null };
   });
   const dg = sched.filter(g => g.status === 'played').map(g => ({ date: g.date.slice(0, 10), day: g.day, phase: g.phase, h: ti.get(norm(g.home)), a: ti.get(norm(g.away)), hs: g.hs, as: g.as }))
     .filter(g => g.h != null && g.a != null);
