@@ -949,7 +949,7 @@ function evo(id,k,pct,av,box,H=300){
   const val=x=>pct?(x[k][1]?x[k][0]/x[k][1]*100:0):x[k],fmt=v=>pct?f1(v)+'%':Number.isInteger(v)?String(v):fmtT(k,v),ddm=d3.timeFormat('%d-%b-%y');
   const m={t:20,r:8,b:58,l:38},Wa=Math.max(200,(el.clientWidth||600)-m.l),W=Math.max(Wa,m.r+G.length*(box?50:58));   // full screen packs games a little tighter so a whole season fits
   const x=d3.scaleBand().domain(G.map((_,i)=>i)).range([0,W-m.r]).paddingInner(.25).paddingOuter(.1);
-  const y=d3.scaleLinear().domain([0,Math.max(d3.max(G,val),av||0)*1.08||1]).nice().range([H-m.b,m.t]),ticks=y.ticks(4);
+  const y=d3.scaleLinear().domain([0,Math.max(d3.max(G,val),av||0)*(pct?1.14:1.08)||1]).nice().range([H-m.b,m.t]),ticks=y.ticks(4);
   const ax=`<svg class="evy" width="${m.l}" height="${H}" aria-hidden="true">`+ticks.map(t=>`<text x="${m.l-6}" y="${y(t)}" dy=".32em" text-anchor="end" font-size="11" fill="var(--ink2)">${pct||k==='bminp'?t+'%':t}</text>`).join('')+'</svg>';
   let s=`<svg width="${W}" height="${H}" role="img" aria-label="Bar chart of ${esc(TEAMS[S.team])} game by game">`;
   s+=ticks.map(t=>`<line x1="0" x2="${W-m.r}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)"/>`).join('');
@@ -959,7 +959,8 @@ function evo(id,k,pct,av,box,H=300){
       `<text x="${x0+bw/2}" y="${H-m.b+16}" text-anchor="middle" font-size="11" fill="var(--ink2)"><tspan x="${x0+bw/2}">${ddm(pdate(g.d))}</tspan><tspan x="${x0+bw/2}" dy="14" fill="var(--ink)" font-weight="600">${esc(TCODE[g.o])}</tspan><tspan x="${x0+bw/2}" dy="14">${g.h?'Home':'Away'}</tspan></text>`}).join('');
   s+=`<line x1="0" x2="${W-m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--axis)"/>`;
   if(av!=null)s+=`<line x1="0" x2="${W-m.r}" y1="${y(av)}" y2="${y(av)}" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4" opacity=".8"/>`;
-  if(bw>=26)s+=G.map((g,i)=>`<text x="${x(i)+bw/2}" y="${y(val(g))-5}" text-anchor="middle" font-size="11" fill="var(--ink)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">${fmt(val(g))}</text>`).join('');
+  // value above each bar; for percentages a second row with made/attempted
+  if(bw>=26)s+=G.map((g,i)=>`<text x="${x(i)+bw/2}" y="${y(val(g))-(pct?19:5)}" text-anchor="middle" font-size="11" fill="var(--ink)" stroke="var(--bg)" stroke-width="4" paint-order="stroke" stroke-linejoin="round">${fmt(val(g))}${pct?`<tspan x="${x(i)+bw/2}" dy="13" font-size="10" fill="var(--ink2)">${g[k][0]}/${g[k][1]}</tspan>`:''}</text>`).join('');
   s+=G.map((g,i)=>`<rect class="evh" data-i="${i}" x="${x(i)-x.step()*x.paddingInner()/2}" y="${m.t}" width="${x.step()}" height="${H-m.t}" fill="transparent"/>`).join('')+'</svg>';
   el.innerHTML=(box?'':`<div class="evtop"><button type="button" class="evzb" aria-label="Open this chart in full screen">⤢ Full screen</button></div>`)+`<div class="evw">${ax}<div class="evs">${s}</div></div>`;
   const sc=el.querySelector('.evs');sc.scrollLeft=sc.scrollWidth;
