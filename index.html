@@ -833,8 +833,8 @@ function leaders(){
   const v=p=>fg?(p.fga?p.fgm/p.fga:0):pg(p,k),fmt=x=>fg?f1(x*100)+'%':k==='pm'?sgn(f1(x)):f1(x);
   const ok=p=>!fg||(p.gp&&p.fga/p.gp>=2),vsOn=vsLine();
   // when comparing, the top 10 of each team in one list, the comparison team's bars in its colour
-  const ps=vsOn?[...P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10),...P.filter(p=>p.t===S.vs&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10)].sort((a,b)=>v(b)-v(a))
-    :P.filter(p=>inScope(p)&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,10);
+  // league: top 10; a team selected: all its players (and all the comparison team's), ranked together
+  const ps=P.filter(p=>(inScope(p)||(vsOn&&p.t===S.vs))&&ok(p)).sort((a,b)=>v(b)-v(a)).slice(0,S.team<0?10:Infinity);
   document.getElementById('ldT').textContent=fg?'Field goal %':k==='eff'?'Player efficiency per game':lab+' per game';
   const dd=desc(2),Dd=dd.charAt(0).toUpperCase()+dd.slice(1);   // "Top 10 players …" for the league, "Players …" once a team is selected
   document.getElementById('ldS').textContent=(S.team<0?`Top 10 ${dd}`:vsOn?`${Dd}, with ${TEAMS[S.vs]}’s (in its colour)`:Dd)+(fg?', at least 2 field goal attempts per game on average.':k==='pm'?'. Plus-minus: the team’s points difference while the player is on court (from the official box scores), per game played.':'.')+' Click a name to see her evolution over time, game by game.';
