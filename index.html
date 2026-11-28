@@ -135,7 +135,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:8px 10px;border-radius:8px;font-size:13px;line-height:1.35;opacity:0;transition:opacity .12s;z-index:70;max-width:min(440px,calc(100vw - 16px))}
 .tip b{font-size:15px}
 .key{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-bottom:8px}
-#stT tr.vsr td:first-child{box-shadow:inset 4px 0 0 var(--vs)}
+#stT tr.vsr td:first-child{box-shadow:inset 4px 0 0 var(--vs)}#stT tr.hir td:first-child{box-shadow:inset 4px 0 0 var(--hi)}
 .key b.lnk{display:inline-block;width:16px;height:0;border-top:2px solid;margin-right:6px;vertical-align:3px}
 .key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
 footer{color:var(--ink2);font-size:13px}.credit{margin:0 0 6px;font-size:14px;color:var(--ink)}.credit a{color:light-dark(#111214,#fff);font-weight:600;text-decoration:none}   /* never the team colour */.credit a:hover{text-decoration:underline}
@@ -581,11 +581,11 @@ function stats(){
   const COLS=pm?STC.filter(([k])=>!['fgp','tpp','ftp'].includes(k)):STC;
   const T=document.getElementById('stT');
   T.innerHTML=`<thead><tr>${COLS.map(([k,l])=>`<th scope="col" data-k="${k}" class="${k==='t'?'tm':''}"${ST.k===k?` aria-sort="${ST.dir<0?'descending':'ascending'}"`:''}>${l}</th>`).join('')}</tr></thead>`+
-    `<tbody>${ps.map(p=>`<tr${vsOn&&p.t===S.vs?' class="vsr"':''}>${COLS.map(([k])=>`<td class="${k==='t'?'tm':''}">${cell(p,k)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+    `<tbody>${ps.map(p=>`<tr${vsOn&&p.t===S.vs?' class="vsr"':S.team>=0&&p.t===S.team?' class="hir"':''}>${COLS.map(([k])=>`<td class="${k==='t'?'tm':''}">${cell(p,k)}</td>`).join('')}</tr>`).join('')}</tbody>`;
   if(!ps.length)T.innerHTML+=`<tbody><tr><td colspan="${COLS.length}" class="empty">No players match these filters.</td></tr></tbody>`;
   T.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;ST.dir=ST.k===k?-ST.dir:(k==='n'||k==='t'||k==='age'?1:-1);ST.k=k;stats()});
   const nv=vsOn?ps.filter(p=>p.t===S.vs).length:0;
-  document.getElementById('stS').textContent=`${vsOn?`${ps.length-nv} ${desc(ps.length-nv)} and ${nv} from ${TEAMS[S.vs]} for comparison (marked in its colour)`:`${ps.length} ${desc(ps.length)}`}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. +/−: the team’s points difference while the player is on court. Click a column heading to sort.`;
+  document.getElementById('stS').textContent=`${vsOn?`${ps.length-nv} ${desc(ps.length-nv)} and ${nv} from ${TEAMS[S.vs]} for comparison (each team marked in its colour)`:`${ps.length} ${desc(ps.length)}`}${S.q?`, matching “${document.getElementById('stQ').value.trim()}”`:''}. ${avg?'Averages per game played':pm?'Per minute on court (the Min column shows season minutes)':'Season totals'}; FG, 3-pt and FT show ${avg?'shots made per game':pm?'shots made per minute':'made/attempted'}. Age = ${new Date().getFullYear()} minus year of birth; SBL seasons counts this one. +/−: the team’s points difference while the player is on court. Click a column heading to sort.`;
 }
 // ---- results grid: home teams down the side, away teams across ----
 const lumOf=c=>{const pr=document.createElement('i');pr.style.color=c;document.body.appendChild(pr);const m=getComputedStyle(pr).color.match(/[\d.]+/g).map(Number);pr.remove();
