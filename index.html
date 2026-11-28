@@ -1074,10 +1074,11 @@ function evo(id,k,pct,av,box,H=300){
   el.querySelectorAll('.evh').forEach(r=>{const n=+r.dataset.n,g=GS[n][+r.dataset.i],w=g.pts>g.opp;
     onHover(r,e=>showTip(e,`<b>${esc(TEAMS[tms[n][0]])}</b><br>${fdate(pdate(g.d))} · ${g.h?'Home vs':'Away at'} ${esc(TEAMS[g.o])}<br>${w?'Won':'Lost'} ${g.pts}–${g.opp}<br>${esc(CARDS[+id.slice(3)][1].find(t=>t[0]===k)[1])}: <b>${fmt(val(g))}</b>${pct?` (${g[k][0]}/${g[k][1]})`:''}<br>League average: ${fmt(av)}`),'ev'+id+(box?'z':'')+n+'-'+r.dataset.i)});
 }
-// ---- shooting by court zone: NBA-style half court, 14 zones, each coloured against the league ----
+// ---- shooting by court zone: NBA-style half court, 7 zones, each coloured against the league ----
 // Court in metres (FIBA): 15 m wide, basket 1.575 m from the baseline, key 4.9 × 5.8 m, 3-point line 6.75 m (6.6 m in the corners,
-// straight up to 2.99 m), short mid-range ring 5.4 m. Zones as in the weekly script (zoneOf in refresh-sbl.mjs).
-const SZN={paint:'Paint',smL:'Short mid-range left',smC:'Short mid-range centre',smR:'Short mid-range right',lmBL:'Long mid-range baseline left',lmWL:'Long mid-range wing left',lmC:'Long mid-range centre',lmWR:'Long mid-range wing right',lmBR:'Long mid-range baseline right',c3L:'Corner 3 left',w3L:'Wing 3 left',t3:'Top 3',w3R:'Wing 3 right',c3R:'Corner 3 right'};
+// straight up to 2.99 m). Zones as in the weekly script (zoneOf in refresh-sbl.mjs): paint; mid-range L/C/R; 3-pointers L/C/R,
+// centre = within 25° of straight out from the basket.
+const SZN={paint:'Paint',m2L:'Mid-range left',m2C:'Mid-range centre',m2R:'Mid-range right',t3L:'3-pointers left (incl. corner)',t3C:'3-pointers centre',t3R:'3-pointers right (incl. corner)'};
 const SZC={good:'#4f9d63',mid:'#d9b43c',bad:'#d0603f',few:'var(--lo)'};
 let SZID=0;
 function zcourt(Z,ref,mode,W){
@@ -1092,20 +1093,18 @@ function zcourt(Z,ref,mode,W){
   const both=(a)=>`M${P(bx,by)}L${[-a,-a/2,0,a/2,a].map(t=>{const r=30,tt=t*Math.PI/180;return P(bx+r*Math.sin(tt),by+r*Math.cos(tt))}).join('L')}Z`;
   const a3=Math.asin(6.6/6.75)*180/Math.PI,arcY=y=>Math.sqrt(6.75**2-(y-bx)**2)+by;   // 3-point arc
   const arc=`M${P(.9,0)}L${P(.9,2.99)}A${6.75*k},${6.75*k} 0 0 0 ${P(14.1,2.99)}L${P(14.1,0)}`;
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Shot chart by zone"><defs><clipPath id="${id}c"><rect width="${W}" height="${H}"/></clipPath><clipPath id="${id}a"><path d="${arc}Z"/></clipPath><clipPath id="${id}i"><circle cx="${bx*k}" cy="${by*k}" r="${5.4*k}"/></clipPath></defs><g clip-path="url(#${id}c)">`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Shot chart by zone"><defs><clipPath id="${id}c"><rect width="${W}" height="${H}"/></clipPath><clipPath id="${id}a"><path d="${arc}Z"/></clipPath></defs><g clip-path="url(#${id}c)">`;
   // 3-point zones, then long mid-range inside the arc, short mid-range inside the ring, the paint on top
-  s+=`<path d="${wedge('L',20,180)}" fill="${col('w3L')}"/><path d="${wedge('R',20,180)}" fill="${col('w3R')}"/><path d="${both(20)}" fill="${col('t3')}"/>`;
-  s+=`<rect x="0" y="0" width="${.9*k}" height="${2.99*k}" fill="${col('c3L')}"/><rect x="${14.1*k}" y="0" width="${.9*k}" height="${2.99*k}" fill="${col('c3R')}"/>`;
-  s+=`<g clip-path="url(#${id}a)"><path d="${wedge('L',60,180)}" fill="${col('lmBL')}"/><path d="${wedge('R',60,180)}" fill="${col('lmBR')}"/><path d="${wedge('L',20,60)}" fill="${col('lmWL')}"/><path d="${wedge('R',20,60)}" fill="${col('lmWR')}"/><path d="${both(20)}" fill="${col('lmC')}"/></g>`;
-  s+=`<g clip-path="url(#${id}i)"><rect x="0" y="0" width="${5.05*k}" height="${H}" fill="${col('smL')}"/><rect x="${9.95*k}" y="0" width="${5.05*k}" height="${H}" fill="${col('smR')}"/><rect x="${5.05*k}" y="0" width="${4.9*k}" height="${H}" fill="${col('smC')}"/></g>`;
+  s+=`<path d="${wedge('L',25,180)}" fill="${col('t3L')}"/><path d="${wedge('R',25,180)}" fill="${col('t3R')}"/><path d="${both(25)}" fill="${col('t3C')}"/>`;
+  s+=`<g clip-path="url(#${id}a)"><path d="${wedge('L',25,180)}" fill="${col('m2L')}"/><path d="${wedge('R',25,180)}" fill="${col('m2R')}"/><path d="${both(25)}" fill="${col('m2C')}"/></g>`;
   // zone boundaries (white), then the paint and the court lines
   const ln=(a,b)=>`<line x1="${a[0]*k}" y1="${a[1]*k}" x2="${b[0]*k}" y2="${b[1]*k}"/>`,ray=(side,a,r1,r2)=>{const t=a*Math.PI/180,sg=side==='L'?-1:1;return ln([bx+sg*r1*Math.sin(t),by+r1*Math.cos(t)],[bx+sg*r2*Math.sin(t),by+r2*Math.cos(t)])};
-  s+=`<g stroke="var(--bg)" stroke-width="2.5" fill="none"><path d="${arc}"/><circle cx="${bx*k}" cy="${by*k}" r="${5.4*k}"/>${['L','R'].map(sd=>ray(sd,20,5.4,6.75)+ray(sd,60,5.4,6.75)+ray(sd,20,6.75,30)).join('')}${ln([0,2.99],[.9,2.99])}${ln([14.1,2.99],[15,2.99])}</g>`;
+  s+=`<g stroke="var(--bg)" stroke-width="2.5" fill="none"><path d="${arc}"/>${['L','R'].map(sd=>ray(sd,25,0,30)).join('')}</g>`;
   s+=`<rect x="${5.05*k}" y="0" width="${4.9*k}" height="${5.8*k}" fill="${col('paint')}" stroke="var(--bg)" stroke-width="2.5"/>`;
   s+=`<g stroke="var(--ink2)" stroke-width="1" fill="none" opacity=".55"><circle cx="${bx*k}" cy="${by*k}" r="${.225*k}"/>${ln([6.6,1.2],[8.4,1.2])}<path d="M${P(6.25,1.575)}A${1.25*k},${1.25*k} 0 0 0 ${P(8.75,1.575)}"/><path d="M${P(5.7,5.8)}A${1.8*k},${1.8*k} 0 0 0 ${P(9.3,5.8)}"/></g>`;
   s+=`<rect x=".5" y=".5" width="${W-1}" height="${H-1}" fill="none" stroke="var(--line)"/></g>`;
   // labels: made/attempted and % in a dark box
-  const LP={paint:[7.5,3.4],smL:[3.55,2.6],smR:[11.45,2.6],smC:[7.5,6.4],lmBL:[1.9,4.4],lmBR:[13.1,4.4],lmWL:[3.45,7.0],lmWR:[11.55,7.0],lmC:[7.5,7.75],c3L:[.45,1.4],c3R:[14.55,1.4],w3L:[1.6,8.9],w3R:[13.4,8.9],t3:[7.5,9.45]};
+  const LP={paint:[7.5,3.2],m2L:[2.9,3.6],m2R:[12.1,3.6],m2C:[7.5,7.15],t3L:[1.7,8.6],t3R:[13.3,8.6],t3C:[7.5,9.45]};
   const fs=W<360?10:11.5,bwid=W<360?44:54,bh=W<360?26:30;
   s+=SHZ.z.map((z,i)=>{const c=Z[i]||[0,0];if(!c[1])return'';let [yy,xx]=LP[z];const cx=Math.max(bwid/2+2,Math.min(W-bwid/2-2,yy*k)),cy=xx*k;
     return`<g class="szl" data-z="${i}"><rect x="${cx-bwid/2}" y="${cy-bh/2}" width="${bwid}" height="${bh}" rx="4" fill="rgba(20,20,24,.55)"/><text x="${cx}" y="${cy-(bh>26?2:1)}" text-anchor="middle" font-size="${fs}" fill="#fff">${c[0]}/${c[1]}</text><text x="${cx}" y="${cy+(bh>26?11:10)}" text-anchor="middle" font-size="${fs}" font-weight="700" fill="#fff">${f1(pc(c)*100)}%</text></g>`}).join('');
