@@ -652,16 +652,19 @@ const RAD={rad1:[['Points',d=>d.pts,''],['Fast break',d=>d.fast,''],['Assists',d
   rad2:[['Efficiency',d=>d.epg,''],['Off. reb',d=>d.oreb,''],['Def. reb',d=>d.dreb,''],['Rebounds',d=>d.reb,''],['Blocks',d=>d.blk,''],['Steals',d=>d.stl,''],['Bench pts',d=>d.bench,'']]};
 function radar(id,n,hlFn){
   const svg=document.getElementById(id);if(!svg||!TM.length)return;
-  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.92),cx=W/2,cy=H/2+18,R=Math.min(W/2-(S.team>=0&&S.vs>=0?92:66),H/2-54),k=ax.length;
+  const ax=RAD[id],T=TM.filter(t=>t.gp),W=Math.min(440,svg.parentNode.clientWidth||440),H=Math.round(W*.92),cx=W/2,cy=H/2+18,R=Math.min(W/2-(S.team>=0&&S.vs>=0?100:70),H/2-58),k=ax.length;
   const cols=ax.map(a=>T.map(a[1])),mn=cols.map(c=>Math.min(...c)),mx=cols.map(c=>Math.max(...c)),av=cols.map(c=>c.reduce((x,y)=>x+y,0)/c.length);
   const sc=(v,j)=>.12+.88*(v-mn[j])/((mx[j]-mn[j])||1),pt=(f,j)=>{const a=-Math.PI/2+j*2*Math.PI/k;return[cx+Math.cos(a)*R*f,cy+Math.sin(a)*R*f]};
   const poly=vals=>vals.map((v,j)=>pt(sc(v,j),j).map(x=>x.toFixed(1)).join(',')).join(' ');
   const sel=S.team,fmt=(v,u)=>f1(v)+u;
   let s=[.25,.5,.75,1].map(f=>`<polygon points="${ax.map((_,j)=>pt(f,j).join(',')).join(' ')}" fill="none" stroke="var(--grid)"/>`).join('');
   // axis labels with a value underneath: the league average, or the selected team's figure
-  const selT=sel>=0?T.find(x=>x.i===sel):null;
+  const selT=sel>=0?T.find(x=>x.i===sel):null,PILLS=[];
   s+=ax.map(([l,f,u],j)=>{const [x,y]=pt(1,j),[lx,ly]=pt(1.19,j),an=Math.abs(lx-cx)<6?'middle':lx>cx?'start':'end',v=selT?f(selT):av[j],top=ly<cy-R*.5;
-    return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly+(top?-12:0)}" text-anchor="${an}" font-size="12" fill="var(--ink2)"><tspan x="${lx}" dy=".1em">${l}</tspan>${(()=>{const vsT2=selT&&S.vs>=0?T.find(x=>x.i===S.vs):null;if(!vsT2)return`<tspan x="${lx}" dy="1.25em" font-weight="600" fill="var(--ink)">${fmt(v,u)}</tspan>`;const w=f(vsT2);return`<tspan x="${lx}" dy="1.25em" fill="var(--ink)" font-weight="${v>=w?700:400}">${fmt(v,u)}</tspan><tspan fill="var(--ink2)"> · </tspan><tspan fill="var(--ink)" font-weight="${w>v?700:400}">${fmt(w,u)}</tspan>`})()}</text>`}).join('');
+    // values sit in rounded pills drawn last (see below): league average in its ink, selected / comparison team in its colour
+    const vsT2=selT&&S.vs>=0?T.find(x=>x.i===S.vs):null,w=vsT2?f(vsT2):null;
+    PILLS.push({x:lx,y:ly+(top?-12:0)+18,an,p:vsT2?[[fmt(v,u),'var(--hi)',v>=w],[fmt(w,u),'var(--vs)',w>v]]:[[fmt(v,u),selT?'var(--hi)':'var(--ink)',true]]});
+    return`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--grid)"/><text x="${lx}" y="${ly+(top?-12:0)}" text-anchor="${an}" font-size="12" fill="var(--ink2)"><tspan x="${lx}" dy=".1em">${l}</tspan></text>`}).join('');
   // no team selected: every team as a hairline in its club colour (grey if a filter leaves it out), league average on top and thicker
   // team selected: the others turn grey, then the average, then the selected team's shape in front
   const on=T.filter(t=>t.i!==sel&&hlFn(t.i)),tc=t=>TCOL(TCODE[t.i])||'var(--lo)',grey=t=>sel>=0||(on.length&&!hlFn(t.i))||!TSEL[TCODE[t.i]];
@@ -674,7 +677,13 @@ function radar(id,n,hlFn){
   if(sel>=0){const t=T.find(x=>x.i===sel);if(t){const v=ax.map(a=>a[1](t));
     s+=`<polygon class="rsel" points="${poly(v)}" fill="var(--hi)" fill-opacity=".18" stroke="var(--hi)" stroke-width="2.2" stroke-linejoin="round"/>`;
     s+=v.map((x,j)=>{const [px,py]=pt(sc(x,j),j);return`<circle class="rdot" data-j="${j}" cx="${px}" cy="${py}" r="5" fill="var(--hi)" stroke="var(--bg)" stroke-width="1.5"/>`}).join('')}}
+  s+=PILLS.map((g,q)=>`<g class="rpill" data-q="${q}">`+g.p.map(([t,c,b])=>`<rect height="18" rx="9" fill="var(--bg)" stroke="${c}" stroke-width="1.5"/><text font-size="12" text-anchor="middle" fill="var(--ink)" font-weight="${b?700:400}">${t}</text>`).join('')+'</g>').join('');
   svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);svg.innerHTML=s;
+  // lay out the pills now that their text can be measured: side by side, aligned like the axis name
+  svg.querySelectorAll('.rpill').forEach(gr=>{const g=PILLS[+gr.dataset.q],ts=[...gr.querySelectorAll('text')],rs=[...gr.querySelectorAll('rect')];
+    const ws=ts.map(t=>t.getComputedTextLength()+14),tot=d3.sum(ws)+4*(ws.length-1);let x0=g.an==='start'?g.x:g.an==='end'?g.x-tot:g.x-tot/2;
+    x0=Math.max(2,Math.min(x0,W-2-tot));   // keep the pills inside the chart
+    ws.forEach((w,i)=>{rs[i].setAttribute('x',x0);rs[i].setAttribute('y',g.y-13);rs[i].setAttribute('width',w);ts[i].setAttribute('x',x0+w/2);ts[i].setAttribute('y',g.y);x0+=w+4})});
   svg.querySelectorAll('.rdot').forEach(c=>{const j=+c.dataset.j,t=T.find(x=>x.i===sel);onHover(c,e=>showTip(e,`<b>${esc(t.n)}</b><br>${ax[j][0]}: <b>${fmt(ax[j][1](t),ax[j][2])}</b><br>League average ${fmt(av[j],ax[j][2])} · range ${fmt(mn[j],ax[j][2])}–${fmt(mx[j],ax[j][2])}`),id+'d'+j)});
   svg.querySelectorAll('.rpl').forEach(p=>{const t=T.find(x=>x.i===+p.dataset.i);p.style.cursor='pointer';p.onclick=()=>pickTeam(t.i);onHover(p,e=>showTip(e,`<b>${esc(t.n)}</b><br>Click to select`),id+'p'+t.i)});
   const sw=(c,d)=>`<span><i style="background:${c};${d?'height:0;border-top:2px dashed '+c+';background:none;border-radius:0':''}"></i>`;
