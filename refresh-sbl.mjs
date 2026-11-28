@@ -240,6 +240,10 @@ function readCsv(f) {
         oreb: x.oreb, dreb: x.dreb, reb: x.reb, blk: x.blk, stl: x.stl, to: x.to, bench: x.bench, paint: x.paint, second: x.second, fromTo: x.fromTo, lead: r1(x.lead),
         bminp: min ? Math.round(1000 * L.filter(r => !r.starter).reduce((s, r) => s + r.min, 0) / min) / 10 : 0, rot: L.filter(r => r.min >= 10).length }; })
       .filter(x => x.t != null && x.o != null),
+    // each player's games (with minutes): [player index in players, date, opponent, home, min, pts, reb, ast, eff, +/−, won]
+    plog: (() => { const pi = new Map(players.map((p, i) => [p.team + '|' + p.player, i]));
+      return logs.filter(r => r.min > 0 && pi.has(r.team + '|' + r.player)).map(r => [pi.get(r.team + '|' + r.player), r.date, ti.get(norm(r.opponent)), r.home === 'H' ? 1 : 0,
+        r.min, r.pts, r.reb, r.ast, r.eff, r.pm, r.result[0] === 'W' ? 1 : 0]); })(),
     fixtures: sched.map(g => ({ date: g.date.slice(0, 10), day: g.day, h: ti.get(norm(g.home)), a: ti.get(norm(g.away)), hs: g.hs, as: g.as })).filter(g => g.h != null && g.a != null) }));
   const unknown = [...new Set(dp.flatMap(p => p.c))].filter(c => !CN[c]);
   console.log(`dash.json: ${dp.length} players (${matched} with a profile), ${dg.length} games${unknown.length ? `; country codes without a name: ${unknown.join(', ')}` : ''}.`);
