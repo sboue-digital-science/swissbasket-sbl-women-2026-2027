@@ -371,7 +371,7 @@ addEventListener('scroll',()=>{if(TIPKEY)hideTip()},{passive:true});
 const pname=p=>esc(p.n)+(p.gone?' †':'');
 
 let GEO,CITY,FL={},ASOF='',GAMES=[],NGAMES=0,FIX=[],TCODE=[],TG=[];
-Promise.all([fetch('dash.json').then(r=>r.json()),fetch('europe.json').then(r=>r.json()),fetch('flags.json').then(r=>r.json()).catch(()=>({}))]).then(([d,g,f])=>{FL=f;D=d.players;
+Promise.all([fetch('dash.json',{cache:'no-cache'}).then(r=>r.json()),fetch('europe.json').then(r=>r.json()),fetch('flags.json').then(r=>r.json()).catch(()=>({}))]).then(([d,g,f])=>{FL=f;D=d.players;
   // FIBA still lists some players with the former Serbia and Montenegro code (SCG): count it as Serbia
   D.forEach(p=>{p.c=[...new Set(p.c.map(c=>c==='SCG'?'SRB':c))]});
   TEAMS=d.teams;STG=d.stage||d.teams.map(()=>2);PO=!!d.po;ASOF=d3.timeFormat('%-d %b %Y')(new Date(d.asof+'T12:00:00'));TC=d.tc;CN=d.cn;CITY=d.city;GAMES=d.games||[];FIX=d.fixtures||[];TCODE=d.tcode||d.teams.map(t=>t.slice(0,3).toUpperCase());TS=d.ts||[];TG=d.tg||[];NGAMES=d.total||0;GEO=g;init()});
