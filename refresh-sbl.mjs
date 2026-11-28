@@ -8,6 +8,7 @@
 //
 // A failed download is skipped and retried at the next run; saved games are never deleted.
 // Env: SBL_SCHEDULE (schedule URL), SBL_REFETCH=26-00909,… (force re-download of listed games).
+// Games saved before shot positions were kept (no "shots" field) are downloaded once more automatically.
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
 
@@ -64,6 +65,8 @@ function compact(g, d) {
     ...g, fetched: new Date().toISOString().slice(0, 10), attendance: d.attendance ?? null,
     tm: [1, 2].map(k => {
       const t = d.tm[k], o = { name: t.name, shortName: t.shortName, code: t.code, coach: t.coach, score: t.score,
+        // shots: [x, y (0–100 across the full court), made, 2 or 3, period, shirt number]
+        shots: (t.shot || []).map(z => [Math.round(+z.x * 10) / 10, Math.round(+z.y * 10) / 10, +z.r ? 1 : 0, z.actionType === '3pt' ? 3 : 2, +z.per || 0, String(z.shirtNumber ?? '')]),
         q: Object.keys(t).filter(x => /^p\d+_score$/.test(x)).sort((a, b) => parseInt(a.slice(1)) - parseInt(b.slice(1))).map(x => t[x]) };
       for (const x in t) if (x.startsWith('tot_')) o[x] = t[x];
       o.pl = Object.values(t.pl || {}).map(p => {
@@ -86,7 +89,8 @@ let added = 0, failed = [];
 for (const g of sched) {
   if (g.status !== 'played' || !g.ls) continue;
   const f = `games/${g.no}.json`;
-  if (existsSync(f) && !REFETCH.has(g.no)) continue;
+  // games saved before shots were kept are downloaded once more
+  if (existsSync(f) && !REFETCH.has(g.no) && 'shots' in (JSON.parse(readFileSync(f, 'utf8')).tm?.[0] || {})) continue;
   try {
     const d = await get(`${LS}${g.ls}/data.json`, true);
     const s = [d.tm?.[1]?.score, d.tm?.[2]?.score];
@@ -115,6 +119,21 @@ const STAT = Object.keys(PF).filter(k => k !== 'min');
 
 // Box score names that LiveStats got wrong, per team: 'Team|name in box score' → correct name
 const NAME_FIX = { 'Baden Basket 54|Brunner Nora': 'Nora Brunner' };
+// ---------- shot zones (FIBA court, metres; basket 1.575 m from the baseline, court 15 m wide) ----------
+// 14 zones: the paint (whole key), short mid-range L/C/R (within 4.9 m of the basket), long mid-range baseline L,
+// wing L, centre, wing R, baseline R (up to the 3-point line), corner 3 L/R, wing 3 L/R and top 3.
+// Left/right as seen with the basket at the top of the drawing (left = the side with small y).
+const ZONES = ['paint', 'smL', 'smC', 'smR', 'lmBL', 'lmWL', 'lmC', 'lmWR', 'lmBR', 'c3L', 'w3L', 't3', 'w3R', 'c3R'];
+function zoneOf(x, y, pts) {
+  if (x > 50) { x = 100 - x; y = 100 - y; }          // teams change baskets at half-time: fold onto one half
+  const X = x / 100 * 28, Y = y / 100 * 15, dx = X - 1.575, dy = Y - 7.5, d = Math.hypot(dx, dy);
+  const a = Math.atan2(Math.abs(dy), dx) * 180 / Math.PI, side = dy < 0 ? 'L' : 'R';   // a: 0° straight out, 90° along the baseline
+  if (pts === 3) return X < 2.99 ? 'c3' + side : a < 20 ? 't3' : 'w3' + side;
+  if (Math.abs(dy) < 2.45 && X < 5.8) return 'paint';
+  if (d < 4.9) return Math.abs(dy) < 2.45 ? 'smC' : 'sm' + side;
+  return a < 20 ? 'lmC' : a < 60 ? 'lmW' + side : 'lmB' + side;
+}
+const SZ = { t: new Map(), o: new Map(), p: new Map() }, zadd = (m, k, z, r) => { if (!m.has(k)) m.set(k, ZONES.map(() => [0, 0])); const c = m.get(k)[ZONES.indexOf(z)]; c[1]++; c[0] += r; };
 const logs = [], P = new Map(), T = new Map(), LAST = new Map(), TG = [], FD = new Map();   // FD: fouls drawn per player (dashboard only)   // TG: each team's stats game by game (dashboard "Evolution over time")   // LAST: date of each player's last game with minutes (dashboard popup)
 for (const g of saved) {
   // LiveStats lists the home team first; swap if the scores say otherwise
@@ -133,6 +152,12 @@ for (const g of saved) {
     for (const k in tm) gt[k] = +t[tm[k]] || 0;
     gt.lead = +t.tot_sTimeLeading || 0;   // minutes spent in the lead (dashboard only)
     TG.push(gt);
+    // shots by zone: the team's, the opponent's (conceded), each shooter's (matched by shirt number)
+    const byNo = new Map(t.pl.map(p => [String(p.no ?? ''), p]));
+    for (const [x, y, r, pts, , no] of t.shots || []) {
+      const z = zoneOf(x, y, pts); zadd(SZ.t, team, z, r); zadd(SZ.o, oppName, z, r);
+      const p = byNo.get(no); if (p) { const n0 = ([p.firstName, p.familyName].filter(Boolean).join(' ') || p.name || '').replace(/\s+/g, ' ').trim(); zadd(SZ.p, team + '|' + (NAME_FIX[team + '|' + n0] || n0), z, r); }
+    }
     for (const p of t.pl) {
       const s = { sec: secs(p.sMinutes) }; for (const k of STAT) s[k] = +p[PF[k]] || 0;
       const name0 = ([p.firstName, p.familyName].filter(Boolean).join(' ') || p.name || '').replace(/\s+/g, ' ').trim();
@@ -240,6 +265,9 @@ function readCsv(f) {
         oreb: x.oreb, dreb: x.dreb, reb: x.reb, blk: x.blk, stl: x.stl, to: x.to, bench: x.bench, paint: x.paint, second: x.second, fromTo: x.fromTo, lead: r1(x.lead),
         bminp: min ? Math.round(1000 * L.filter(r => !r.starter).reduce((s, r) => s + r.min, 0) / min) / 10 : 0, rot: L.filter(r => r.min >= 10).length }; })
       .filter(x => x.t != null && x.o != null),
+    // shots by zone ([made, attempted] per zone, in the order of z): teams, conceded by teams, players (by index in players)
+    shz: { z: ZONES, t: TEAMS.map(n => SZ.t.get([...SZ.t.keys()].find(k => norm(k) === norm(n))) || null), o: TEAMS.map(n => SZ.o.get([...SZ.o.keys()].find(k => norm(k) === norm(n))) || null),
+      p: Object.fromEntries(players.map((p, i) => [i, SZ.p.get(p.team + '|' + p.player)]).filter(e => e[1])) },
     // each player's games (with minutes): [player index in players, date, opponent, home, min, pts, reb, ast, eff, +/−, won]
     plog: (() => { const pi = new Map(players.map((p, i) => [p.team + '|' + p.player, i]));
       return logs.filter(r => r.min > 0 && pi.has(r.team + '|' + r.player)).map(r => [pi.get(r.team + '|' + r.player), r.date, ti.get(norm(r.opponent)), r.home === 'H' ? 1 : 0,
