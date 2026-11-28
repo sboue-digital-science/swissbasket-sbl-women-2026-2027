@@ -273,20 +273,6 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
       <div id="h2h" class="h2h"></div>
     </div>
     <div class="card">
-      <h2>Team scoring</h2>
-      <div class="tcw">
-        <div class="rad"><p class="sub rdS" id="rdS1"></p><div class="key rdK" id="rdK1"></div><svg id="rad1" role="img" aria-label="Radar of team scoring stats"></svg></div>
-        <div>
-          <div class="seg" id="tv1" role="group" aria-label="View"><button type="button" data-v="cmp" aria-pressed="true">Comparison to other teams</button><button type="button" data-v="time" aria-pressed="false">Evolution over time</button></div>
-          <p class="sub"><span class="nT">Points per game, all teams</span><span class="clk">. Click a team to select it.</span></p>
-          <div class="tabs" id="tsTabs"></div>
-          <div id="t1pad" aria-hidden="true"></div>
-          <div class="teams" id="teams"></div>
-          <div class="tev" id="tev1" hidden></div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
       <h2>Team offensive efficiency</h2>
       <div class="tcw">
         <div class="rad"><p class="sub rdS" id="rdS2"></p><div class="key rdK" id="rdK2"></div><svg id="rad2" role="img" aria-label="Radar of team offensive efficiency stats"></svg></div>
@@ -297,6 +283,20 @@ html.teamsel .bar:not([style*="var(--lo)"]){box-shadow:0 0 0 .25px var(--hiLine)
           <div id="t2pad"><p class="def">Team efficiency = the sum of all its players’ FIBA efficiency (points + rebounds + assists + steals + blocks − missed shots − turnovers), divided by the team’s games played.</p></div>
           <div class="teams" id="teams2"></div>
           <div class="tev" id="tev2" hidden></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Team scoring</h2>
+      <div class="tcw">
+        <div class="rad"><p class="sub rdS" id="rdS1"></p><div class="key rdK" id="rdK1"></div><svg id="rad1" role="img" aria-label="Radar of team scoring stats"></svg></div>
+        <div>
+          <div class="seg" id="tv1" role="group" aria-label="View"><button type="button" data-v="cmp" aria-pressed="true">Comparison to other teams</button><button type="button" data-v="time" aria-pressed="false">Evolution over time</button></div>
+          <p class="sub"><span class="nT">Points per game, all teams</span><span class="clk">. Click a team to select it.</span></p>
+          <div class="tabs" id="tsTabs"></div>
+          <div id="t1pad" aria-hidden="true"></div>
+          <div class="teams" id="teams"></div>
+          <div class="tev" id="tev1" hidden></div>
         </div>
       </div>
     </div>
@@ -471,7 +471,7 @@ function fromURL(){
   const ti=TEAMS.findIndex(t=>slug(t)===g('team'));if(ti>=0&&(!S.lc||TC[ti]===S.lc)&&stgOk(ti))S.team=ti;
   const vi=TEAMS.findIndex(t=>slug(t)===g('vs'));if(vi>=0&&S.team>=0&&vi!==S.team)S.vs=vi;
   const ls=g('stat');if(M.some(m=>m[0]===ls))S.metric=ls;
-  const ts=g('scoring');if(TSM.some(m=>m[0]===ts))S.ts=ts;
+  const ts=g('scoring');if(TSM.some(m=>m[0]===ts))S.ts=ts;else if(ts==='ortg')S.te=ts;   // older links: Off. rating used to be under scoring
   const te=g('teamstat');if(TEM.some(m=>m[0]===te))S.te=te;else if(TDM.some(m=>m[0]===te))S.td=te;   // older links: defensive stats used to be under teamstat
   const td=g('defstat');if(TDM.some(m=>m[0]===td))S.td=td;
   if(g('scoringview')==='time')S.v1='time';if(g('teamstatview')==='time')S.v2='time';if(g('defview')==='time')S.v3='time';
@@ -979,16 +979,16 @@ const DEF=(dreb,ooreb,ofg,otpm,oft,oto,opaint,osecond,ofromTo,n)=>({drbp:100*dre
   oefg:ofg[1]?100*(ofg[0]+.5*otpm)/ofg[1]:0,oftr:ofg[1]?100*oft[0]/ofg[1]:0,opaint:opaint/n,osecond:osecond/n,ofromTo:ofromTo/n});
 const PCTN=new Set(['efg','ftr','tovp','orbp','drbp','ftov','oefg','oftr']);   // shown as %, but not made/attempted
 // team scoring metrics: total points, then shooting percentages with made/attempted
-const TSM=[['pts','Points per game'],['fast','Fast-break points'],['paint','Points in the paint'],['second','Second-chance points'],['fromTo','Points from turnovers'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %'],['ortg','Off. rating'],['efg','eFG%'],['ftr','FT rate']];
-const TSS={pts:'Points per game',fast:'Fast-break points per game (official LiveStats total)',paint:'Points in the paint per game (official LiveStats total)',second:'Second-chance points per game: scored after an offensive rebound (official LiveStats total)',fromTo:'Points from turnovers per game: scored after the opponent turned the ball over (official LiveStats total)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)',ortg:'Offensive rating: points scored per 100 possessions',efg:'Effective field goal % (a made 3 counts as 1.5 makes): (FGM + 0.5 × 3PM) ÷ FGA',ftr:'Free-throw rate: free throws made per 100 field-goal attempts'};
+const TSM=[['pts','Points per game'],['fast','Fast-break points'],['paint','Points in the paint'],['second','Second-chance points'],['fromTo','Points from turnovers'],['ast','Assists'],['fg','FG%'],['p2','2-pt %'],['p3','3-pt %'],['ft','FT %'],['efg','eFG%'],['ftr','FT rate']];
+const TSS={pts:'Points per game',fast:'Fast-break points per game (official LiveStats total)',paint:'Points in the paint per game (official LiveStats total)',second:'Second-chance points per game: scored after an offensive rebound (official LiveStats total)',fromTo:'Points from turnovers per game: scored after the opponent turned the ball over (official LiveStats total)',ast:'Assists per game',fg:'Field goal % (made/attempted)',p2:'2-point % (made/attempted)',p3:'3-point % (made/attempted)',ft:'Free throw % (made/attempted)',efg:'Effective field goal % (a made 3 counts as 1.5 makes): (FGM + 0.5 × 3PM) ÷ FGA',ftr:'Free-throw rate: free throws made per 100 field-goal attempts'};
 // team efficiency card: efficiency, then rebounds, blocks, steals (official team totals per game)
-const TEM=[['epg','Efficiency'],['net','Net rating'],['pace','Pace'],['lead','Time leading'],['oreb','Off. rebounds'],['orbp','Off. reb %'],['reb','Rebounds'],['to','Turnovers'],['tovp','Turnover %'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)']];
+const TEM=[['epg','Efficiency'],['ortg','Off. rating'],['net','Net rating'],['pace','Pace'],['lead','Time leading'],['oreb','Off. rebounds'],['orbp','Off. reb %'],['reb','Rebounds'],['to','Turnovers'],['tovp','Turnover %'],['bminp','Bench minutes %'],['bench','Bench points'],['rot','Rotation (10+ min)']];
 // team defensive efficiency card
 const TDM=[['opp','Points allowed'],['drtg','Def. rating'],['dreb','Def. rebounds'],['drbp','Def. reb %'],['blk','Blocks'],['stl','Steals'],['ftov','Forced turnover %'],['oefg','Opp. eFG%'],['oftr','Opp. FT rate'],['opaint','Opp. paint points'],['osecond','Opp. second-chance pts'],['ofromTo','Opp. points off turnovers']];
 // card number → state key, metric list, list element, title span; lower is better for these
 const CARDS={1:['ts',null,'teams','.nT'],2:['te',null,'teams2','.nT2'],3:['td',null,'teams3','.nT3']};
 const LOWK=new Set(['to','tovp','opp','drtg','oefg','oftr','opaint','osecond','ofromTo']);
-const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game',pace:'Pace: possessions per game',lead:'Minutes in the lead per game (official LiveStats total)',drtg:'Defensive rating: points allowed per 100 possessions (fewest ranked first)',tovp:'Turnover %: turnovers per 100 possessions (fewest ranked first)',orbp:'Offensive rebound %: share of available offensive rebounds won',
+const TES={epg:'Efficiency per game',opp:'Points allowed per game (opponents’ points; fewest ranked first)',oreb:'Offensive rebounds per game',dreb:'Defensive rebounds per game',reb:'Total rebounds per game',blk:'Blocks per game',stl:'Steals per game',to:'Turnovers per game (fewest ranked first)',bminp:'Share of minutes played by non-starters',bench:'Bench points per game',rot:'Players averaging 10+ minutes per game',pace:'Pace: possessions per game',lead:'Minutes in the lead per game (official LiveStats total)',drtg:'Defensive rating: points allowed per 100 possessions (fewest ranked first)',tovp:'Turnover %: turnovers per 100 possessions (fewest ranked first)',orbp:'Offensive rebound %: share of available offensive rebounds won',ortg:'Offensive rating: points scored per 100 possessions',
   net:'Net rating: offensive rating minus defensive rating (points per 100 possessions outscored by)',drbp:'Defensive rebound %: share of the opponent’s misses rebounded',
   ftov:'Forced turnover %: opponent turnovers per 100 opponent possessions',oefg:'Opponents’ effective field goal % (fewest ranked first)',oftr:'Opponents’ free-throw rate: free throws made per 100 field-goal attempts (fewest ranked first)',
   opaint:'Opponents’ points in the paint per game (fewest ranked first)',osecond:'Opponents’ second-chance points per game (fewest ranked first)',ofromTo:'Opponents’ points off our turnovers per game (fewest ranked first)'};
@@ -997,6 +997,7 @@ const TED={epg:'Team efficiency = the sum of all its players’ FIBA efficiency 
 TED.oreb=TED.dreb=TED.reb;
 TED.pace='Possessions estimated from the box score (field-goal attempts − offensive rebounds + turnovers + 0.44 × free-throw attempts), averaged with the opponent’s estimate for the same game. Faster teams play more possessions.';
 TED.lead='Minutes per game with the team ahead on the scoreboard, out of 40 (more with overtime). Shows how much of the game a team controls, not only the result.';
+TED.ortg='Points scored per 100 possessions: unlike points per game, it is not inflated by a fast pace.';
 TED.net='How much better a team is than its opponents, per 100 possessions: offensive rating − defensive rating. Positive = outscoring opponents; the best single measure of team strength.';
 TED.drbp='Defensive rebounds ÷ (own defensive rebounds + opponent’s offensive rebounds), one of the defensive Four Factors: ending the opponent’s possession.';
 TED.ftov='Opponent turnovers ÷ (opponent field-goal attempts + 0.44 × free-throw attempts + turnovers): how often the defence takes the ball away.';
