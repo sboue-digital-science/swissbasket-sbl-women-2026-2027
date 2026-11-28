@@ -522,7 +522,7 @@ function race(anim){
   tr.attr('transform',d=>`translate(0,${m.t+d.rk*rh})`);
   tr.select('.rb').attr('width',d=>Math.max(d.w?2:0,x(d.wp)));
   // games – W/L (win %) – points per game – opponents' points per game
-  const parts=d=>[`${d.gp} GP`,`${d.w}/${d.l} (${Math.round(d.wp*100)}%)`,`${d.gp?f1(d.pf/d.gp):'–'} PPG`,`${d.gp?f1(d.pa/d.gp):'–'} OPPG`];
+  const parts=d=>[`${d.gp} GP`,`${d.w}/${d.l} (${Math.round(d.wp*100)}% W)`,`${d.gp?f1(d.pf/d.gp):'–'} PPG`,`${d.gp?f1(d.pa/d.gp):'–'} OPPG`];
   g.select('.vl').attr('x',d=>narrow?m.l:x0+x(d.wp)+8);
   // phones: two lines (record, then scoring)
   if(two)g.select('.vl').html(d=>{const p=parts(d);return`<tspan x="${m.l}">${p.slice(0,2).join(' — ')}</tspan><tspan x="${m.l}" dy="15">${p.slice(2).join(' — ')}</tspan>`});
