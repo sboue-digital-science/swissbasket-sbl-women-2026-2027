@@ -725,7 +725,9 @@ function update(){
   const rOff=S.pos!=='A'||!!S.cit||!!S.age;document.getElementById('raceCard').hidden=rOff;if(rOff)stopRace();
   // team scoring / efficiency are hidden with a position or age filter
   const tOff=S.pos!=='A'||!!S.age;document.getElementById('teamCards').hidden=tOff;
-  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();compare();counts();if(!rOff)race(0);stats();results();shares();
+  // results grid: about teams, so hidden while a player filter (citizenship, position or age) is on
+  const resOff=!!S.cit||S.pos!=='A'||!!S.age;document.getElementById('resCard').hidden=resOff;
+  figs();scatter();leaders();ages();cits();map();if(!tOff)teams();compare();counts();if(!rOff)race(0);stats();if(!resOff)results();shares();
   document.getElementById('fClr').disabled=!filtOn()&&S.gp===2;
   const na=[S.gp!==2,S.stg,S.lc,S.team>=0,S.pos!=='A',S.cit,S.age].filter(Boolean).length;
   document.getElementById('fTogL').textContent=na?`Filters · ${na} active`:'Filters';
